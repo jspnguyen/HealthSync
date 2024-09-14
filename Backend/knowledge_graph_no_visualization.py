@@ -274,9 +274,14 @@ for room_id, resources in room_resources.items():
 # 3. Connect Patients to Beds
 # ---------------------------
 
-# Create Waiting Room node
+# Add the waiting room node
 waiting_room = {"id": "WR", "type": "WaitingRoom", "name": "Waiting Room"}
 G.add_node(waiting_room["id"], **waiting_room)
+
+# Create a path from the waiting room to each room by adding an edge between them
+for room in rooms:
+    G.add_edge(waiting_room["id"], room["id"], relationship="pathway", weight=1)
+    print(f"Added a path from Waiting Room to {room['name']}")
 
 # Waiting room priority queue
 waiting_room_queue = []
