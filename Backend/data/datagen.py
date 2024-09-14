@@ -14,8 +14,8 @@ data = []
 
 for i in dates:
     # Generate random data for each column
-    doctors_count = np.random.randint(50, 150)
-    nurses_count = np.random.randint(100, 300)
+    doctors_count = np.random.randint(120, 150)
+    nurses_count = np.random.randint(250, 300)
     doctors_on_call_count = np.random.randint(5, 15)
     nurses_on_call_count = np.random.randint(10, 20)
     
@@ -56,7 +56,7 @@ data = pd.DataFrame(data)
 equipment_df.set_index('Date Time', inplace=True)
 
 # Save to CSV file with hourly frequency for the date_time column
-data.to_csv('hospital_staffing_data_hourly.csv')
-equipment_df.to_csv('medical_equipment_counts_hourly.csv')
+data.to_csv('Backend/data/hospital_staffing_data_hourly.csv')
+equipment_df.to_csv('Backend/data/medical_equipment_counts_hourly.csv')
 
 print(f"Data saved to hospital_staffing_data_hourly.csv and medical_equipment_counts_hourly.csv")
