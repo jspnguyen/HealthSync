@@ -1,3 +1,5 @@
 uagents == 0.15.2
 fastapi
 uvicorn
+pandas
+numpy
