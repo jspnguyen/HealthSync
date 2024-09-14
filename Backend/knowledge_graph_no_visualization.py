@@ -1,5 +1,7 @@
 import networkx as nx
 import random
+import json
+from networkx.readwrite import json_graph
 
 # Initialize the knowledge graph
 G = nx.Graph()
@@ -604,3 +606,15 @@ def reassign_nurse_rooms(G, released_patients, nurses):
 
 # Reassign nurse room assignments based on released patients
 reassign_nurse_rooms(G, released, nurses)
+
+# Convert the graph to node-link data format
+graph_data = json_graph.node_link_data(G)
+
+# Convert the dictionary to a JSON object
+graph_json = json.dumps(graph_data, indent=4)
+
+# Save the JSON to a file
+with open("graph_data.json", "w") as f:
+    f.write(graph_json)
+
+print("Graph exported to graph_data.json")
