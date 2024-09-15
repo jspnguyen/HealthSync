@@ -1,10 +1,10 @@
 from uagents import Agent, Bureau, Context, Model
-import random, string, os, requests, ast
+import random, string, os, requests, ast, json
 from faker import Faker
 from dotenv import load_dotenv
 import main
-load_dotenv()
 
+load_dotenv()
 MODEL_ID = "8w6yyp2q"
 BASETEN_API_KEY = os.getenv("BASETEN_API_KEY")
 fake = Faker()
@@ -12,106 +12,92 @@ fake = Faker()
 class Message(Model):
     message: str
 
-class FormRequest(Model):
-    message: str
-
-class Response(Model):
-    text: str
-
 def generate_random_string(length=128):
     letters = string.ascii_letters 
     return ''.join(random.choice(letters) for _ in range(length))
 
-priority_agent = Agent(
-    name="priority_level", 
-    seed=generate_random_string(),
-    port=8001,
-    endpoint="http://localhost:8001/submit",
-)
+priority_agent = Agent(name="priority_level", seed=generate_random_string())
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
-@priority_agent.on_query(model=FormRequest, replies={Response})
-async def priority_level(ctx: Context, sender: str, _query: FormRequest):
-    ctx.logger.info("Query received")
-    
-    try:
-        await ctx.send(sender, Response(text="Success"))
-    except Exception:
-        await ctx.send(sender, Response(text="Fail"))
-    
-    print(_query)
-    
-    messages = [
-        {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
-        {"role": "user", "content": f"A heart attack"},
-    ]
+prev_form = {}
 
-    payload = {
-        "messages": messages,
-        "stream": False,
-        "max_new_tokens": 2048,
-        "temperature": 0.2
-    }
+@priority_agent.on_interval(period=0.5)
+async def priority_level(ctx: Context):
+    with open("Backend/api/json/patients.json", 'r') as file:
+        data = json.load(file)
+        
+    if prev_form and data['description'] != prev_form:        
+        messages = [
+            {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
+            {"role": "user", "content": f"{data['description']}"},
+        ]
 
-    res = requests.post(
-        f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
-        headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
-        json=payload,
-        stream=False
-    )
+        payload = {
+            "messages": messages,
+            "stream": False,
+            "max_new_tokens": 2048,
+            "temperature": 0.2
+        }
 
-    urgency_score = float(res.text.strip('"'))
-    ctx.logger.info(f"Patient Urgency Rating: {urgency_score}")
-    
-    messages = [
-        {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
-        {"role": "user", "content": f"A heart attack"},
-    ]
+        res = requests.post(
+            f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+            headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+            json=payload,
+            stream=False
+        )
 
-    payload = {
-        "messages": messages,
-        "stream": False,
-        "max_new_tokens": 2048,
-        "temperature": 0.9
-    }
+        urgency_score = float(res.text.strip('"'))
+        ctx.logger.info(f"Patient Urgency Rating: {urgency_score}")
+        
+        messages = [
+            {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
+            {"role": "user", "content": f"{data['description']}"},
+        ]
 
-    res = requests.post(
-        f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
-        headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
-        json=payload,
-        stream=False
-    )
+        payload = {
+            "messages": messages,
+            "stream": False,
+            "max_new_tokens": 2048,
+            "temperature": 0.9
+        }
 
-    equipment = res.text.strip('"')
-    ctx.logger.info(f"Equipment Needed: {equipment}")
-    
-    messages = [
-        {"role": "system", "content": "You are a hospital decision making system that chooses if a patient requires surgery. Reply with either True or False."},
-        {"role": "user", "content": f"A heart attack"},
-    ]
+        res = requests.post(
+            f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+            headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+            json=payload,
+            stream=False
+        )
 
-    payload = {
-        "messages": messages,
-        "stream": False,
-        "max_new_tokens": 2048,
-        "temperature": 0.9
-    }
+        equipment = res.text.strip('"')
+        ctx.logger.info(f"Equipment Needed: {equipment}")
+        
+        messages = [
+            {"role": "system", "content": "You are a hospital decision making system that chooses if a patient requires surgery. Reply with either True or False."},
+            {"role": "user", "content": f"{data['description']}"},
+        ]
 
-    res = requests.post(
-        f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
-        headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
-        json=payload,
-        stream=False
-    )
+        payload = {
+            "messages": messages,
+            "stream": False,
+            "max_new_tokens": 2048,
+            "temperature": 0.9
+        }
 
-    surgery_bool = res.text.strip('"')
-    ctx.logger.info(f"Surgery Needed: {surgery_bool}")
-    
-    if urgency_score >= 9:
-        await ctx.send(forced_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
-    else:
-        await ctx.send(normal_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
+        res = requests.post(
+            f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+            headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+            json=payload,
+            stream=False
+        )
+
+        surgery_bool = res.text.strip('"')
+        ctx.logger.info(f"Surgery Needed: {surgery_bool}")
+        
+        if urgency_score >= 9:
+            await ctx.send(forced_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
+        else:
+            await ctx.send(normal_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
 
 @normal_add_agent.on_message(model=Message)
 async def normal_add_handler(ctx: Context, sender: str, msg: Message):
