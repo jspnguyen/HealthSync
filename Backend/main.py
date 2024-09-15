@@ -8,7 +8,6 @@ import logging
 import requests
 from pydantic import BaseModel
 
-
 # ==================================================================
 # Hospital Simulation Using NetworkX
 # ==================================================================
@@ -17,6 +16,8 @@ from pydantic import BaseModel
 # It manages patient admissions, assignments, releases, and maintains
 # counters for all entities and patients.
 # ==================================================================
+
+
 class Counts(BaseModel):
     total_doctors: int
     available_doctors: int
@@ -53,7 +54,6 @@ total_patients = 0
 patients_in_waiting_room = 0
 
 # Unique ID Counters for Entities
-global doctor_id_counter
 doctor_id_counter = 0
 nurse_id_counter = 0
 bed_id_counter = 0
@@ -240,10 +240,14 @@ waiting_room = {
     "name": "Hospital Waiting Room",
 }
 
-G.add_node(waiting_room["id"], **waiting_room)
+if "WaitingRoom" not in G.nodes:
+    G.add_node(waiting_room["id"], **waiting_room)
+    print("Waiting Room created.")
+
 for room in [node for node, attr in G.nodes(data=True) if attr["type"] == "Room"]:
-    G.add_edge(waiting_room["id"], room, relationship="contains", weight=1)
-print("Waiting Room created and connected to all rooms.")
+    if not G.has_edge("WaitingRoom", room):
+        G.add_edge("WaitingRoom", room, relationship="contains", weight=1)
+print("Waiting Room connected to all rooms.")
 
 # ---------------------------
 # Patient Management Functions
@@ -306,7 +310,7 @@ def assign_patient_to_bed(patient):
     global total_beds, patients_in_waiting_room
 
     # Find all beds
-    beds = [node for node, attr in G.nodes(data=True) if attr["type"] == "Bed"]
+    beds = [node for node, attr in G.nodes(data=True) if attr.get("type") == "Bed"]
     for bed in beds:
         # Check if bed is occupied
         occupied = False
@@ -343,12 +347,9 @@ def assign_equipment_to_patient(patient, bed):
 
     if available_equipment:
         equipment_id, equipment_data = available_equipment[0]
-        # Add equipment node to graph if not already present
-        if equipment_id not in G.nodes:
-            G.add_node(equipment_id, **equipment_data)
         # Assign equipment to patient
         G.add_edge(equipment_id, patient["id"], relationship="used_by", weight=1)
-        equipment_data["available"] = False
+        all_equipment[equipment_id]["available"] = False
         print(
             f"Assigned equipment {equipment_data['name']} to patient {patient['name']}."
         )
@@ -417,16 +418,14 @@ def assign_medical_staff_to_patients(patients):
                 (doctor_id, doctor_data)
                 for doctor_id, doctor_data in all_doctors.items()
                 if (
-                    doctor_id not in G.nodes
-                    or doctor_data["attention_allocated"] == 0.0
+                    doctor_data["attention_allocated"] == 0.0
+                    and doctor_data["specialty"]
+                    in ["General Surgery", "Emergency Medicine"]
                 )
-                and doctor_data["specialty"]
-                in ["General Surgery", "Emergency Medicine"]
-                and doctor_data["attention_allocated"] == 0.0  # Ensure doctor is idle
             ]
             if available_doctors:
                 doctor_id, doctor_data = available_doctors[0]
-                # Add doctor node to graph
+                # Add doctor node to graph if not already present
                 if doctor_id not in G.nodes:
                     G.add_node(doctor_id, **doctor_data)
                 G.add_edge(
@@ -492,11 +491,9 @@ def assign_medical_staff_to_patients(patients):
             if len(nurse_data["current_patients"]) < nurse_data["patients_per_hour"]:
                 # Assign nurse to patient
                 if nurse_id not in G.nodes:
-                    G.add_node(nurse_id, **nurse_data)
+                    G.add_node(nurse_id, type="Nurse", name=nurse_data["name"])
                 G.add_edge(nurse_id, patient["id"], relationship="assisting", weight=1)
                 nurse_data["current_patients"].append(patient["id"])
-                # Update the graph node's current_patients
-                G.nodes[nurse_id]["current_patients"].append(patient["id"])
                 print(f"{nurse_data['name']} is assisting {patient['name']}.")
                 assigned = True
                 break  # Move to the next patient after assignment
@@ -728,6 +725,23 @@ def simulate_time_step(time_step=1):
     # Assign medical staff
     assign_medical_staff_to_patients(current_patients)
 
+    # Cleanup any orphaned nurse nodes (safeguard)
+    cleanup_orphaned_nurses()
+
+
+def cleanup_orphaned_nurses():
+    """
+    Removes any nurse nodes that have no connections to patients.
+    """
+    orphaned_nurses = [
+        node
+        for node, attr in G.nodes(data=True)
+        if attr["type"] == "Nurse" and G.degree(node) == 0
+    ]
+    for nurse in orphaned_nurses:
+        print(f"Removing orphaned nurse node: {nurse}")
+        G.remove_node(nurse)
+
 
 def get_available_doctor_count():
     available = sum(
@@ -738,7 +752,9 @@ def get_available_doctor_count():
 
 def get_available_nurse_count():
     available = sum(
-        1 for nurse in all_nurses.values() if len(nurse["current_patients"]) < 3
+        1
+        for nurse in all_nurses.values()
+        if len(nurse["current_patients"]) < nurse["patients_per_hour"]
     )
     return available
 
@@ -749,6 +765,7 @@ def get_available_equipment_count():
 
 
 def get_patients_being_treated_count():
+    cleanup_graph()
     patients_in_beds = [
         node1 if G.nodes[node1]["type"] == "Patient" else node2
         for node1, node2 in G.edges()
@@ -763,6 +780,17 @@ def get_patients_being_treated_count():
 def get_patients_in_waiting_room_count():
     waiting_patients = get_patients_in_waiting_room()
     return len(waiting_patients)
+
+
+def cleanup_graph():
+    # Remove nodes without 'type'
+    nodes_to_remove = [node for node, attr in G.nodes(data=True) if "type" not in attr]
+    for node in nodes_to_remove:
+        logging.warning(f"Removing node without 'type': {node}")
+        G.remove_node(node)
+
+    # Optionally, remove edges connected to these nodes
+    # This is already handled by NetworkX when nodes are removed
 
 
 # ---------------------------
@@ -795,7 +823,7 @@ def main_simulation():
     # Simulate over specified time steps
     for hour in range(1, simulation_hours + 1):
         print(f"\n=== Hour {hour} ===")
-        simulate_time_step(time_step=hour)
+        simulate_time_step(time_step=1)
         # Admit new patients
         admit_n_patients(random.randint(5, 13))
 
@@ -822,7 +850,7 @@ def main_simulation():
             available_equipment=get_available_equipment_count(),
             patients_being_treated=get_patients_being_treated_count(),
             patients_in_waiting_room=get_patients_in_waiting_room_count(),
-            available_beds=num_beds - get_patients_being_treated_count(),
+            beds_available=num_beds - get_patients_being_treated_count(),
         )
         try:
             # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
