@@ -6,3 +6,4 @@ numpy
 networkx
 python-dotenv
 faker
+websockets
