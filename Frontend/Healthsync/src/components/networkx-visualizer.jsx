@@ -17,7 +17,7 @@ const ForceDirectedLayout = () => {
 
   useEffect(() => {
     const width = 960;
-    const height = 600;
+    const height = 650;
     const maxLinkDistance = 150;  // Maximum distance between nodes
 
     // Select the svg element
@@ -110,7 +110,7 @@ const ForceDirectedLayout = () => {
 
   return (
     <div>
-      <svg ref={svgRef}></svg>
+      <svg  ref={svgRef}></svg>
     </div>
   );
 };
