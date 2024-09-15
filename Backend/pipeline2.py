@@ -16,12 +16,14 @@ stres_level = Agent(name="stress_level", seed=generate_random_string())
 @stres_level.on_interval(period=10.0)
 async def stress_level(ctx: Context):
     # TODO: Get staffing and equipments levels here
-    # CODE HERE
+    doctors = 0
+    nurses = 0
+    beds = 0
+    patients = 0
     
-    # TODO: Prompts need reengineering
     messages = [
         {"role": "system", "content": "Given certain supply levels of staff and equipment, reply with a boolean (True or False) if there should be worry in terms of level of availability."},
-        {"role": "user", "content": f"Doctors: Nurses: Beds: Patients in Hospital: "},
+        {"role": "user", "content": f"Doctors: {doctors} Nurses: {nurses} Beds: {beds} Patients in Hospital: {patients}"},
     ]
 
     payload = {
