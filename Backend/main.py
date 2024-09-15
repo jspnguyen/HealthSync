@@ -7,6 +7,19 @@ import time
 import logging
 import requests
 from pydantic import BaseModel
+import requests
+import json
+from uagents import Agent, Context
+import random
+import string
+import os
+import requests
+from dotenv import load_dotenv
+import faker
+
+fake = faker.Faker()
+
+load_dotenv()
 
 # ==================================================================
 # Hospital Simulation Using NetworkX
@@ -800,8 +813,8 @@ def main_simulation():
     print("Welcome to the Hospital Simulation!")
 
     # Generate entities based on user input
-    num_doctors = 15
-    num_nurses = 30
+    num_doctors = 10
+    num_nurses = 20
     num_beds = 150
     num_rooms = 50
     num_equipment = 100
@@ -813,8 +826,10 @@ def main_simulation():
     generate_rooms(num_rooms)
     generate_equipment(num_equipment)
 
-    # Assign beds to rooms
     assign_beds_to_rooms()
+
+
+    # Assign beds to rooms
 
     # Simulate over specified time steps
     for hour in range(1, simulation_hours + 1):
@@ -822,50 +837,190 @@ def main_simulation():
         simulate_time_step(time_step=1)
         # Admit new patients
         admit_n_patients(random.randint(5, 13))
+        if random.random() <.1:
+            logging.info(random_event_gen())
+        
+        with open("./api/json/patients.json", 'r') as file:
+            data = json.load(file)
+        
+        if data['description'] != prev_form['description']:
+            prev_form['description'] = data['description']
+            
+            messages = [
+                {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
+                {"role": "user", "content": f"{data['description']}"},
+            ]
 
-        # Convert the graph to node-link data format
-        graph_data = json_graph.node_link_data(G)
+            payload = {
+                "messages": messages,
+                "stream": False,
+                "max_new_tokens": 2048,
+                "temperature": 0.2
+            }
 
-        # Convert the dictionary to a JSON object
-        graph_json = json.dumps(graph_data, indent=4)
+            res = requests.post(
+                f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+                headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+                json=payload,
+                stream=False
+            )
 
-        # Save the JSON to a file
-        import os
+            urgency_score = float(res.text.strip('"'))
+            print(f"Patient Urgency Rating: {urgency_score}")
+            
+            # messages = [
+            #     {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in only Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
+            #     {"role": "user", "content": f"{data['description']}"},
+            # ]
 
-        os.makedirs("./api/json/", exist_ok=True)  # Ensure the output directory exists
-        with open("./api/json/graph.json", "w") as f:
-            f.write(graph_json)
-        print("Simulation complete. Graph data saved to ./api/json/graph.json")
-        API_URL = "http://0.0.0.0:8080/counts/"
-        counts = Counts(
-            total_doctors=total_doctors,
-            available_doctors=get_available_doctor_count(),
-            total_nurses=total_nurses,
-            available_nurses=get_available_nurse_count(),
-            total_equipment=total_equipment,
-            available_equipment=get_available_equipment_count(),
-            patients_being_treated=get_patients_being_treated_count(),
-            patients_in_waiting_room=get_patients_in_waiting_room_count(),
-            beds_available=num_beds - get_patients_being_treated_count(),
-        )
-        try:
-            # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
-            response = requests.post(API_URL, json=counts.dict())
-            response.raise_for_status()  # Raises HTTPError for bad responses
-            logging.info(f"Successfully sent counts: {counts}")
-        except requests.exceptions.HTTPError as http_err:
-            logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
-        except Exception as err:
-            logging.error(f"An error occurred: {err}")  # Other errors
-        time.sleep(5)
-    # ==================================================================
-    # END OF SIMULATION
-    # ==================================================================
+            # payload = {
+            #     "messages": messages,
+            #     "stream": False,
+            #     "max_new_tokens": 2048,
+            #     "temperature": 0.9
+            # }
+
+            # res = requests.post(
+            #     f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+            #     headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+            #     json=payload,
+            #     stream=False
+            # )
+
+            # equipment = res.text.strip('"')
+            equipment = [random.choice([
+                "Ventilator",
+                "Defibrillator",
+                "ECG Monitor",
+                "Ultrasound Machine",
+                "Wheelchair"
+            ])]
+
+            print(f"Equipment Needed: {equipment}")
+            
+            messages = [
+                {"role": "system", "content": "You are a hospital decision making system that chooses if a patient requires surgery. Reply with either True or False."},
+                {"role": "user", "content": f"{data['description']}"},
+            ]
+
+            payload = {
+                "messages": messages,
+                "stream": False,
+                "max_new_tokens": 2048,
+                "temperature": 0.9
+            }
+
+            res = requests.post(
+                f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+                headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+                json=payload,
+                stream=False
+            )
+
+            surgery_bool = res.text.strip('"')
+            print(f"Surgery Needed: {surgery_bool}")
+
+            patient_name = f"{fake.first_name()} {fake.last_name()}"
+
+            add_patient_to_graph(patient_name, urgency_score, surgery_bool, equipment)
+            
+            print(f"Normally added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
+
+            
 
 
-# ---------------------------
-# Run the Simulation
-# ---------------------------
+            # Convert the graph to node-link data format
+            graph_data = json_graph.node_link_data(G)
+
+            # Convert the dictionary to a JSON object
+            graph_json = json.dumps(graph_data, indent=4)
+
+            # Save the JSON to a file
+            import os
+
+            os.makedirs("./api/json/", exist_ok=True)  # Ensure the output directory exists
+            with open("./api/json/graph.json", "w") as f:
+                f.write(graph_json)
+            print("Simulation complete. Graph data saved to ./api/json/graph.json")
+            API_URL = "http://0.0.0.0:8080/counts/"
+            counts = Counts(
+                total_doctors=total_doctors,
+                available_doctors=get_available_doctor_count(),
+                total_nurses=total_nurses,
+                available_nurses=get_available_nurse_count(),
+                total_equipment=total_equipment,
+                available_equipment=get_available_equipment_count(),
+                patients_being_treated=get_patients_being_treated_count(),
+                patients_in_waiting_room=get_patients_in_waiting_room_count(),
+                beds_available=num_beds - get_patients_being_treated_count(),
+            )
+            try:
+                # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
+                response = requests.post(API_URL, json=counts.dict())
+                response.raise_for_status()  # Raises HTTPError for bad responses
+                logging.info(f"Successfully sent counts: {counts}")
+            except requests.exceptions.HTTPError as http_err:
+                logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
+            except Exception as err:
+                logging.error(f"An error occurred: {err}")  # Other errors
+            time.sleep(5)
+        # ==================================================================
+        # END OF SIMULATION
+        # ==================================================================
+
+
+
+
+
+
+def random_event_gen():
+    # time.sleep(1)
+    victims = random.randint(20, 70)
+    prompt = f"""
+        Create a random tragic event. It can be natural, accidental, or human caused. It resulted in {victims} injuries.
+        The goal is to create a coherent, realistic narrative that would be plausible in today's world."""
+
+    stream = False
+    url = "https://proxy.tune.app/chat/completions"
+    headers = {
+        "Authorization": os.getenv("TUNE_AUTH"),
+        "Content-Type": "application/json",
+    }
+    data = {
+        "temperature": 0.9,
+        "messages":  [
+            {
+                "role": "system",
+                "content": prompt
+            },
+            {
+                "role": "user",
+                "content": "What was the tragic event and give a headline?"
+            }
+        ],
+        "model": "rohan/tune-gpt-4o-mini",
+        "stream": stream,
+        "frequency_penalty":  0.2,
+        "max_tokens": 100
+    }
+    response = requests.post(url, headers=headers, json=data)
+
+    print(response.text)
+
+    admit_n_patients(victims)
+    return response.text
+    
+
+
+
+
+load_dotenv()
+MODEL_ID = "8w6yyp2q"
+BASETEN_API_KEY = os.getenv("BASETEN_API_KEY")
+prev_form = {'description' : ''}
+
+
 
 if __name__ == "__main__":
     main_simulation()
+    
