@@ -73,5 +73,17 @@ button:focus-visible {
 }
 
 h2 {
-  @apply text-2xl font-bold;
+  @apply text-2xl font-bold my-2;
+}
+
+h3 {
+  @apply text-black text-2xl;
+}
+
+h4 {
+  @apply text-xl font-normal text-secondary my-1;
+}
+
+.peopleCount {
+  @apply text-[#272927] text-[32px] font-normal;
 }
