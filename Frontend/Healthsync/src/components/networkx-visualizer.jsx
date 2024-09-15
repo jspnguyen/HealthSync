@@ -84,8 +84,8 @@ const Graph = () => {
   useEffect(() => {
     // Initialize SVG and simulation on mount
     const svg = d3.select(svgRef.current);
-    const width = 800;
-    const height = 600;
+    const width = 900;
+    const height = 650;
     svg.attr("width", width).attr("height", height);
 
     // Add groups for links and nodes
@@ -98,7 +98,7 @@ const Graph = () => {
     // Initialize simulation
     const simulation = d3
       .forceSimulation()
-      .force("link", d3.forceLink().id((d) => d.id).distance(15))
+      .force("link", d3.forceLink().id((d) => d.id).distance(20))
       .force("charge", d3.forceManyBody().strength(-10))
       .force("center", d3.forceCenter(width / 2, height / 2));
 

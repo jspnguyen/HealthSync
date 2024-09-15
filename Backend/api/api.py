@@ -44,6 +44,29 @@ def get_graph():
         graph = json.load(f)
     return graph
 
+# @app.get("/count/doctors"):
+# def get_doctor_count():
+#     return {"count": main.get_doctor_count(), "load": #calculate load}
+
+# @app.get("/count/nurses"):
+# def get_nurse_count():
+#     return {"count": main.get_nurse_count(), "load": #calculate load}
+
+# @app.get("/count/equipment"):
+# def get_equipment_count():
+#     return {"count": main.get_equipment_count(), "load": #calculate load}
+
+# @app.get("/count/patientswaiting"):
+# def get_patients_waiting_count():
+#     return {"count": main.get_patients_waiting_count(), "load": #calculate load}
+
+# @app.get("/count/patientemergency"):
+# def get_patients_emergency_count():
+#     return {"count": main.get_patients_emergency_count(), "load": #calculate load}
+
+
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8080)

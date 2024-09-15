@@ -726,7 +726,7 @@ def main_simulation():
     num_beds = 30
     num_rooms = 10
     num_equipment = 30
-    simulation_hours = 5
+    simulation_hours = 100
 
     generate_doctors(num_doctors)
     generate_nurses(num_nurses)
@@ -754,7 +754,7 @@ def main_simulation():
         import os
 
         os.makedirs(
-            "../Frontend/Healthsync/public", exist_ok=True
+            "./api/json/", exist_ok=True
         )  # Ensure the output directory exists
         with open("./api/json/graph.json", "w") as f:
             f.write(graph_json)
