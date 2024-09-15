@@ -3,7 +3,6 @@ import random
 import json
 from networkx.readwrite import json_graph
 import names
-import time
 
 # ==================================================================
 # Hospital Simulation Using NetworkX
@@ -16,6 +15,11 @@ import time
 
 # Initialize the knowledge graph
 G = nx.Graph()
+
+# Global Registries
+all_doctors = {}
+all_nurses = {}
+all_equipment = {}
 
 # ---------------------------
 # Global Counters
@@ -50,7 +54,7 @@ def generate_doctors(n):
     Generates 'n' doctors with unique IDs and random specialties.
     Updates the global doctor counter.
     """
-    global total_doctors, doctor_id_counter
+    global total_doctors, doctor_id_counter, all_doctors
     specialties = [
         "Cardiology",
         "Orthopedics",
@@ -70,33 +74,30 @@ def generate_doctors(n):
             "id": doctor_id,
             "type": "Doctor",
             "specialty": random.choice(specialties),
-            "patients_per_hour": 5,
+            "patients_per_hour": 6,  # Doctors can see up to 6 patients per hour
             "name": f"Dr. {names.get_first_name()}",
             "current_patients": [],
             "attention_allocated": 0.0,
         }
-        G.add_node(doctor_id, **doctor)
+        all_doctors[doctor_id] = doctor
         total_doctors += 1
     print(f"Generated {n} doctors. Total Doctors: {total_doctors}")
 
 
 def generate_nurses(n):
-    """
-    Generates 'n' nurses with unique IDs and random names.
-    Updates the global nurse counter.
-    """
-    global total_nurses, nurse_id_counter
+    global total_nurses, nurse_id_counter, all_nurses
     for _ in range(n):
         nurse_id_counter += 1
         nurse_id = f"N{nurse_id_counter}"
         nurse = {
             "id": nurse_id,
             "type": "Nurse",
-            "patients_per_hour": 3,
+            "patients_per_hour": 3,  # Nurses can monitor up to 3 patients at a time
             "name": f"Nurse {names.get_first_name()}",
             "current_patients": [],
         }
-        G.add_node(nurse_id, **nurse)
+        # Do not add to graph here
+        all_nurses[nurse_id] = nurse
         total_nurses += 1
     print(f"Generated {n} nurses. Total Nurses: {total_nurses}")
 
@@ -158,11 +159,7 @@ def generate_rooms(n):
 
 
 def generate_equipment(n):
-    """
-    Generates 'n' equipment items with unique IDs and random types.
-    Updates the global equipment counter.
-    """
-    global total_equipment, equipment_id_counter
+    global total_equipment, equipment_id_counter, all_equipment
     equipment_types = [
         "Ventilator",
         "Defibrillator",
@@ -185,7 +182,8 @@ def generate_equipment(n):
             "original_id": equipment_id,
             "available": True,
         }
-        G.add_node(equipment_id, **equipment)
+        # Do not add to graph here
+        all_equipment[equipment_id] = equipment
         total_equipment += 1
     print(f"Generated {n} equipment items. Total Equipment: {total_equipment}")
 
@@ -214,8 +212,6 @@ def assign_beds_to_rooms():
                 bed_index += 1
     print(f"Assigned {len(beds)} beds to {len(rooms)} rooms.")
 
-
-assign_beds_to_rooms()
 
 # ---------------------------
 # Define the Waiting Room
@@ -323,38 +319,26 @@ def assign_equipment_to_patient(patient, bed):
 
     # Find available equipment of the required type
     available_equipment = [
-        node
-        for node, attr in G.nodes(data=True)
-        if attr["type"] == "Equipment"
-        and attr["name"] == equipment_name
-        and attr["available"]
+        (equipment_id, equipment_data)
+        for equipment_id, equipment_data in all_equipment.items()
+        if equipment_data["name"] == equipment_name and equipment_data["available"]
     ]
 
     if available_equipment:
-        equipment = available_equipment[0]
+        equipment_id, equipment_data = available_equipment[0]
+        # Add equipment node to graph if not already present
+        if equipment_id not in G.nodes:
+            G.add_node(equipment_id, **equipment_data)
         # Assign equipment to patient
-        G.add_edge(equipment, patient["id"], relationship="used_by", weight=1)
-        G.nodes[equipment]["available"] = False
+        G.add_edge(equipment_id, patient["id"], relationship="used_by", weight=1)
+        equipment_data["available"] = False
         print(
-            f"Assigned equipment {G.nodes[equipment]['name']} to patient {patient['name']}."
+            f"Assigned equipment {equipment_data['name']} to patient {patient['name']}."
         )
     else:
         print(
             f"No available equipment of type {equipment_name} for patient {patient['name']}."
         )
-
-
-# def get_patients_in_beds():
-#     """
-#     Retrieves all patients currently assigned to beds.
-#     """
-#     patients_in_beds_ids = [
-#         edge[0]
-#         for edge in G.edges()
-#         if G.nodes[edge[0]]["type"] == "Patient" and G.nodes[edge[1]]["type"] == "Bed"
-#     ]
-#     patients_in_beds = [G.nodes[pid] for pid in patients_in_beds_ids]
-#     return patients_in_beds
 
 
 def get_patients_in_beds():
@@ -396,7 +380,7 @@ def calculate_priority_score(patient):
     )
 
 
-def assign_medical_staff_to_patients(doctors, nurses, patients):
+def assign_medical_staff_to_patients(patients):
     """
     Assigns available doctors and nurses to patients based on availability and capacity.
     """
@@ -410,54 +394,63 @@ def assign_medical_staff_to_patients(doctors, nurses, patients):
         if has_doctor:
             continue  # Skip if already has a doctor
 
-        # Assign based on surgery need
         if patient["needs_surgery"]:
-            # Assign a doctor specialized in surgery who is available
+            # Surgery requires full attention (1.0)
             available_doctors = [
-                doctor
-                for doctor in doctors
-                if G.nodes[doctor]["specialty"]
-                in ["General Surgery", "Emergency Medicine"]
-                and len(
-                    [n for n in G.neighbors(doctor) if G.nodes[n]["type"] == "Patient"]
+                (doctor_id, doctor_data)
+                for doctor_id, doctor_data in all_doctors.items()
+                if (
+                    doctor_id not in G.nodes
+                    or doctor_data["attention_allocated"] == 0.0
                 )
-                == 0
+                and doctor_data["specialty"]
+                in ["General Surgery", "Emergency Medicine"]
+                and doctor_data["attention_allocated"] == 0.0  # Ensure doctor is idle
             ]
             if available_doctors:
-                doctor = available_doctors[0]
+                doctor_id, doctor_data = available_doctors[0]
+                # Add doctor node to graph
+                if doctor_id not in G.nodes:
+                    G.add_node(doctor_id, **doctor_data)
                 G.add_edge(
-                    doctor, patient["id"], relationship="attending", attention=1.0
+                    doctor_id, patient["id"], relationship="attending", attention=1.0
                 )
-                G.nodes[doctor]["current_patients"].append(patient["id"])
-                G.nodes[doctor]["attention_allocated"] = 1.0
+                doctor_data["current_patients"].append(patient["id"])
+                doctor_data["attention_allocated"] = 1.0
                 print(
-                    f"{G.nodes[doctor]['name']} is performing surgery on {patient['name']}."
+                    f"{doctor_data['name']} is performing surgery on {patient['name']}."
                 )
             else:
                 print(f"No available surgeons for patient {patient['name']}.")
         else:
-            # Assign any available doctor
+            # Non-surgery patients
             available_doctors = [
-                doctor
-                for doctor in doctors
-                if G.nodes[doctor]["attention_allocated"]
-                and G.nodes[doctor]["attention_allocated"] < 1.0
+                (doctor_id, doctor_data)
+                for doctor_id, doctor_data in all_doctors.items()
+                if doctor_data["attention_allocated"] < 1.0
             ]
-            if available_doctors:
-                doctor = available_doctors[0]
-                attention_per_patient = 1.0 / G.nodes[doctor]["patients_per_hour"]
-                G.add_edge(
-                    doctor,
-                    patient["id"],
-                    relationship="attending",
-                    attention=attention_per_patient,
-                )
-                G.nodes[doctor]["current_patients"].append(patient["id"])
-                G.nodes[doctor]["attention_allocated"] += attention_per_patient
-                print(
-                    f"{G.nodes[doctor]['name']} is attending to {patient['name']} with attention {attention_per_patient}."
-                )
-            else:
+            # Sort doctors by least attention allocated to balance load
+            available_doctors.sort(key=lambda x: x[1]["attention_allocated"])
+            assigned = False
+            for doctor_id, doctor_data in available_doctors:
+                attention_needed = 1.0 / doctor_data["patients_per_hour"]
+                if doctor_data["attention_allocated"] + attention_needed <= 1.0:
+                    if doctor_id not in G.nodes:
+                        G.add_node(doctor_id, **doctor_data)
+                    G.add_edge(
+                        doctor_id,
+                        patient["id"],
+                        relationship="attending",
+                        attention=attention_needed,
+                    )
+                    doctor_data["current_patients"].append(patient["id"])
+                    doctor_data["attention_allocated"] += attention_needed
+                    print(
+                        f"{doctor_data['name']} is attending to {patient['name']} with attention {attention_needed:.2f}."
+                    )
+                    assigned = True
+                    break
+            if not assigned:
                 print(f"No available doctors for patient {patient['name']}.")
 
     # Assign nurses
@@ -470,20 +463,24 @@ def assign_medical_staff_to_patients(doctors, nurses, patients):
         if has_nurse:
             continue  # Skip if already has a nurse
 
-        # Assign any available nurse
         available_nurses = [
-            nurse
-            for nurse in nurses
-            if G.nodes[nurse]["current_patients"]
-            and len(G.nodes[nurse]["current_patients"])
-            < G.nodes[nurse]["patients_per_hour"]
+            (nurse_id, nurse_data)
+            for nurse_id, nurse_data in all_nurses.items()
+            if len(nurse_data["current_patients"]) < 3
         ]
-        if available_nurses:
-            nurse = available_nurses[0]
-            G.add_edge(nurse, patient["id"], relationship="assisting", weight=1)
-            G.nodes[nurse]["current_patients"].append(patient["id"])
-            print(f"{G.nodes[nurse]['name']} is assisting {patient['name']}.")
-        else:
+        # Sort nurses by least number of patients to balance load
+        available_nurses.sort(key=lambda x: len(x[1]["current_patients"]))
+        assigned = False
+        for nurse_id, nurse_data in available_nurses:
+            if len(nurse_data["current_patients"]) < 3:
+                if nurse_id not in G.nodes:
+                    G.add_node(nurse_id, **nurse_data)
+                G.add_edge(nurse_id, patient["id"], relationship="assisting", weight=1)
+                nurse_data["current_patients"].append(patient["id"])
+                print(f"{nurse_data['name']} is assisting {patient['name']}.")
+                assigned = True
+                break
+        if not assigned:
             print(f"No available nurses for patient {patient['name']}.")
 
 
@@ -539,7 +536,7 @@ def assign_waiting_patients_to_beds():
 # ---------------------------
 
 
-def simulate_patient_release(equipment, beds):
+def simulate_patient_release():
     """
     Simulates the release of patients based on probability.
     Updates patient and equipment statuses accordingly.
@@ -550,21 +547,9 @@ def simulate_patient_release(equipment, beds):
         release_probability = calculate_release_probability(patient)
         if random.random() < release_probability:
             print(f"{patient['name']} has been treated and is ready for release.")
-            release_patient(patient, equipment, beds)
+            release_patient(patient)
             released_patients.append(patient)
     return released_patients
-
-
-# def calculate_release_probability(patient):
-#     """
-#     Calculates the probability of a patient being released.
-#     """
-#     base_prob = 0.1
-#     severity_modifier = (5 - patient["severity"]) * 0.15
-#     surgery_modifier = -0.2 if patient["needs_surgery"] else 0
-#     total_probability = base_prob + severity_modifier + surgery_modifier
-#     total_probability = max(min(total_probability, 1.0), 0.0)
-#     return total_probability
 
 
 def calculate_release_probability(patient):
@@ -597,11 +582,7 @@ def calculate_release_probability(patient):
     return total_probability
 
 
-def release_patient(patient, equipment, beds):
-    """
-    Releases a patient from the hospital.
-    Frees up bed and equipment, and updates counters.
-    """
+def release_patient(patient):
     global total_beds, patients_in_waiting_room, total_patients
 
     # Remove patient from bed
@@ -624,9 +605,12 @@ def release_patient(patient, equipment, beds):
         if G.nodes[neighbor]["type"] == "Equipment"
     ]
     for eq in equipment_assigned:
-        G.nodes[eq]["available"] = True
+        all_equipment[eq]["available"] = True
         G.remove_edge(eq, patient["id"])
-        print(f"Equipment {G.nodes[eq]['name']} is now available.")
+        # Remove equipment node if not connected to any other patients
+        if len(list(G.neighbors(eq))) == 0:
+            G.remove_node(eq)
+        print(f"Equipment {all_equipment[eq]['name']} is now available.")
 
     # Remove relationships with doctors and nurses
     staff_related = [
@@ -638,25 +622,23 @@ def release_patient(patient, equipment, beds):
         relationship = G.edges[staff, patient["id"]]["relationship"]
         if relationship == "attending":
             # For doctors
-            G.nodes[staff]["current_patients"].remove(patient["id"])
+            all_doctors[staff]["current_patients"].remove(patient["id"])
             attention = G.edges[staff, patient["id"]]["attention"]
-            G.nodes[staff]["attention_allocated"] -= attention
+            all_doctors[staff]["attention_allocated"] -= attention
             G.remove_edge(staff, patient["id"])
-            if len(G.nodes[staff]["current_patients"]) == 0:
-
-                G.nodes[staff]["attention_allocated"] = 0.0
+            if len(all_doctors[staff]["current_patients"]) == 0:
+                all_doctors[staff]["attention_allocated"] = 0.0
                 print(
-                    f"Doctor {G.nodes[staff]['name']} is now idle and removed from the graph."
+                    f"Doctor {all_doctors[staff]['name']} is now idle and removed from the graph."
                 )
                 G.remove_node(staff)
         elif relationship == "assisting":
             # For nurses
-            G.nodes[staff]["current_patients"].remove(patient["id"])
+            all_nurses[staff]["current_patients"].remove(patient["id"])
             G.remove_edge(staff, patient["id"])
-            if len(G.nodes[staff]["current_patients"]) == 0:
-
+            if len(all_nurses[staff]["current_patients"]) == 0:
                 print(
-                    f"Nurse {G.nodes[staff]['name']} is now idle and removed from the graph."
+                    f"Nurse {all_nurses[staff]['name']} is now idle and removed from the graph."
                 )
                 G.remove_node(staff)
 
@@ -703,17 +685,7 @@ def admit_n_patients(n):
 # ---------------------------
 
 
-def simulate_time_step(doctors, nurses, equipment, beds, time_step=1):
-    """
-    Simulates a single time step (e.g., one hour) in the hospital.
-
-    Parameters:
-    - doctors: List of doctor node IDs.
-    - nurses: List of nurse node IDs.
-    - equipment: List of equipment node IDs.
-    - beds: List of bed node IDs.
-    - time_step: Number of hours to simulate in this step.
-    """
+def simulate_time_step(time_step=1):
     print(f"\n--- Simulating time step: Hour {time_step} ---")
 
     # Increase time_waiting for patients in waiting room
@@ -725,7 +697,7 @@ def simulate_time_step(doctors, nurses, equipment, beds, time_step=1):
         )
 
     # Simulate patient releases
-    released_patients = simulate_patient_release(equipment, beds)
+    released_patients = simulate_patient_release()
 
     # Assign waiting patients to available beds
     assign_waiting_patients_to_beds()
@@ -734,7 +706,7 @@ def simulate_time_step(doctors, nurses, equipment, beds, time_step=1):
     current_patients = get_patients_in_beds()
 
     # Assign medical staff
-    assign_medical_staff_to_patients(doctors, nurses, current_patients)
+    assign_medical_staff_to_patients(current_patients)
 
 
 # ---------------------------
@@ -743,25 +715,18 @@ def simulate_time_step(doctors, nurses, equipment, beds, time_step=1):
 
 
 def main_simulation():
-    """
-    Runs the hospital simulation based on user inputs for the number of doctors,
-    nurses, beds, rooms, and equipment. Simulates patient admissions and releases
-    over a specified number of time steps.
-    """
     global total_doctors, total_nurses, total_beds, total_rooms, total_equipment
 
     print("Welcome to the Hospital Simulation!")
 
-    # Gather user inputs
+    # Generate entities based on user input
     num_doctors = 15
     num_nurses = 30
     num_beds = 30
     num_rooms = 10
     num_equipment = 30
     simulation_hours = 5
-    admission_rate = 10
 
-    # Generate entities based on user input
     generate_doctors(num_doctors)
     generate_nurses(num_nurses)
     generate_beds(num_beds)
@@ -774,22 +739,9 @@ def main_simulation():
     # Simulate over specified time steps
     for hour in range(1, simulation_hours + 1):
         print(f"\n=== Hour {hour} ===")
-        simulate_time_step(
-            doctors=[
-                node for node, attr in G.nodes(data=True) if attr["type"] == "Doctor"
-            ],
-            nurses=[
-                node for node, attr in G.nodes(data=True) if attr["type"] == "Nurse"
-            ],
-            equipment=[
-                node for node, attr in G.nodes(data=True) if attr["type"] == "Equipment"
-            ],
-            beds=[node for node, attr in G.nodes(data=True) if attr["type"] == "Bed"],
-            time_step=1,
-        )
+        simulate_time_step(time_step=hour)
         # Admit new patients
         admit_n_patients(random.randint(5, 13))
-        time.sleep(5)
 
     # ==================================================================
     # END OF SIMULATION
