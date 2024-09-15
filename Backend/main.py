@@ -2,6 +2,7 @@ import networkx as nx
 import random
 import json
 from networkx.readwrite import json_graph
+import names
 
 # ==================================================================
 # Knowledge graph stuff
@@ -555,6 +556,29 @@ def release_patient(G, patient, equipment):
 
     # Remove patient node
     G.remove_node(patient["id"])
+
+    def admit_n_patients(n):
+        for _ in range(n):
+            seed = random.randint(1, 99999)
+            severity = random.randint(1, 10)
+            patientid = "P" + str(seed)
+            add_patient_to_graph(
+                G,
+                patientid,
+                names.get_full_name(),
+                severity,
+                True if severity == 10 else False,
+                random.choice(
+                    [
+                        "Ventilator",
+                        "Defibrillator",
+                        "ECG Monitor",
+                        "Ultrasound Machine",
+                        "Wheelchair",
+                        None,
+                    ]
+                ),
+            )
 
 
 # ---------------------------
