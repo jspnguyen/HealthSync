@@ -10,7 +10,7 @@ function HomePage() {
 
       {/* Home Page */}
       <section className="ml-12 px-12 py-6 w-full">
-        <div>
+        <div className="mb-8">
           <h1 className="font-bold text-4xl">
             Health<span className="text-blue">sync</span>
           </h1>
