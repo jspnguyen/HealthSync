@@ -756,11 +756,11 @@ def main_simulation():
         os.makedirs(
             "./api/json/", exist_ok=True
         )  # Ensure the output directory exists
-
         with open("./api/json/graph.json", "w") as f:
             f.write(graph_json)
         print(
             "Simulation complete. Graph data saved to ./api/json/graph.json"
+
         )
 
         time.sleep(5)
