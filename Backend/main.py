@@ -121,11 +121,22 @@ def generate_beds(n):
 
 def generate_rooms(n):
     """
-    Generates 'n' rooms with unique IDs.
-    Connects all rooms to the waiting room.
+    Generates 'n' rooms with unique IDs and connects them to the waiting room.
     Updates the global room counter.
     """
     global total_rooms, room_id_counter
+
+    # Ensure the waiting room exists
+    if "WaitingRoom" not in G.nodes:
+        waiting_room = {
+            "id": "WaitingRoom",
+            "type": "WaitingRoom",
+            "name": "Hospital Waiting Room",
+        }
+        G.add_node(waiting_room["id"], **waiting_room)
+        print("Waiting Room created.")
+
+    # Generate rooms and connect them to the waiting room
     for _ in range(n):
         room_id_counter += 1
         room_id = f"Room{room_id_counter}"
@@ -135,8 +146,14 @@ def generate_rooms(n):
             "name": f"Room {room_id_counter}",
         }
         G.add_node(room_id, **room)
+
+        # Attach the room to the waiting room
+        G.add_edge("WaitingRoom", room_id, relationship="contains", weight=1)
+
         total_rooms += 1
-    print(f"Generated {n} rooms. Total Rooms: {total_rooms}")
+        print(f"Generated {room['name']} and attached it to the Waiting Room.")
+
+    print(f"Total rooms generated: {n}, all connected to the Waiting Room.")
 
 
 def generate_equipment(n):
@@ -422,7 +439,8 @@ def assign_medical_staff_to_patients(doctors, nurses, patients):
             available_doctors = [
                 doctor
                 for doctor in doctors
-                if G.nodes[doctor]["attention_allocated"] < 1.0
+                if G.nodes[doctor]["attention_allocated"]
+                and G.nodes[doctor]["attention_allocated"] < 1.0
             ]
             if available_doctors:
                 doctor = available_doctors[0]
@@ -455,7 +473,8 @@ def assign_medical_staff_to_patients(doctors, nurses, patients):
         available_nurses = [
             nurse
             for nurse in nurses
-            if len(G.nodes[nurse]["current_patients"])
+            if G.nodes[nurse]["current_patients"]
+            and len(G.nodes[nurse]["current_patients"])
             < G.nodes[nurse]["patients_per_hour"]
         ]
         if available_nurses:
@@ -623,20 +642,22 @@ def release_patient(patient, equipment, beds):
             G.nodes[staff]["attention_allocated"] -= attention
             G.remove_edge(staff, patient["id"])
             if len(G.nodes[staff]["current_patients"]) == 0:
-                G.remove_node(staff)
+
                 G.nodes[staff]["attention_allocated"] = 0.0
                 print(
                     f"Doctor {G.nodes[staff]['name']} is now idle and removed from the graph."
                 )
+                G.remove_node(staff)
         elif relationship == "assisting":
             # For nurses
             G.nodes[staff]["current_patients"].remove(patient["id"])
             G.remove_edge(staff, patient["id"])
             if len(G.nodes[staff]["current_patients"]) == 0:
-                G.remove_node(staff)
+
                 print(
                     f"Nurse {G.nodes[staff]['name']} is now idle and removed from the graph."
                 )
+                G.remove_node(staff)
 
     # Remove patient node
     G.remove_node(patient["id"])
@@ -772,19 +793,19 @@ def main_simulation():
     # END OF SIMULATION
     # ==================================================================
     # Convert the graph to node-link data format
-    # graph_data = json_graph.node_link_data(G)
+    graph_data = json_graph.node_link_data(G)
 
-    # # Convert the dictionary to a JSON object
-    # graph_json = json.dumps(graph_data, indent=4)
+    # Convert the dictionary to a JSON object
+    graph_json = json.dumps(graph_data, indent=4)
 
-    # # Save the JSON to a file
-    # import os
+    # Save the JSON to a file
+    import os
 
-    # os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
+    os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
 
-    # with open("./data/graph_data.json", "w") as f:
-    #     f.write(graph_json)
-    # print("Simulation complete. Graph data saved to ./data/graph_data.json")
+    with open("./data/graph_data.json", "w") as f:
+        f.write(graph_json)
+    print("Simulation complete. Graph data saved to ./data/graph_data.json")
 
 
 # ---------------------------
