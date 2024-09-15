@@ -819,7 +819,7 @@ def main_simulation():
             available_equipment=get_available_equipment_count(),
             patients_being_treated=get_patients_being_treated_count(),
             patients_in_waiting_room=get_patients_in_waiting_room_count(),
-            beds_available=total_beds - get_patients_being_treated_count(),
+            beds_available=num_beds - get_patients_being_treated_count(),
         )
         try:
             # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
