@@ -21,7 +21,7 @@ export default function PatientCard({ count, title, status }) {
   }
 
   return (
-    <div className="w-[350px] px-5 h-[160px] flex flex-col pt-4 items-center border-2 rounded-2xl gap-8">
+    <div className="w-[350px] px-5 h-[160px] flex flex-col pt-4 items-center border-2 bg-white rounded-2xl gap-8">
       <div className="flex justify-between w-full ">
         <h3> {title} </h3>
         <div

@@ -17,7 +17,7 @@ export default function MedicalCard({ count, position, status }) {
   }
 
   return (
-    <div className="w-[250px] h-[200px] flex flex-col justify-center items-center border-2 rounded-2xl gap-4">
+    <div className="w-[250px] h-[200px] bg-white flex flex-col justify-center items-center border-2 rounded-2xl gap-4">
       <h3> {position} </h3>
       <p className="peopleCount"> {count} </p>
       <div
