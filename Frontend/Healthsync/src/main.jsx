@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import Sidebar from "./components/Sidebar";
+import HomePage from "./components/HomePage";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: "/sidebar",
     element: <Sidebar />,
+  },
+  {
+    path: "/home",
+    element: <HomePage />,
   },
 ]);
 
