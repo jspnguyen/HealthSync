@@ -22,29 +22,6 @@ def generate_random_string(length=128):
 random_event = Agent(name="random_event", seed=generate_random_string())
 
 
-def generate_disaster_data(x):
-    for _ in range(x):
-        surgery_bool = random.choice([True, False])
-        urgency_score = random.uniform(0, 10)
-        equipment = random.choice([
-            "Ventilator",
-            "Defibrillator",
-            "ECG Monitor",
-            "Ultrasound Machine",
-            "Wheelchair",
-            "X-Ray Machine",
-            "MRI Scanner",
-            "Infusion Pump",
-            "Syringe Pump",
-            "Dialysis Machine",
-        ])
-
-        patient_name = f"{fake.first_name()} {fake.last_name()}"
-
-        # Call the function with the generated data
-        main.add_patient_to_graph(
-            patient_name, urgency_score, surgery_bool, equipment)
-
 
 @random_event.on_interval(period=45.0)
 async def random_event_gen(ctx: Context):
@@ -78,4 +55,9 @@ async def random_event_gen(ctx: Context):
     }
     response = requests.post(url, headers=headers, json=data)
 
-    generate_disaster_data(victims)
+    print(response.text)
+
+    main.admit_n_patients(victims)
+
+if __name__ == "__main__":
+    random_event.run()
