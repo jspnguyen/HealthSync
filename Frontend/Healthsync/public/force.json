@@ -4,95 +4,135 @@
     "graph": {},
     "nodes": [
         {
-            "id": "P2",
-            "type": "Patient",
-            "priority": "Regular",
-            "severity": 2,
-            "name": "Jane Smith"
-        },
-        {
-            "id": "P4",
+            "id": "P1",
             "type": "Patient",
             "priority": "Emergency",
+            "severity": 5,
+            "name": "John Doe",
+            "needs_surgery": false
+        },
+        {
+            "id": "P3",
+            "type": "Patient",
+            "priority": "Surgery",
             "severity": 4,
-            "name": "Bob Brown"
+            "name": "Alice Johnson",
+            "needs_surgery": true
         },
         {
             "id": "D1",
             "type": "Doctor",
             "specialty": "Cardiology",
-            "time_available": 3,
-            "name": "Dr. Heart"
+            "patients_per_hour": 6,
+            "name": "Dr. Heart",
+            "current_patients": [
+                "P4",
+                "P3"
+            ],
+            "time_busy": 1
         },
         {
             "id": "D2",
             "type": "Doctor",
             "specialty": "Orthopedics",
-            "time_available": 4.805016159335675,
-            "name": "Dr. Bone"
+            "patients_per_hour": 6,
+            "name": "Dr. Bone",
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "D3",
             "type": "Doctor",
             "specialty": "General Surgery",
-            "time_available": 2,
-            "name": "Dr. Surgeon"
+            "patients_per_hour": 6,
+            "name": "Dr. Surgeon",
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "D4",
             "type": "Doctor",
             "specialty": "Emergency Medicine",
-            "time_available": 1,
-            "name": "Dr. Swift"
+            "patients_per_hour": 6,
+            "name": "Dr. Swift",
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1",
+                "P2",
+                "P1",
+                "P1"
+            ],
+            "time_busy": 0
         },
         {
             "id": "D5",
             "type": "Doctor",
             "specialty": "Neurology",
-            "time_available": 4,
-            "name": "Dr. Brain"
+            "patients_per_hour": 6,
+            "name": "Dr. Brain",
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "N1",
             "type": "Nurse",
-            "time_available": 4,
+            "patients_per_hour": 3,
             "name": "Nurse Joy",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N2",
             "type": "Nurse",
-            "time_available": 3,
+            "patients_per_hour": 3,
             "name": "Nurse Anna",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P2",
+                "P1",
+                "P1"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N3",
             "type": "Nurse",
-            "time_available": 2,
+            "patients_per_hour": 3,
             "name": "Nurse Sam",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P4",
+                "P3",
+                "P4"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N4",
             "type": "Nurse",
-            "time_available": 5,
+            "patients_per_hour": 3,
             "name": "Nurse Kim",
-            "rooms_assigned": 0
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "N5",
             "type": "Nurse",
-            "time_available": 0.5,
+            "patients_per_hour": 3,
             "name": "Nurse Lee",
-            "rooms_assigned": 1
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "N6",
             "type": "Nurse",
-            "time_available": 2,
+            "patients_per_hour": 3,
             "name": "Nurse Pat",
-            "rooms_assigned": 0
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "E1_1",
@@ -193,32 +233,32 @@
         {
             "id": "B2",
             "type": "Bed",
+            "room_id": "R1",
+            "name": "Bed 2 in ER Room 1"
+        },
+        {
+            "id": "B3",
+            "type": "Bed",
             "room_id": "R2",
             "name": "Bed 1 in ER Room 2"
         },
         {
-            "id": "B3",
+            "id": "B4",
+            "type": "Bed",
+            "room_id": "R2",
+            "name": "Bed 2 in ER Room 2"
+        },
+        {
+            "id": "B5",
             "type": "Bed",
             "room_id": "R3",
             "name": "Bed 1 in Surgery Room 1"
         },
         {
-            "id": "B4",
-            "type": "Bed",
-            "room_id": "R3",
-            "name": "Bed 2 in Surgery Room 1"
-        },
-        {
-            "id": "B5",
-            "type": "Bed",
-            "room_id": "R4",
-            "name": "Bed 1 in Surgery Room 2"
-        },
-        {
             "id": "B6",
             "type": "Bed",
             "room_id": "R4",
-            "name": "Bed 2 in Surgery Room 2"
+            "name": "Bed 1 in Surgery Room 2"
         },
         {
             "id": "B7",
@@ -229,8 +269,20 @@
         {
             "id": "B8",
             "type": "Bed",
+            "room_id": "R5",
+            "name": "Bed 2 in ICU Room 1"
+        },
+        {
+            "id": "B9",
+            "type": "Bed",
             "room_id": "R6",
             "name": "Bed 1 in ICU Room 2"
+        },
+        {
+            "id": "B10",
+            "type": "Bed",
+            "room_id": "R6",
+            "name": "Bed 2 in ICU Room 2"
         },
         {
             "id": "AR",
@@ -241,27 +293,50 @@
             "id": "WR",
             "type": "WaitingRoom",
             "name": "Waiting Room"
-        },
-        {
-            "id": "P5",
-            "type": "Patient",
-            "priority": "Emergency",
-            "severity": 5,
-            "name": "David King"
         }
     ],
     "links": [
         {
             "relationship": "assigned_to",
             "weight": 1,
-            "source": "P2",
-            "target": "B2"
+            "source": "P1",
+            "target": "B1"
+        },
+        {
+            "relationship": "attending",
+            "weight": 0.16666666666666666,
+            "source": "P1",
+            "target": "D4"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P1",
+            "target": "N1"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P1",
+            "target": "N2"
         },
         {
             "relationship": "assigned_to",
             "weight": 1,
-            "source": "P4",
-            "target": "B4"
+            "source": "P3",
+            "target": "B3"
+        },
+        {
+            "relationship": "attending",
+            "weight": 1,
+            "source": "P3",
+            "target": "D1"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P3",
+            "target": "N3"
         },
         {
             "relationship": "has_doctor",
@@ -274,12 +349,6 @@
             "weight": 1,
             "source": "D2",
             "target": "R4"
-        },
-        {
-            "relationship": "attended_by",
-            "weight": 0.19498384066432567,
-            "source": "D2",
-            "target": "P5"
         },
         {
             "relationship": "has_doctor",
@@ -330,12 +399,6 @@
             "target": "R4"
         },
         {
-            "relationship": "assisted_by",
-            "weight": 0.5,
-            "source": "N5",
-            "target": "P5"
-        },
-        {
             "relationship": "has_nurse",
             "weight": 1,
             "source": "N6",
@@ -384,12 +447,6 @@
             "target": "R4"
         },
         {
-            "relationship": "needs",
-            "weight": 1,
-            "source": "E4_1",
-            "target": "P5"
-        },
-        {
             "relationship": "available",
             "weight": 1,
             "source": "E4_2",
@@ -414,6 +471,12 @@
             "target": "B1"
         },
         {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R1",
+            "target": "B2"
+        },
+        {
             "relationship": "pathway",
             "weight": 1,
             "source": "R1",
@@ -423,7 +486,13 @@
             "relationship": "in_room",
             "weight": 1,
             "source": "R2",
-            "target": "B2"
+            "target": "B3"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R2",
+            "target": "B4"
         },
         {
             "relationship": "pathway",
@@ -435,25 +504,13 @@
             "relationship": "in_room",
             "weight": 1,
             "source": "R3",
-            "target": "B3"
-        },
-        {
-            "relationship": "in_room",
-            "weight": 1,
-            "source": "R3",
-            "target": "B4"
+            "target": "B5"
         },
         {
             "relationship": "pathway",
             "weight": 1,
             "source": "R3",
             "target": "WR"
-        },
-        {
-            "relationship": "in_room",
-            "weight": 1,
-            "source": "R4",
-            "target": "B5"
         },
         {
             "relationship": "in_room",
@@ -474,6 +531,12 @@
             "target": "B7"
         },
         {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R5",
+            "target": "B8"
+        },
+        {
             "relationship": "pathway",
             "weight": 1,
             "source": "R5",
@@ -483,19 +546,19 @@
             "relationship": "in_room",
             "weight": 1,
             "source": "R6",
-            "target": "B8"
+            "target": "B9"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R6",
+            "target": "B10"
         },
         {
             "relationship": "pathway",
             "weight": 1,
             "source": "R6",
             "target": "WR"
-        },
-        {
-            "relationship": "assigned_to",
-            "weight": 1,
-            "source": "B5",
-            "target": "P5"
         }
     ]
 }

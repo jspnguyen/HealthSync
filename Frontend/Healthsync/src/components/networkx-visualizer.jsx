@@ -5,6 +5,15 @@ import './networkx-visualizer.css';
 const ForceDirectedLayout = () => {
   const [simulationRunning, setSimulationRunning] = useState(false);
   const svgRef = useRef();  // The ref for the SVG element
+  const colorMapping = {
+    Doctor: '#1f77b4',    // Blue
+    Nurse: '#ff7f0e',     // Orange
+    Patient: '#2ca02c',   // Green
+    Equipment: '#d62728', // Red
+    Room: '#9467bd',      // Purple
+    Bed: '#8c564b',       // Brown
+    WaitingRoom: '#e377c2'// Pink
+  };
 
   useEffect(() => {
     const width = 960;
@@ -47,7 +56,7 @@ const ForceDirectedLayout = () => {
           .data(data.nodes)
           .join('circle')
           .attr("r", 5)
-          .attr("fill", "#69b3a2")
+          .attr("fill", d => colorMapping[d.type])
           .call(
             d3.drag()
               .on("start", (event, d) => {
