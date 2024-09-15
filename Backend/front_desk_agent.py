@@ -1,0 +1,1 @@
+# TODO: Decide fesibility based on available doctors, nurses, and beds
