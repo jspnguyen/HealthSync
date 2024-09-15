@@ -12,17 +12,36 @@ fake = Faker()
 class Message(Model):
     message: str
 
+class FormRequest(Model):
+    message: str
+
+class Response(Model):
+    text: str
+
 def generate_random_string(length=128):
     letters = string.ascii_letters 
     return ''.join(random.choice(letters) for _ in range(length))
 
-priority_agent = Agent(name="priority_level", seed=generate_random_string())
+priority_agent = Agent(
+    name="priority_level", 
+    seed=generate_random_string(),
+    port=8001,
+    endpoint="http://localhost:8001/submit",
+)
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
-# ! Might not be on interval lol, fix this bullshit
-@priority_agent.on_interval(period=0.5)
-async def priority_level(ctx: Context):
+@priority_agent.on_query(model=FormRequest, replies={Response})
+async def priority_level(ctx: Context, sender: str, _query: FormRequest):
+    ctx.logger.info("Query received")
+    
+    try:
+        await ctx.send(sender, Response(text="Success"))
+    except Exception:
+        await ctx.send(sender, Response(text="Fail"))
+    
+    print(_query)
+    
     messages = [
         {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
         {"role": "user", "content": f"A heart attack"},
