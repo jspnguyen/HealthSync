@@ -1,0 +1,145 @@
+{
+    "doctors": [
+        {
+            "id": "D1",
+            "type": "Doctor",
+            "specialty": "Cardiology",
+            "time_available": 3,
+            "name": "Dr. Heart"
+        },
+        {
+            "id": "D2",
+            "type": "Doctor",
+            "specialty": "Orthopedics",
+            "time_available": 5,
+            "name": "Dr. Bone"
+        },
+        {
+            "id": "D3",
+            "type": "Doctor",
+            "specialty": "General Surgery",
+            "time_available": 2,
+            "name": "Dr. Surgeon"
+        },
+        {
+            "id": "D4",
+            "type": "Doctor",
+            "specialty": "Emergency Medicine",
+            "time_available": 1,
+            "name": "Dr. Swift"
+        },
+        {
+            "id": "D5",
+            "type": "Doctor",
+            "specialty": "Neurology",
+            "time_available": 4,
+            "name": "Dr. Brain"
+        }
+    ],
+    "nurses": [
+        {
+            "id": "N1",
+            "type": "Nurse",
+            "time_available": 4,
+            "name": "Nurse Joy",
+            "rooms_assigned": 0
+        },
+        {
+            "id": "N2",
+            "type": "Nurse",
+            "time_available": 3,
+            "name": "Nurse Anna",
+            "rooms_assigned": 0
+        },
+        {
+            "id": "N3",
+            "type": "Nurse",
+            "time_available": 2,
+            "name": "Nurse Sam",
+            "rooms_assigned": 0
+        },
+        {
+            "id": "N4",
+            "type": "Nurse",
+            "time_available": 5,
+            "name": "Nurse Kim",
+            "rooms_assigned": 0
+        },
+        {
+            "id": "N5",
+            "type": "Nurse",
+            "time_available": 1,
+            "name": "Nurse Lee",
+            "rooms_assigned": 0
+        },
+        {
+            "id": "N6",
+            "type": "Nurse",
+            "time_available": 2,
+            "name": "Nurse Pat",
+            "rooms_assigned": 0
+        }
+    ],
+    "equipment": [
+        {
+            "id": "E1_1",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E1"
+        },
+        {
+            "id": "E2_1",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E2_2",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E2_3",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E3_1",
+            "type": "Equipment",
+            "name": "MRI Scanner",
+            "original_id": "E3"
+        },
+        {
+            "id": "E3_2",
+            "type": "Equipment",
+            "name": "MRI Scanner",
+            "original_id": "E3"
+        },
+        {
+            "id": "E4_1",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_2",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_3",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_4",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        }
+    ]
+}
