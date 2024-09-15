@@ -3,6 +3,7 @@ import random
 import json
 from networkx.readwrite import json_graph
 import names
+import time
 
 # ==================================================================
 # Hospital Simulation Using NetworkX
@@ -788,6 +789,7 @@ def main_simulation():
         )
         # Admit new patients
         admit_n_patients(random.randint(5, 13))
+        time.sleep(5)
 
     # ==================================================================
     # END OF SIMULATION
