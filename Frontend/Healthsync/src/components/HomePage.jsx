@@ -5,7 +5,7 @@ import Nodes from "./ui/Nodes";
 
 function HomePage() {
   return (
-    <section className="flex w-[95vw]">
+    <section className="flex w-[100vw]">
       <Sidebar />
 
       {/* Home Page */}
