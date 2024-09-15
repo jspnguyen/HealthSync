@@ -778,7 +778,7 @@ def main_simulation():
     # Generate entities based on user input
     num_doctors = 15
     num_nurses = 30
-    num_beds = 100
+    num_beds = 150
     num_rooms = 50
     num_equipment = 100
     simulation_hours = 100
