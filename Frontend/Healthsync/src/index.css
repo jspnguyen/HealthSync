@@ -4,7 +4,7 @@
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  @apply bg-slate-500;
+  @apply bg-[#F1F1F1];
   /* line-height: 1.5;
   font-weight: 400;
 
@@ -29,7 +29,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+
   min-width: 320px;
   min-height: 100vh;
 }
