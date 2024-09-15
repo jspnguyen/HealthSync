@@ -1,0 +1,564 @@
+{
+    "directed": false,
+    "multigraph": false,
+    "graph": {},
+    "nodes": [
+        {
+            "id": "P1",
+            "type": "Patient",
+            "priority": "Emergency",
+            "severity": 5,
+            "name": "John Doe",
+            "needs_surgery": false
+        },
+        {
+            "id": "P3",
+            "type": "Patient",
+            "priority": "Surgery",
+            "severity": 4,
+            "name": "Alice Johnson",
+            "needs_surgery": true
+        },
+        {
+            "id": "D1",
+            "type": "Doctor",
+            "specialty": "Cardiology",
+            "patients_per_hour": 6,
+            "name": "Dr. Heart",
+            "current_patients": [
+                "P4",
+                "P3"
+            ],
+            "time_busy": 1
+        },
+        {
+            "id": "D2",
+            "type": "Doctor",
+            "specialty": "Orthopedics",
+            "patients_per_hour": 6,
+            "name": "Dr. Bone",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "D3",
+            "type": "Doctor",
+            "specialty": "General Surgery",
+            "patients_per_hour": 6,
+            "name": "Dr. Surgeon",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "D4",
+            "type": "Doctor",
+            "specialty": "Emergency Medicine",
+            "patients_per_hour": 6,
+            "name": "Dr. Swift",
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1",
+                "P2",
+                "P1",
+                "P1"
+            ],
+            "time_busy": 0
+        },
+        {
+            "id": "D5",
+            "type": "Doctor",
+            "specialty": "Neurology",
+            "patients_per_hour": 6,
+            "name": "Dr. Brain",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "N1",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Joy",
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1"
+            ],
+            "time_busy": 0
+        },
+        {
+            "id": "N2",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Anna",
+            "current_patients": [
+                "P2",
+                "P1",
+                "P1"
+            ],
+            "time_busy": 0
+        },
+        {
+            "id": "N3",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Sam",
+            "current_patients": [
+                "P4",
+                "P3",
+                "P4"
+            ],
+            "time_busy": 0
+        },
+        {
+            "id": "N4",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Kim",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "N5",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Lee",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "N6",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Pat",
+            "current_patients": [],
+            "time_busy": 0
+        },
+        {
+            "id": "E1_1",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E1"
+        },
+        {
+            "id": "E2_1",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E2_2",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E2_3",
+            "type": "Equipment",
+            "name": "X-Ray Machine",
+            "original_id": "E2"
+        },
+        {
+            "id": "E3_1",
+            "type": "Equipment",
+            "name": "MRI Scanner",
+            "original_id": "E3"
+        },
+        {
+            "id": "E3_2",
+            "type": "Equipment",
+            "name": "MRI Scanner",
+            "original_id": "E3"
+        },
+        {
+            "id": "E4_1",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_2",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_3",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "E4_4",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E4"
+        },
+        {
+            "id": "R1",
+            "type": "Room",
+            "name": "ER Room 1"
+        },
+        {
+            "id": "R2",
+            "type": "Room",
+            "name": "ER Room 2"
+        },
+        {
+            "id": "R3",
+            "type": "Room",
+            "name": "Surgery Room 1"
+        },
+        {
+            "id": "R4",
+            "type": "Room",
+            "name": "Surgery Room 2"
+        },
+        {
+            "id": "R5",
+            "type": "Room",
+            "name": "ICU Room 1"
+        },
+        {
+            "id": "R6",
+            "type": "Room",
+            "name": "ICU Room 2"
+        },
+        {
+            "id": "B1",
+            "type": "Bed",
+            "room_id": "R1",
+            "name": "Bed 1 in ER Room 1"
+        },
+        {
+            "id": "B2",
+            "type": "Bed",
+            "room_id": "R1",
+            "name": "Bed 2 in ER Room 1"
+        },
+        {
+            "id": "B3",
+            "type": "Bed",
+            "room_id": "R2",
+            "name": "Bed 1 in ER Room 2"
+        },
+        {
+            "id": "B4",
+            "type": "Bed",
+            "room_id": "R2",
+            "name": "Bed 2 in ER Room 2"
+        },
+        {
+            "id": "B5",
+            "type": "Bed",
+            "room_id": "R3",
+            "name": "Bed 1 in Surgery Room 1"
+        },
+        {
+            "id": "B6",
+            "type": "Bed",
+            "room_id": "R4",
+            "name": "Bed 1 in Surgery Room 2"
+        },
+        {
+            "id": "B7",
+            "type": "Bed",
+            "room_id": "R5",
+            "name": "Bed 1 in ICU Room 1"
+        },
+        {
+            "id": "B8",
+            "type": "Bed",
+            "room_id": "R5",
+            "name": "Bed 2 in ICU Room 1"
+        },
+        {
+            "id": "B9",
+            "type": "Bed",
+            "room_id": "R6",
+            "name": "Bed 1 in ICU Room 2"
+        },
+        {
+            "id": "B10",
+            "type": "Bed",
+            "room_id": "R6",
+            "name": "Bed 2 in ICU Room 2"
+        },
+        {
+            "id": "AR",
+            "type": "AvailableResources",
+            "name": "Available Resources"
+        },
+        {
+            "id": "WR",
+            "type": "WaitingRoom",
+            "name": "Waiting Room"
+        }
+    ],
+    "links": [
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "P1",
+            "target": "B1"
+        },
+        {
+            "relationship": "attending",
+            "weight": 0.16666666666666666,
+            "source": "P1",
+            "target": "D4"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P1",
+            "target": "N1"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P1",
+            "target": "N2"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "P3",
+            "target": "B3"
+        },
+        {
+            "relationship": "attending",
+            "weight": 1,
+            "source": "P3",
+            "target": "D1"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 0.3333333333333333,
+            "source": "P3",
+            "target": "N3"
+        },
+        {
+            "relationship": "has_doctor",
+            "weight": 1,
+            "source": "D1",
+            "target": "R2"
+        },
+        {
+            "relationship": "has_doctor",
+            "weight": 1,
+            "source": "D2",
+            "target": "R4"
+        },
+        {
+            "relationship": "has_doctor",
+            "weight": 1,
+            "source": "D3",
+            "target": "R3"
+        },
+        {
+            "relationship": "has_doctor",
+            "weight": 1,
+            "source": "D4",
+            "target": "R1"
+        },
+        {
+            "relationship": "has_doctor",
+            "weight": 1,
+            "source": "D5",
+            "target": "R5"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N1",
+            "target": "R1"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N2",
+            "target": "R1"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N3",
+            "target": "R2"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N4",
+            "target": "R3"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N5",
+            "target": "R4"
+        },
+        {
+            "relationship": "has_nurse",
+            "weight": 1,
+            "source": "N6",
+            "target": "R5"
+        },
+        {
+            "relationship": "has_equipment",
+            "weight": 1,
+            "source": "E1_1",
+            "target": "R1"
+        },
+        {
+            "relationship": "has_equipment",
+            "weight": 1,
+            "source": "E2_1",
+            "target": "R2"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E2_2",
+            "target": "AR"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E2_3",
+            "target": "AR"
+        },
+        {
+            "relationship": "has_equipment",
+            "weight": 1,
+            "source": "E3_1",
+            "target": "R3"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E3_2",
+            "target": "AR"
+        },
+        {
+            "relationship": "has_equipment",
+            "weight": 1,
+            "source": "E4_1",
+            "target": "R4"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E4_2",
+            "target": "AR"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E4_3",
+            "target": "AR"
+        },
+        {
+            "relationship": "available",
+            "weight": 1,
+            "source": "E4_4",
+            "target": "AR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R1",
+            "target": "B1"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R1",
+            "target": "B2"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R1",
+            "target": "WR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R2",
+            "target": "B3"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R2",
+            "target": "B4"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R2",
+            "target": "WR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R3",
+            "target": "B5"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R3",
+            "target": "WR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R4",
+            "target": "B6"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R4",
+            "target": "WR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R5",
+            "target": "B7"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R5",
+            "target": "B8"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R5",
+            "target": "WR"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R6",
+            "target": "B9"
+        },
+        {
+            "relationship": "in_room",
+            "weight": 1,
+            "source": "R6",
+            "target": "B10"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R6",
+            "target": "WR"
+        }
+    ]
+}
