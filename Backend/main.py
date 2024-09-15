@@ -753,11 +753,15 @@ def main_simulation():
         # Save the JSON to a file
         import os
 
-        os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
+        os.makedirs(
+            "../Frontend/Healthsync/public", exist_ok=True
+        )  # Ensure the output directory exists
 
-        with open("./data/graph_data.json", "w") as f:
+        with open("../Frontend/Healthsync/public/force.json", "w") as f:
             f.write(graph_json)
-        print("Simulation complete. Graph data saved to ./data/graph_data.json")
+        print(
+            "Simulation complete. Graph data saved to ../Frontend/Healthsync/public/force.json"
+        )
 
         time.sleep(5)
     # ==================================================================
