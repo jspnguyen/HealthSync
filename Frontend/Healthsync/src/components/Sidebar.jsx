@@ -4,6 +4,7 @@ import {
   PieChartIcon,
   GearIcon,
   ExitIcon,
+  EnvelopeClosedIcon,
 } from "@radix-ui/react-icons"; // Adjust the import based on your icon library
 
 function Sidebar() {
@@ -16,8 +17,8 @@ function Sidebar() {
       label: "Dashboard",
     },
     {
-      path: "/charts",
-      icon: <PieChartIcon className="w-[25px] h-[25px]" />,
+      path: "/form",
+      icon: <EnvelopeClosedIcon className="w-[25px] h-[25px]" />,
       label: "Charts",
     },
     {
