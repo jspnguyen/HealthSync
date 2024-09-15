@@ -3,6 +3,7 @@ import random
 import json
 from networkx.readwrite import json_graph
 import names
+import time
 
 # ==================================================================
 # Hospital Simulation Using NetworkX
@@ -743,23 +744,25 @@ def main_simulation():
         # Admit new patients
         admit_n_patients(random.randint(5, 13))
 
+        # Convert the graph to node-link data format
+        graph_data = json_graph.node_link_data(G)
+
+        # Convert the dictionary to a JSON object
+        graph_json = json.dumps(graph_data, indent=4)
+
+        # Save the JSON to a file
+        import os
+
+        os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
+
+        with open("./data/graph_data.json", "w") as f:
+            f.write(graph_json)
+        print("Simulation complete. Graph data saved to ./data/graph_data.json")
+
+        time.sleep(5)
     # ==================================================================
     # END OF SIMULATION
     # ==================================================================
-    # Convert the graph to node-link data format
-    graph_data = json_graph.node_link_data(G)
-
-    # Convert the dictionary to a JSON object
-    graph_json = json.dumps(graph_data, indent=4)
-
-    # Save the JSON to a file
-    import os
-
-    os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
-
-    with open("./data/graph_data.json", "w") as f:
-        f.write(graph_json)
-    print("Simulation complete. Graph data saved to ./data/graph_data.json")
 
 
 # ---------------------------
