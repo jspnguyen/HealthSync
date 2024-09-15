@@ -1,10 +1,13 @@
 from uagents import Agent, Bureau, Context, Model
 import random, string, os, requests, ast
+from faker import Faker
 from dotenv import load_dotenv
+import main
 
 load_dotenv()
 MODEL_ID = "8w6yyp2q"
 BASETEN_API_KEY = os.getenv("BASETEN_API_KEY")
+fake = Faker()
 
 class Message(Model):
     message: str
@@ -64,18 +67,46 @@ async def priority_level(ctx: Context):
     equipment = res.text.strip('"')
     ctx.logger.info(f"Equipment Needed: {equipment}")
     
+    messages = [
+        {"role": "system", "content": "You are a hospital decision making system that chooses if a patient requires surgery. Reply with either True or False."},
+        {"role": "user", "content": f"A heart attack"},
+    ]
+
+    payload = {
+        "messages": messages,
+        "stream": False,
+        "max_new_tokens": 2048,
+        "temperature": 0.9
+    }
+
+    res = requests.post(
+        f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+        headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+        json=payload,
+        stream=False
+    )
+
+    surgery_bool = res.text.strip('"')
+    ctx.logger.info(f"Surgery Needed: {surgery_bool}")
+    
     if urgency_score >= 9:
-        await ctx.send(forced_add_agent.address, Message(message=f"{urgency_score}|{equipment}"))
+        await ctx.send(forced_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
     else:
-        await ctx.send(normal_add_agent.address, Message(message=f"{urgency_score}|{equipment}"))
+        await ctx.send(normal_add_agent.address, Message(message=f"{urgency_score}|{equipment}|{surgery_bool}"))
 
 @normal_add_agent.on_message(model=Message)
 async def normal_add_handler(ctx: Context, sender: str, msg: Message):
     value_list = msg.message.split("|")
     urgency_score = float(value_list[0])
     equipment = ast.literal_eval(value_list[1])
+    surgery_bool = bool(value_list[2])
     
     # TODO: Actually call add_patient_to_graph
+    patient_id = f"P{random.randint(1, 999999999)}"
+    patient_name = f"{fake.first_name()} {fake.last_name()}"
+    
+    main.add_patient_to_graph(None, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    
     ctx.logger.info(f"Normally added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
 @forced_add_agent.on_message(model=Message)
@@ -83,8 +114,14 @@ async def forced_add_handler(ctx: Context, sender: str, msg: Message):
     value_list = msg.message.split("|")
     urgency_score = float(value_list[0])
     equipment = ast.literal_eval(value_list[1])
+    surgery_bool = bool(value_list[2])
     
     # TODO: Actually call add_patient_to_graph
+    patient_id = f"P{random.randint(1, 999999999)}"
+    patient_name = f"{fake.first_name()} {fake.last_name()}"
+    
+    main.add_patient_to_graph(None, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    
     ctx.logger.info(f"Forced added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
 bureau = Bureau()
