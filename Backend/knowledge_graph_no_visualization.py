@@ -18,6 +18,7 @@ patients = [
         "priority": "Emergency",
         "severity": 5,
         "name": "John Doe",
+        "needs_surgery": False,
     },
     {
         "id": "P2",
@@ -25,6 +26,7 @@ patients = [
         "priority": "Regular",
         "severity": 2,
         "name": "Jane Smith",
+        "needs_surgery": False,
     },
     {
         "id": "P3",
@@ -32,6 +34,7 @@ patients = [
         "priority": "Surgery",
         "severity": 4,
         "name": "Alice Johnson",
+        "needs_surgery": True,
     },
     {
         "id": "P4",
@@ -39,6 +42,7 @@ patients = [
         "priority": "Emergency",
         "severity": 4,
         "name": "Bob Brown",
+        "needs_surgery": False,
     },
 ]
 
@@ -48,36 +52,46 @@ doctors = [
         "id": "D1",
         "type": "Doctor",
         "specialty": "Cardiology",
-        "time_available": 3,
+        "patients_per_hour": 6,
         "name": "Dr. Heart",
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "D2",
         "type": "Doctor",
         "specialty": "Orthopedics",
-        "time_available": 5,
+        "patients_per_hour": 6,
         "name": "Dr. Bone",
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "D3",
         "type": "Doctor",
         "specialty": "General Surgery",
-        "time_available": 2,
+        "patients_per_hour": 6,  # Adjusted to allow any doctor to perform surgery
         "name": "Dr. Surgeon",
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "D4",
         "type": "Doctor",
         "specialty": "Emergency Medicine",
-        "time_available": 1,
+        "patients_per_hour": 6,
         "name": "Dr. Swift",
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "D5",
         "type": "Doctor",
         "specialty": "Neurology",
-        "time_available": 4,
+        "patients_per_hour": 6,
         "name": "Dr. Brain",
+        "current_patients": [],
+        "time_busy": 0,
     },
 ]
 
@@ -86,44 +100,50 @@ nurses = [
     {
         "id": "N1",
         "type": "Nurse",
-        "time_available": 4,
+        "patients_per_hour": 3,
         "name": "Nurse Joy",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "N2",
         "type": "Nurse",
-        "time_available": 3,
+        "patients_per_hour": 3,
         "name": "Nurse Anna",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "N3",
         "type": "Nurse",
-        "time_available": 2,
+        "patients_per_hour": 3,
         "name": "Nurse Sam",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "N4",
         "type": "Nurse",
-        "time_available": 5,
+        "patients_per_hour": 3,
         "name": "Nurse Kim",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "N5",
         "type": "Nurse",
-        "time_available": 1,
+        "patients_per_hour": 3,
         "name": "Nurse Lee",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
     {
         "id": "N6",
         "type": "Nurse",
-        "time_available": 2,
+        "patients_per_hour": 3,
         "name": "Nurse Pat",
-        "rooms_assigned": 0,
+        "current_patients": [],
+        "time_busy": 0,
     },
 ]
 
@@ -165,12 +185,12 @@ rooms_dict = {room["id"]: room for room in rooms}
 
 # Define bed counts per room
 room_bed_counts = {
-    "R1": 1,
-    "R2": 1,
-    "R3": 2,
-    "R4": 2,
-    "R5": 1,
-    "R6": 1,
+    "R1": 2,
+    "R2": 2,
+    "R3": 1,
+    "R4": 1,
+    "R5": 2,
+    "R6": 2,
 }
 
 # Generate beds
@@ -339,175 +359,199 @@ for patient in patients:
     assigned_bed = assign_patient_to_bed(patient, G, beds)
 
 # ---------------------------
-# 4. Define Weight Calculation
+# 4. Define Priority Calculation
 # ---------------------------
 
 
-def calculate_weight(patient, resource, factor=1, resource_type=None):
+def calculate_priority_score(patient):
     """
-    Calculate the weight based on time, priority, severity, and resource scarcity.
-    Lower weights indicate better suitability.
+    Calculate a priority score for the patient based on severity and priority.
+    Higher scores indicate higher priority.
     """
-    # Time weight (more available time -> lower weight)
-    time_weight = resource.get("time_available", 1)
+    # Map priority to a numerical value
+    priority_mapping = {"Emergency": 3, "Surgery": 2, "Regular": 1}
+    priority_score = priority_mapping.get(patient["priority"], 1)
+    severity_score = patient[
+        "severity"
+    ]  # Assuming severity is from 1 (low) to 5 (high)
 
-    # Priority weight (Emergency: 1, Surgery: 2, Regular: 3)
-    priority_mapping = {"Emergency": 1, "Surgery": 2, "Regular": 3}
-    priority_weight = priority_mapping.get(patient["priority"], 3)
+    total_score = priority_score * 10 + severity_score  # Weight priority higher
+    return total_score
 
-    # Severity weight (higher severity -> lower weight)
-    severity_weight = 6 - patient["severity"]  # Assuming severity scale is from 1 to 5
 
-    # Scarcity weight (scarce resources -> higher weight)
-    scarcity_weight = resource.get("scarcity", 1)
+# ---------------------------
+# 5. Simulate Time Steps
+# ---------------------------
 
-    # Total weight calculation
-    if resource_type == "Doctor":
-        if patient["priority"] == "Surgery":
-            # Surgery requires more attention
-            attention = 1  # 1 hour per surgery
-        else:
-            # Regular patient: 1/5 to 1/6 hours
-            attention = random.uniform(1 / 6, 1 / 5)
-    elif resource_type == "Nurse":
-        # Each room assignment requires 0.5 hours
-        attention = 0.5
+
+def simulate_time_step(G, doctors, nurses, patients, time_step=1):
+    """
+    Simulates a time step in the hospital.
+    """
+    print(f"\n--- Simulating time step of {time_step} hour(s) ---")
+
+    # Sort patients based on priority score
+    patients_sorted = sorted(
+        patients, key=lambda p: calculate_priority_score(p), reverse=True
+    )
+
+    # Assign attention to patients
+    for patient in patients_sorted:
+        # Get the bed the patient is assigned to
+        bed_id = None
+        for edge in G.edges(patient["id"]):
+            if G.nodes[edge[1]]["type"] == "Bed":
+                bed_id = edge[1]
+                break
+        if not bed_id:
+            continue  # Patient not assigned to a bed
+
+        room_id = G.nodes[bed_id]["room_id"]
+
+        # Get doctor and nurse in the room
+        room_doctors = [
+            n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Doctor"
+        ]
+        room_nurses = [n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Nurse"]
+
+        # Assign doctor
+        for doctor_id in room_doctors:
+            doctor = G.nodes[doctor_id]
+            if doctor["time_busy"] > 0:
+                continue  # Doctor is busy
+            if patient["needs_surgery"]:
+                # Surgery takes full attention
+                doctor["current_patients"].append(patient["id"])
+                doctor["time_busy"] = time_step  # Busy for the entire time step
+                print(f"{doctor['name']} is performing surgery on {patient['name']}")
+                G.add_edge(doctor_id, patient["id"], relationship="attending", weight=1)
+                break
+            elif len(doctor["current_patients"]) < doctor["patients_per_hour"]:
+                # Assign doctor to patient
+                doctor["current_patients"].append(patient["id"])
+                print(f"{doctor['name']} is attending to {patient['name']}")
+                G.add_edge(
+                    doctor_id,
+                    patient["id"],
+                    relationship="attending",
+                    weight=1 / doctor["patients_per_hour"],
+                )
+                break
+
+        # Assign nurse
+        for nurse_id in room_nurses:
+            nurse = G.nodes[nurse_id]
+            if nurse["time_busy"] > 0:
+                continue  # Nurse is busy
+            if len(nurse["current_patients"]) < nurse["patients_per_hour"]:
+                nurse["current_patients"].append(patient["id"])
+                print(f"{nurse['name']} is attending to {patient['name']}")
+                G.add_edge(
+                    nurse_id,
+                    patient["id"],
+                    relationship="assisting",
+                    weight=1 / nurse["patients_per_hour"],
+                )
+                break
+
+    # Update time_busy for doctors and nurses
+    for doctor in doctors:
+        if doctor["time_busy"] > 0:
+            doctor["time_busy"] -= time_step
+            if doctor["time_busy"] <= 0:
+                doctor["time_busy"] = 0
+                doctor["current_patients"] = []
+    for nurse in nurses:
+        if nurse["time_busy"] > 0:
+            nurse["time_busy"] -= time_step
+            if nurse["time_busy"] <= 0:
+                nurse["time_busy"] = 0
+                nurse["current_patients"] = []
+
+    # After time step, attempt to release patients
+    released_patients = simulate_patient_release(G, patients)
+    return released_patients
+
+
+# ---------------------------
+# 6. Simulate Patient Release
+# ---------------------------
+
+
+def simulate_patient_release(G, patients):
+    released_patients = []
+    for patient in patients:
+        release_probability = calculate_release_probability(patient)
+        if random.random() < release_probability:
+            print(f"{patient['name']} has been treated and is ready for release.")
+            release_patient(G, patient)
+            released_patients.append(patient)
+    return released_patients
+
+
+def calculate_release_probability(patient):
+    """
+    Calculates the probability that a patient can be released after a time step.
+    """
+    base_prob = 0.1  # Base probability
+    severity_modifier = (
+        5 - patient["severity"]
+    ) * 0.15  # Higher severity, lower probability
+    if patient["needs_surgery"]:
+        surgery_modifier = (
+            -0.2
+        )  # Surgery patients are less likely to be released immediately
     else:
-        # Equipment or others
-        attention = 1
-
-    total_weight = (attention) * factor
-    return total_weight
-
-
-# ---------------------------
-# 5. Simulate Routing a New Patient
-# ---------------------------
-
-# Add a new incoming patient
-new_patient = {
-    "id": "P5",
-    "type": "Patient",
-    "priority": "Emergency",
-    "severity": 5,
-    "name": "David King",
-}
-G.add_node(new_patient["id"], **new_patient)
-
-# Assign the new patient to a bed
-assigned_bed = assign_patient_to_bed(new_patient, G, beds)
-
-# ---------------------------
-# 6. Assign Resources from the Room to the Patient
-# ---------------------------
+        surgery_modifier = 0
+    total_probability = base_prob + severity_modifier + surgery_modifier
+    total_probability = max(min(total_probability, 1.0), 0.0)  # Clamp between 0 and 1
+    return total_probability
 
 
-def assign_resources_to_patient(patient, bed_id, G):
-    """
-    Assigns a doctor, nurse, and equipment from the bed's room to the patient.
-    Updates resource availability accordingly.
-    """
-    # Get the room ID from the bed
-    bed = G.nodes[bed_id]
-    room_id = bed["room_id"]
-
-    # Get resources in the room
-    resources = {
-        "doctors": [n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Doctor"],
-        "nurses": [n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Nurse"],
-        "equipment": [
-            n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Equipment"
-        ],
-    }
-
-    # Assign Doctor
-    assigned_doctor = None
-    for doc_id in resources["doctors"]:
-        # Check if doctor is available (time_available > 0)
-        if G.nodes[doc_id]["time_available"] > 0:
-            assigned_doctor = doc_id
+def release_patient(G, patient):
+    # Remove patient from bed
+    bed_id = None
+    for edge in G.edges(patient["id"]):
+        if G.nodes[edge[1]]["type"] == "Bed":
+            bed_id = edge[1]
             break
-    if assigned_doctor:
-        attention = calculate_weight(
-            patient, G.nodes[assigned_doctor], resource_type="Doctor"
-        )
-        G.add_edge(
-            patient["id"],
-            assigned_doctor,
-            relationship="attended_by",
-            weight=attention,
-        )
-        # Update doctor's availability
-        G.nodes[assigned_doctor]["time_available"] -= attention
-        print(
-            f"Assigned Doctor {G.nodes[assigned_doctor]['name']} to {patient['name']} (Attention: {attention:.2f} hours)"
-        )
-    else:
-        print(
-            f"No available doctors in {G.nodes[room_id]['name']} for {patient['name']}"
-        )
+    if bed_id:
+        G.remove_edge(patient["id"], bed_id)
+        print(f"{patient['name']} has been released from {G.nodes[bed_id]['name']}")
 
-    # Assign Nurse
-    assigned_nurse = None
-    for nurse_id in resources["nurses"]:
-        if (
-            G.nodes[nurse_id]["time_available"] > 0
-            and G.nodes[nurse_id].get("rooms_assigned", 0) < 3
-        ):
-            assigned_nurse = nurse_id
-            break
-    if assigned_nurse:
-        attention = calculate_weight(
-            patient, G.nodes[assigned_nurse], resource_type="Nurse"
-        )
-        G.add_edge(
-            patient["id"],
-            assigned_nurse,
-            relationship="assisted_by",
-            weight=attention,
-        )
-        # Update nurse's availability and rooms_assigned
-        G.nodes[assigned_nurse]["time_available"] -= attention
-        G.nodes[assigned_nurse]["rooms_assigned"] += 1
-        print(
-            f"Assigned Nurse {G.nodes[assigned_nurse]['name']} to {patient['name']} (Attention: {attention:.2f} hours)"
-        )
-    else:
-        print(
-            f"No available nurses in {G.nodes[room_id]['name']} for {patient['name']}"
-        )
+    # Remove relationships with doctors and nurses
+    for neighbor in list(G.neighbors(patient["id"])):
+        G.remove_edge(patient["id"], neighbor)
+    # Remove patient node
+    G.remove_node(patient["id"])
 
-    # Assign Equipment
-    assigned_equipment = None
-    for eq_id in resources["equipment"]:
-        # For simplicity, assign the first available equipment
-        assigned_equipment = eq_id
+
+# ---------------------------
+# 7. Main Simulation Loop
+# ---------------------------
+
+# Simulate over multiple time steps
+time_steps = 5  # Number of hours to simulate
+for t in range(time_steps):
+    print(f"\n--- Hour {t+1} ---")
+    # Simulate time step
+    released_patients = simulate_time_step(G, doctors, nurses, patients)
+    # Remove released patients from the list
+    patients = [p for p in patients if p not in released_patients]
+    # Assign waiting patients if beds become available
+    if waiting_room_queue:
+        for patient in list(waiting_room_queue):
+            assigned_bed = assign_patient_to_bed(patient, G, beds)
+            if assigned_bed:
+                waiting_room_queue.remove(patient)
+                patients.append(patient)
+    # Break if no patients left
+    if not patients and not waiting_room_queue:
+        print("All patients have been treated and released.")
         break
-    if assigned_equipment:
-        attention = calculate_weight(
-            patient, G.nodes[assigned_equipment], resource_type="Equipment"
-        )
-        G.add_edge(
-            patient["id"],
-            assigned_equipment,
-            relationship="needs",
-            weight=attention,
-        )
-        print(
-            f"Assigned Equipment {G.nodes[assigned_equipment]['name']} to {patient['name']} (Attention: {attention:.2f} hours)"
-        )
-    else:
-        print(
-            f"No available equipment in {G.nodes[room_id]['name']} for {patient['name']}"
-        )
-
-
-# Assign resources to the new patient if assigned to a bed
-if assigned_bed:
-    assign_resources_to_patient(new_patient, assigned_bed, G)
 
 # ---------------------------
-# 7. Detect and Print Resource Strain
+# 8. Detect and Print Resource Strain
 # ---------------------------
 
 
@@ -515,9 +559,11 @@ def detect_resource_strain(G):
     strained_resources = []
 
     for node_id, data in G.nodes(data=True):
-        if data["type"] in ["Doctor", "Nurse"]:
-            time_available = data.get("time_available", 0)
-            if time_available <= 0:
+        if data["type"] == "Doctor":
+            if len(data["current_patients"]) >= data["patients_per_hour"]:
+                strained_resources.append((node_id, data["name"], data["type"]))
+        elif data["type"] == "Nurse":
+            if len(data["current_patients"]) >= data["patients_per_hour"]:
                 strained_resources.append((node_id, data["name"], data["type"]))
 
     return strained_resources
@@ -530,87 +576,8 @@ for node_id, name, res_type in strained_resources:
     print(f"  {name} ({res_type})")
 
 # ---------------------------
-# 8. Simulate Patient Release
+# 9. Export Graph Data
 # ---------------------------
-
-
-def release_patients(G, patients, release_probabilities):
-    """
-    Simulates the release of patients based on their release probabilities.
-    """
-    released_patients = []
-    for patient in patients:
-        prob = release_probabilities.get(
-            patient["id"], 0.1
-        )  # Default 10% if not specified
-        if random.random() < prob:
-            released_patients.append(patient)
-            print(f"Patient {patient['name']} has been released.")
-            # Free up the bed
-            bed_id = None
-            for edge in G.edges(patient["id"]):
-                if G.nodes[edge[1]]["type"] == "Bed":
-                    bed_id = edge[1]
-                    break
-            if bed_id:
-                G.remove_edge(patient["id"], bed_id)
-                print(f"Bed {G.nodes[bed_id]['name']} is now available.")
-            # Remove resource assignments
-            for neighbor in list(G.neighbors(patient["id"])):
-                G.remove_edge(patient["id"], neighbor)
-            # Remove patient from the graph
-            G.remove_node(patient["id"])
-    return released_patients
-
-
-# Define release probabilities based on severity and priority
-# Higher severity and Emergency priority have lower release probabilities
-release_probabilities = {}
-for patient in patients + [new_patient]:
-    base_prob = 0.3  # Base probability
-    if patient["priority"] == "Emergency":
-        base_prob -= 0.2
-    elif patient["priority"] == "Surgery":
-        base_prob -= 0.1
-    base_prob += (patient["severity"] - 3) * 0.05  # Adjust based on severity
-    base_prob = max(min(base_prob, 1.0), 0.0)  # Clamp between 0 and 1
-    release_probabilities[patient["id"]] = base_prob
-
-# Simulate patient releases
-released = release_patients(G, patients + [new_patient], release_probabilities)
-
-# ---------------------------
-# 9. Reassign Nurses' Room Assignments After Release
-# ---------------------------
-
-
-def reassign_nurse_rooms(G, released_patients, nurses):
-    """
-    Reassigns rooms for nurses based on released patients.
-    """
-    for patient in released_patients:
-        # Find the room from which the patient was released
-        for edge in G.edges(patient["id"]):
-            if G.nodes[edge[1]]["type"] == "Room":
-                room_id = edge[1]
-                break
-        else:
-            continue  # No room found
-
-        # Find nurses assigned to this room
-        nurses_in_room = [
-            n for n in G.neighbors(room_id) if G.nodes[n]["type"] == "Nurse"
-        ]
-        for nurse_id in nurses_in_room:
-            if G.nodes[nurse_id].get("rooms_assigned", 0) > 0:
-                G.nodes[nurse_id]["rooms_assigned"] -= 1
-                print(
-                    f"Nurse {G.nodes[nurse_id]['name']} has one less room assigned (Total Assigned: {G.nodes[nurse_id]['rooms_assigned']})"
-                )
-
-
-# Reassign nurse room assignments based on released patients
-reassign_nurse_rooms(G, released, nurses)
 
 # Convert the graph to node-link data format
 graph_data = json_graph.node_link_data(G)
@@ -621,6 +588,7 @@ graph_json = json.dumps(graph_data, indent=4)
 # Save the JSON to a file
 with open("./data/graph_data.json", "w") as f:
     f.write(graph_json)
+
 # Combine doctors, nurses, and equipment into a single resources dictionary
 resources = {"doctors": doctors, "nurses": nurses, "equipment": equipment}
 
