@@ -20,11 +20,12 @@ priority_agent = Agent(name="priority_level", seed=generate_random_string())
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
+# ! Might not be on interval lol, fix this bullshit
 @priority_agent.on_interval(period=0.5)
 async def priority_level(ctx: Context):
     messages = [
         {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
-        {"role": "user", "content": f"Patient has a paper cut"},
+        {"role": "user", "content": f"A heart attack"},
     ]
 
     payload = {
