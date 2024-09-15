@@ -772,19 +772,19 @@ def main_simulation():
     # END OF SIMULATION
     # ==================================================================
     # Convert the graph to node-link data format
-    graph_data = json_graph.node_link_data(G)
+    # graph_data = json_graph.node_link_data(G)
 
-    # Convert the dictionary to a JSON object
-    graph_json = json.dumps(graph_data, indent=4)
+    # # Convert the dictionary to a JSON object
+    # graph_json = json.dumps(graph_data, indent=4)
 
-    # Save the JSON to a file
-    import os
+    # # Save the JSON to a file
+    # import os
 
-    os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
+    # os.makedirs("./data", exist_ok=True)  # Ensure the output directory exists
 
-    with open("./data/graph_data.json", "w") as f:
-        f.write(graph_json)
-    print("Simulation complete. Graph data saved to ./data/graph_data.json")
+    # with open("./data/graph_data.json", "w") as f:
+    #     f.write(graph_json)
+    # print("Simulation complete. Graph data saved to ./data/graph_data.json")
 
 
 # ---------------------------
