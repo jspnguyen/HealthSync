@@ -25,12 +25,15 @@ class Patient(BaseModel):
     description: str
 
 class Counts(BaseModel):
-    doctor_count: int
-    nurse_count: int
-    equipment_count: int
-    patients_waiting_count: int
-    patients_emergency_count: int
-    bed_count: int
+    total_doctors: int
+    available_doctors: int
+    total_nurses: int
+    available_nurses: int
+    total_equipment: int
+    available_equipment: int
+    patients_being_treated: int
+    patients_in_waiting_room: int
+    beds_available: int
 
 
 @app.get("/")
@@ -57,31 +60,11 @@ def get_graph():
         graph = json.load(f)
     return graph
 
-@app.get("/count/doctors")
-def get_doctor_count():
-    load = "Low"
-    if main.doctor_id_counter < 10:
-        load = "Low"
-    elif main.doctor_id_counter >= 10:
-        load = "Normal"
-
-    return {"count": main.doctor_id_counter, "load": load}
-
-@app.get("/count/nurses"):
-def get_nurse_count():
-    return {"count": main.get_nurse_count(), "load": }
-
-@app.get("/count/equipment"):
-def get_equipment_count():
-    return {"count": main.get_equipment_count(), "load": }
-
-@app.get("/count/patientswaiting"):
-def get_patients_waiting_count():
-    return {"count": main.get_patients_waiting_count(), "load": }
-
-@app.get("/count/patientemergency"):
-def get_patients_emergency_count():
-    return {"count": main.get_patients_emergency_count(), "load": }
+@app.get("/allcounts")
+def get_allcounts():
+    with open("./json/counts.json", 'r') as f:
+        counts = json.load(f)
+    return counts
 
 
 

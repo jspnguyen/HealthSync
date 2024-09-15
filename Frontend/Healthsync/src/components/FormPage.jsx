@@ -2,6 +2,7 @@ import Sidebar from "./Sidebar";
 import { useForm } from "react-hook-form";
 
 function FormPage() {
+  
   const {
     register,
     handleSubmit,

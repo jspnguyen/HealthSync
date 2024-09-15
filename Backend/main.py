@@ -26,7 +26,7 @@ class Counts(BaseModel):
     available_equipment: int
     patients_being_treated: int
     patients_in_waiting_room: int
-    available_beds: int
+    beds_available: int
 
 
 # Initialize the knowledge graph
@@ -775,9 +775,9 @@ def main_simulation():
     # Generate entities based on user input
     num_doctors = 15
     num_nurses = 30
-    num_beds = 30
-    num_rooms = 10
-    num_equipment = 30
+    num_beds = 100
+    num_rooms = 50
+    num_equipment = 100
     simulation_hours = 100
 
     generate_doctors(num_doctors)
@@ -809,9 +809,7 @@ def main_simulation():
         with open("./api/json/graph.json", "w") as f:
             f.write(graph_json)
         print("Simulation complete. Graph data saved to ./api/json/graph.json")
-
-        API_URL = "http://your.api.endpoint/counts"
-
+        API_URL = "http://0.0.0.0:8080/counts/"
         counts = Counts(
             total_doctors=total_doctors,
             available_doctors=get_available_doctor_count(),
@@ -823,16 +821,15 @@ def main_simulation():
             patients_in_waiting_room=get_patients_in_waiting_room_count(),
             beds_available=total_beds - get_patients_being_treated_count(),
         )
-
         try:
-            response = requests.post(API_URL, json=counts.model_dump_json())
+            # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
+            response = requests.post(API_URL, json=counts.dict())
             response.raise_for_status()  # Raises HTTPError for bad responses
             logging.info(f"Successfully sent counts: {counts}")
         except requests.exceptions.HTTPError as http_err:
             logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
         except Exception as err:
             logging.error(f"An error occurred: {err}")  # Other errors
-
         time.sleep(5)
     # ==================================================================
     # END OF SIMULATION

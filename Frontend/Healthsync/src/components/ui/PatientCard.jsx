@@ -12,8 +12,6 @@ export default function PatientCard({ count, title, status }) {
 
   if (status === "Low") {
     statusColor = "bg-green";
-  } else if (status === "Moderate") {
-    statusColor = "bg-yellow";
   } else if (status === "High") {
     statusColor = "bg-red";
   } else {
