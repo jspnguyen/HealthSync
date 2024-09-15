@@ -818,7 +818,7 @@ def main_simulation():
     num_beds = 150
     num_rooms = 50
     num_equipment = 100
-    simulation_hours = 100
+    simulation_hours = 100000000
 
     generate_doctors(num_doctors)
     generate_nurses(num_nurses)
@@ -930,43 +930,43 @@ def main_simulation():
 
 
             # Convert the graph to node-link data format
-            graph_data = json_graph.node_link_data(G)
+        graph_data = json_graph.node_link_data(G)
 
-            # Convert the dictionary to a JSON object
-            graph_json = json.dumps(graph_data, indent=4)
+        # Convert the dictionary to a JSON object
+        graph_json = json.dumps(graph_data, indent=4)
 
-            # Save the JSON to a file
-            import os
+        # Save the JSON to a file
+        import os
 
-            os.makedirs("./api/json/", exist_ok=True)  # Ensure the output directory exists
-            with open("./api/json/graph.json", "w") as f:
-                f.write(graph_json)
-            print("Simulation complete. Graph data saved to ./api/json/graph.json")
-            API_URL = "http://0.0.0.0:8080/counts/"
-            counts = Counts(
-                total_doctors=total_doctors,
-                available_doctors=get_available_doctor_count(),
-                total_nurses=total_nurses,
-                available_nurses=get_available_nurse_count(),
-                total_equipment=total_equipment,
-                available_equipment=get_available_equipment_count(),
-                patients_being_treated=get_patients_being_treated_count(),
-                patients_in_waiting_room=get_patients_in_waiting_room_count(),
-                beds_available=num_beds - get_patients_being_treated_count(),
-            )
-            try:
-                # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
-                response = requests.post(API_URL, json=counts.dict())
-                response.raise_for_status()  # Raises HTTPError for bad responses
-                logging.info(f"Successfully sent counts: {counts}")
-            except requests.exceptions.HTTPError as http_err:
-                logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
-            except Exception as err:
-                logging.error(f"An error occurred: {err}")  # Other errors
-            time.sleep(5)
-        # ==================================================================
-        # END OF SIMULATION
-        # ==================================================================
+        os.makedirs("./api/json/", exist_ok=True)  # Ensure the output directory exists
+        with open("./api/json/graph.json", "w") as f:
+            f.write(graph_json)
+        print("Simulation complete. Graph data saved to ./api/json/graph.json")
+        API_URL = "http://0.0.0.0:8080/counts/"
+        counts = Counts(
+            total_doctors=total_doctors,
+            available_doctors=get_available_doctor_count(),
+            total_nurses=total_nurses,
+            available_nurses=get_available_nurse_count(),
+            total_equipment=total_equipment,
+            available_equipment=get_available_equipment_count(),
+            patients_being_treated=get_patients_being_treated_count(),
+            patients_in_waiting_room=get_patients_in_waiting_room_count(),
+            beds_available=num_beds - get_patients_being_treated_count(),
+        )
+        try:
+            # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
+            response = requests.post(API_URL, json=counts.dict())
+            response.raise_for_status()  # Raises HTTPError for bad responses
+            logging.info(f"Successfully sent counts: {counts}")
+        except requests.exceptions.HTTPError as http_err:
+            logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
+        except Exception as err:
+            logging.error(f"An error occurred: {err}")  # Other errors
+        time.sleep(5)
+    # ==================================================================
+    # END OF SIMULATION
+    # ==================================================================
 
 
 
