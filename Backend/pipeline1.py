@@ -3,8 +3,8 @@ import random, string, os, requests, ast
 from faker import Faker
 from dotenv import load_dotenv
 import main
-
 load_dotenv()
+
 MODEL_ID = "8w6yyp2q"
 BASETEN_API_KEY = os.getenv("BASETEN_API_KEY")
 fake = Faker()

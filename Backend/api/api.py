@@ -1,5 +1,6 @@
 import fastapi
 from pydantic import BaseModel
+import json
 
 app = fastapi.FastAPI()
 
@@ -12,7 +13,11 @@ def read_root():
 
 @app.post("/walkin/")
 def walkin(patient: Patient):
-    return {"description": patient.description}
+    json = patient.model_dump()
+    with open("json/patients.json", "w") as f:
+        f.write(str(json).replace("'", "\""))
+    return {"Status": "Success"}
+
 
 if __name__ == "__main__":
     import uvicorn
