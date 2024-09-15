@@ -483,22 +483,25 @@ def assign_medical_staff_to_patients(patients):
         available_nurses = [
             (nurse_id, nurse_data)
             for nurse_id, nurse_data in all_nurses.items()
-            if len(nurse_data["current_patients"]) < 3
+            if len(nurse_data["current_patients"]) < nurse_data["patients_per_hour"]
         ]
         # Sort nurses by least number of patients to balance load
         available_nurses.sort(key=lambda x: len(x[1]["current_patients"]))
         assigned = False
         for nurse_id, nurse_data in available_nurses:
-            if len(nurse_data["current_patients"]) < 3:
+            if len(nurse_data["current_patients"]) < nurse_data["patients_per_hour"]:
+                # Assign nurse to patient
                 if nurse_id not in G.nodes:
                     G.add_node(nurse_id, **nurse_data)
                 G.add_edge(nurse_id, patient["id"], relationship="assisting", weight=1)
                 nurse_data["current_patients"].append(patient["id"])
+                # Update the graph node's current_patients
+                G.nodes[nurse_id]["current_patients"].append(patient["id"])
                 print(f"{nurse_data['name']} is assisting {patient['name']}.")
                 assigned = True
-                break
+                break  # Move to the next patient after assignment
         if not assigned:
-            print(f"No available nurses for patient {patient['name']}.")
+            logging.warning(f"No available nurses for patient {patient['name']}.")
 
 
 # ---------------------------
@@ -775,7 +778,7 @@ def main_simulation():
     # Generate entities based on user input
     num_doctors = 15
     num_nurses = 30
-    num_beds = 100
+    num_beds = 150
     num_rooms = 50
     num_equipment = 100
     simulation_hours = 100
@@ -819,7 +822,7 @@ def main_simulation():
             available_equipment=get_available_equipment_count(),
             patients_being_treated=get_patients_being_treated_count(),
             patients_in_waiting_room=get_patients_in_waiting_room_count(),
-            beds_available=num_beds - get_patients_being_treated_count(),
+            available_beds=num_beds - get_patients_being_treated_count(),
         )
         try:
             # Use `dict()` to serialize the model to a dictionary and let `requests` convert it to JSON
