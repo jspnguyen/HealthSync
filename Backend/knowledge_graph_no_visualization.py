@@ -4,228 +4,7 @@ import json
 from networkx.readwrite import json_graph
 
 # Initialize the knowledge graph
-G = nx.Graph()
 
-# ---------------------------
-# 1. Add Nodes (Patients, Doctors, Nurses, Beds, Equipment)
-# ---------------------------
-
-# Define Patients
-patients = [
-    {
-        "id": "P1",
-        "type": "Patient",
-        "priority_score": 0,  # Start with priority score of 0
-        "severity": 5,  # Severity on a scale of 1-10
-        "name": "John Doe",
-        "needs_surgery": False,
-        "time_waiting": 0,  # Initialize waiting time to 0
-    },
-    {
-        "id": "P2",
-        "type": "Patient",
-        "priority_score": 0,  # Start with priority score of 0
-        "severity": 2,  # Severity on a scale of 1-10
-        "name": "Jane Smith",
-        "needs_surgery": False,
-        "time_waiting": 0,  # Initialize waiting time to 0
-    },
-    {
-        "id": "P3",
-        "priority_score": 0,  # Start with priority score of 0
-        "type": "Patient",
-        "severity": 4,  # Severity on a scale of 1-10
-        "name": "Alice Johnson",
-        "needs_surgery": True,
-        "time_waiting": 0,  # Initialize waiting time to 0
-    },
-    {
-        "id": "P4",
-        "type": "Patient",
-        "priority_score": 0,  # Start with priority score of 0
-        "severity": 4,  # Severity on a scale of 1-10
-        "name": "Bob Brown",
-        "needs_surgery": False,
-        "time_waiting": 0,  # Initialize waiting time to 0
-    },
-]
-
-# Define Doctors
-doctors = [
-    {
-        "id": "D1",
-        "type": "Doctor",
-        "specialty": "Cardiology",
-        "patients_per_hour": 5,
-        "name": "Dr. Heart",
-        "current_patients": [],
-        "attention_allocated": 0.0,
-    },
-    {
-        "id": "D2",
-        "type": "Doctor",
-        "specialty": "Orthopedics",
-        "patients_per_hour": 5,
-        "name": "Dr. Bone",
-        "current_patients": [],
-        "attention_allocated": 0.0,
-    },
-    {
-        "id": "D3",
-        "type": "Doctor",
-        "specialty": "General Surgery",
-        "patients_per_hour": 5,
-        "name": "Dr. Surgeon",
-        "current_patients": [],
-        "attention_allocated": 0.0,
-    },
-    {
-        "id": "D4",
-        "type": "Doctor",
-        "specialty": "Emergency Medicine",
-        "patients_per_hour": 5,
-        "name": "Dr. Swift",
-        "current_patients": [],
-        "attention_allocated": 0.0,
-    },
-    {
-        "id": "D5",
-        "type": "Doctor",
-        "specialty": "Neurology",
-        "patients_per_hour": 5,
-        "name": "Dr. Brain",
-        "current_patients": [],
-        "attention_allocated": 0.0,
-    },
-]
-
-# Define Nurses
-nurses = [
-    {
-        "id": "N1",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Joy",
-        "current_patients": [],
-    },
-    {
-        "id": "N2",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Anna",
-        "current_patients": [],
-    },
-    {
-        "id": "N3",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Sam",
-        "current_patients": [],
-    },
-    {
-        "id": "N4",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Kim",
-        "current_patients": [],
-    },
-    {
-        "id": "N5",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Lee",
-        "current_patients": [],
-    },
-    {
-        "id": "N6",
-        "type": "Nurse",
-        "patients_per_hour": 3,
-        "name": "Nurse Pat",
-        "current_patients": [],
-    },
-]
-
-# Define Equipment (Multiple instances of the same equipment type)
-equipment_list = [
-    {"id": "E1", "type": "Equipment", "scarcity": 3, "name": "Ventilator"},
-    {"id": "E2", "type": "Equipment", "scarcity": 2, "name": "Defibrillator"},
-    {"id": "E3", "type": "Equipment", "scarcity": 4, "name": "ECG Monitor"},
-    {"id": "E4", "type": "Equipment", "scarcity": 2, "name": "Ultrasound Machine"},
-    {"id": "E5", "type": "Equipment", "scarcity": 5, "name": "Wheelchair"},
-]
-
-# Create multiple instances of equipment types
-equipment = []
-for eq in equipment_list:
-    for i in range(eq["scarcity"]):
-        equipment.append(
-            {
-                "id": f"{eq['id']}_{i+1}",
-                "type": "Equipment",
-                "name": eq["name"],
-                "original_id": eq["id"],
-                "available": True,
-            }
-        )
-
-# Generate Beds
-beds = []
-for i in range(1, 11):
-    bed = {
-        "id": f"B{i}",
-        "type": "Bed",
-        "name": f"Bed {i}",
-    }
-    beds.append(bed)
-
-# Add Patients and Beds to the graph
-for entity in patients + beds:
-    G.add_node(entity["id"], **entity)
-
-# Define rooms
-rooms = []
-for i in range(1, 4):  # Assume we have 3 rooms
-    room = {
-        "id": f"Room{i}",
-        "type": "Room",
-        "name": f"Room {i}",
-    }
-    rooms.append(room)
-
-# Define the waiting room
-waiting_room = {
-    "id": "WaitingRoom",
-    "type": "WaitingRoom",
-    "name": "Hospital Waiting Room",
-}
-
-# Add rooms and waiting room to the graph
-G.add_node(waiting_room["id"], **waiting_room)
-for room in rooms:
-    G.add_node(room["id"], **room)
-    G.add_edge(waiting_room["id"], room["id"], relationship="contains", weight=1)
-
-# Add beds and assign them to rooms
-beds_per_room = len(beds) // len(rooms)  # Integer division
-extra_beds = len(beds) % len(rooms)  # Beds that remain after even division
-
-room_index = 0
-for i, bed in enumerate(beds):
-    # After evenly distributing the beds, allocate the extra beds to rooms
-    if i >= (room_index + 1) * beds_per_room + min(room_index, extra_beds):
-        room_index += 1
-
-    room_id = rooms[room_index]["id"]
-    G.add_node(bed["id"], **bed)
-    G.add_edge(room_id, bed["id"], relationship="contains", weight=1)
-
-# ---------------------------
-# Add Patients, Doctors, and Nurses to the graph
-# ---------------------------
-
-# Add Patients, Doctors, and Nurses
-for entity in patients + doctors + nurses:
-    G.add_node(entity["id"], **entity)
 
 # ---------------------------
 # 2. Assign Patients to Beds
@@ -309,10 +88,6 @@ def assign_patient_to_bed(patient, G, beds):
     print(f"Assigned {patient['name']} to {bed['name']}")
     return True
 
-
-# Assign existing patients to beds
-for patient in patients:
-    assign_patient_to_bed(patient, G, beds)
 
 # ---------------------------
 # 3. Assign Doctors and Nurses to Patients
@@ -418,8 +193,6 @@ def assign_medical_staff_to_patients(G, doctors, nurses, patients):
         else:
             print(f"No available nurses for {patient['name']}")
 
-
-assign_medical_staff_to_patients(G, doctors, nurses, patients)
 
 # ---------------------------
 # 4. Assign Equipment to Patients (Equipment added only in add_patient_to_graph)
@@ -559,38 +332,269 @@ def release_patient(G, patient, equipment):
 # ---------------------------
 
 # Simulate over multiple time steps
-time_steps = 2  # Number of hours to simulate
-for t in range(time_steps):
-    print(f"\n--- Hour {t+1} ---")
-    # Simulate time step
-    released_patients = simulate_time_step(G, doctors, nurses, patients, equipment)
-    # Remove released patients from the list
-    patients = [p for p in patients if p not in released_patients]
-    # Break if no patients left
-    if not patients:
-        print("All patients have been treated and released.")
-        break
+# time_steps = 2  # Number of hours to simulate
+# for t in range(time_steps):
+#     print(f"\n--- Hour {t+1} ---")
+#     # Simulate time step
+#     released_patients = simulate_time_step(G, doctors, nurses, patients, equipment)
+#     # Remove released patients from the list
+#     patients = [p for p in patients if p not in released_patients]
+#     # Break if no patients left
+#     if not patients:
+#         print("All patients have been treated and released.")
+#         break
 
-# ---------------------------
-# 9. Export Graph Data
-# ---------------------------
+# # ---------------------------
+# # 9. Export Graph Data
+# # ---------------------------
 
-# Convert the graph to node-link data format
-graph_data = json_graph.node_link_data(G)
+# # Convert the graph to node-link data format
+# graph_data = json_graph.node_link_data(G)
 
-# Convert the dictionary to a JSON object
-graph_json = json.dumps(graph_data, indent=4)
+# # Convert the dictionary to a JSON object
+# graph_json = json.dumps(graph_data, indent=4)
 
-# Save the JSON to a file
-with open("./data/graph_data.json", "w") as f:
-    f.write(graph_json)
+# # Save the JSON to a file
+# with open("./data/graph_data.json", "w") as f:
+#     f.write(graph_json)
 
-# Combine doctors, nurses, and equipment into a single resources dictionary
-resources = {"doctors": doctors, "nurses": nurses, "equipment": equipment}
+# # Combine doctors, nurses, and equipment into a single resources dictionary
+# resources = {"doctors": doctors, "nurses": nurses, "equipment": equipment}
 
-# Save the resources to a separate JSON file
-with open("./data/resources_backend.json", "w") as f:
-    json.dump(resources, f, indent=4)
+# # Save the resources to a separate JSON file
+# with open("./data/resources_backend.json", "w") as f:
+#     json.dump(resources, f, indent=4)
 
-print("Resources have been saved to resources_backend.json")
-print("Graph exported to graph_data.json")
+
+# print("Resources have been saved to resources_backend.json")
+# print("Graph exported to graph_data.json")
+def main():
+    G = nx.Graph()
+
+    # ---------------------------
+    # 1. Add Nodes (Patients, Doctors, Nurses, Beds, Equipment)
+    # ---------------------------
+
+    # Define Patients
+    patients = [
+        {
+            "id": "P1",
+            "type": "Patient",
+            "priority_score": 0,  # Start with priority score of 0
+            "severity": 5,  # Severity on a scale of 1-10
+            "name": "John Doe",
+            "needs_surgery": False,
+            "time_waiting": 0,  # Initialize waiting time to 0
+        },
+        {
+            "id": "P2",
+            "type": "Patient",
+            "priority_score": 0,  # Start with priority score of 0
+            "severity": 2,  # Severity on a scale of 1-10
+            "name": "Jane Smith",
+            "needs_surgery": False,
+            "time_waiting": 0,  # Initialize waiting time to 0
+        },
+        {
+            "id": "P3",
+            "priority_score": 0,  # Start with priority score of 0
+            "type": "Patient",
+            "severity": 4,  # Severity on a scale of 1-10
+            "name": "Alice Johnson",
+            "needs_surgery": True,
+            "time_waiting": 0,  # Initialize waiting time to 0
+        },
+        {
+            "id": "P4",
+            "type": "Patient",
+            "priority_score": 0,  # Start with priority score of 0
+            "severity": 4,  # Severity on a scale of 1-10
+            "name": "Bob Brown",
+            "needs_surgery": False,
+            "time_waiting": 0,  # Initialize waiting time to 0
+        },
+    ]
+
+    # Define Doctors
+    doctors = [
+        {
+            "id": "D1",
+            "type": "Doctor",
+            "specialty": "Cardiology",
+            "patients_per_hour": 5,
+            "name": "Dr. Heart",
+            "current_patients": [],
+            "attention_allocated": 0.0,
+        },
+        {
+            "id": "D2",
+            "type": "Doctor",
+            "specialty": "Orthopedics",
+            "patients_per_hour": 5,
+            "name": "Dr. Bone",
+            "current_patients": [],
+            "attention_allocated": 0.0,
+        },
+        {
+            "id": "D3",
+            "type": "Doctor",
+            "specialty": "General Surgery",
+            "patients_per_hour": 5,
+            "name": "Dr. Surgeon",
+            "current_patients": [],
+            "attention_allocated": 0.0,
+        },
+        {
+            "id": "D4",
+            "type": "Doctor",
+            "specialty": "Emergency Medicine",
+            "patients_per_hour": 5,
+            "name": "Dr. Swift",
+            "current_patients": [],
+            "attention_allocated": 0.0,
+        },
+        {
+            "id": "D5",
+            "type": "Doctor",
+            "specialty": "Neurology",
+            "patients_per_hour": 5,
+            "name": "Dr. Brain",
+            "current_patients": [],
+            "attention_allocated": 0.0,
+        },
+    ]
+
+    # Define Nurses
+    nurses = [
+        {
+            "id": "N1",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Joy",
+            "current_patients": [],
+        },
+        {
+            "id": "N2",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Anna",
+            "current_patients": [],
+        },
+        {
+            "id": "N3",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Sam",
+            "current_patients": [],
+        },
+        {
+            "id": "N4",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Kim",
+            "current_patients": [],
+        },
+        {
+            "id": "N5",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Lee",
+            "current_patients": [],
+        },
+        {
+            "id": "N6",
+            "type": "Nurse",
+            "patients_per_hour": 3,
+            "name": "Nurse Pat",
+            "current_patients": [],
+        },
+    ]
+
+    # Define Equipment (Multiple instances of the same equipment type)
+    equipment_list = [
+        {"id": "E1", "type": "Equipment", "scarcity": 3, "name": "Ventilator"},
+        {"id": "E2", "type": "Equipment", "scarcity": 2, "name": "Defibrillator"},
+        {"id": "E3", "type": "Equipment", "scarcity": 4, "name": "ECG Monitor"},
+        {"id": "E4", "type": "Equipment", "scarcity": 2, "name": "Ultrasound Machine"},
+        {"id": "E5", "type": "Equipment", "scarcity": 5, "name": "Wheelchair"},
+    ]
+
+    # Create multiple instances of equipment types
+    equipment = []
+    for eq in equipment_list:
+        for i in range(eq["scarcity"]):
+            equipment.append(
+                {
+                    "id": f"{eq['id']}_{i+1}",
+                    "type": "Equipment",
+                    "name": eq["name"],
+                    "original_id": eq["id"],
+                    "available": True,
+                }
+            )
+
+    # Generate Beds
+    beds = []
+    for i in range(1, 11):
+        bed = {
+            "id": f"B{i}",
+            "type": "Bed",
+            "name": f"Bed {i}",
+        }
+        beds.append(bed)
+
+    # Add Patients and Beds to the graph
+    for entity in patients + beds:
+        G.add_node(entity["id"], **entity)
+
+    # Define rooms
+    rooms = []
+    for i in range(1, 4):  # Assume we have 3 rooms
+        room = {
+            "id": f"Room{i}",
+            "type": "Room",
+            "name": f"Room {i}",
+        }
+        rooms.append(room)
+
+    # Define the waiting room
+    waiting_room = {
+        "id": "WaitingRoom",
+        "type": "WaitingRoom",
+        "name": "Hospital Waiting Room",
+    }
+
+    # Add rooms and waiting room to the graph
+    G.add_node(waiting_room["id"], **waiting_room)
+    for room in rooms:
+        G.add_node(room["id"], **room)
+        G.add_edge(waiting_room["id"], room["id"], relationship="contains", weight=1)
+
+    # Add beds and assign them to rooms
+    beds_per_room = len(beds) // len(rooms)  # Integer division
+    extra_beds = len(beds) % len(rooms)  # Beds that remain after even division
+
+    room_index = 0
+    for i, bed in enumerate(beds):
+        # After evenly distributing the beds, allocate the extra beds to rooms
+        if i >= (room_index + 1) * beds_per_room + min(room_index, extra_beds):
+            room_index += 1
+
+        room_id = rooms[room_index]["id"]
+        G.add_node(bed["id"], **bed)
+        G.add_edge(room_id, bed["id"], relationship="contains", weight=1)
+
+    # ---------------------------
+    # Add Patients, Doctors, and Nurses to the graph
+    # ---------------------------
+
+    # Add Patients, Doctors, and Nurses
+    for entity in patients + doctors + nurses:
+        G.add_node(entity["id"], **entity)
+    # Assign existing patients to beds
+    for patient in patients:
+        assign_patient_to_bed(patient, G, beds)
+
+    assign_medical_staff_to_patients(G, doctors, nurses, patients)
+
+    return G
