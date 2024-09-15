@@ -1,2 +1,5 @@
 .venv
 Frontend/Healthsync/bun.lockb
+Backend/data/fard.json
+Backend/data/graph_data.json
+Backend/data/resources_backend.json
