@@ -10,13 +10,13 @@ def generate_random_string(length=128):
     letters = string.ascii_letters  
     return ''.join(random.choice(letters) for _ in range(length))
 
-equipment_agent = Agent(name="equipment_needs", seed=generate_random_string())
+event_agent = Agent(name="event_watcher", seed=generate_random_string())
 
-@equipment_agent.on_interval(period=4.0)
-async def equipment_needs(ctx: Context):
+@event_agent.on_interval(period=4.0)
+async def event_watcher(ctx: Context):
     messages = [
-        {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
-        {"role": "user", "content": f"A heart attack"},
+        {"role": "system", "content": "You are a professional hospital staff allocation manager who judges the level of alert a hospital should be on when a described event occurs. You should only respond with a number from 0-10 based with up to two decimals and nothing else."},
+        {"role": "user", "content": f"Medium forest fire"},
     ]
 
     payload = {
@@ -33,8 +33,8 @@ async def equipment_needs(ctx: Context):
         stream=False
     )
 
-    equipment = res.text.strip('"')
-    ctx.logger.info(f"Equipment Needed: {equipment}")
+    alert_level = float(res.text.strip('"'))
+    ctx.logger.info(f"The alert level is {alert_level}!")
 
 if __name__ == "__main__":
-    equipment_agent.run()
+    event_agent.run()
