@@ -4,6 +4,10 @@ import json
 from networkx.readwrite import json_graph
 import names
 import time
+import logging
+import requests
+from pydantic import BaseModel
+
 
 # ==================================================================
 # Hospital Simulation Using NetworkX
@@ -13,6 +17,17 @@ import time
 # It manages patient admissions, assignments, releases, and maintains
 # counters for all entities and patients.
 # ==================================================================
+class Counts(BaseModel):
+    total_doctors: int
+    available_doctors: int
+    total_nurses: int
+    available_nurses: int
+    total_equipment: int
+    available_equipment: int
+    patients_being_treated: int
+    patients_in_waiting_room: int
+    available_beds: int
+
 
 # Initialize the knowledge graph
 G = nx.Graph()
@@ -711,6 +726,42 @@ def simulate_time_step(time_step=1):
     assign_medical_staff_to_patients(current_patients)
 
 
+def get_available_doctor_count():
+    available = sum(
+        1 for doctor in all_doctors.values() if doctor["attention_allocated"] < 1.0
+    )
+    return available
+
+
+def get_available_nurse_count():
+    available = sum(
+        1 for nurse in all_nurses.values() if len(nurse["current_patients"]) < 3
+    )
+    return available
+
+
+def get_available_equipment_count():
+    available = sum(1 for equipment in all_equipment.values() if equipment["available"])
+    return available
+
+
+def get_patients_being_treated_count():
+    patients_in_beds = [
+        node1 if G.nodes[node1]["type"] == "Patient" else node2
+        for node1, node2 in G.edges()
+        if (
+            (G.nodes[node1]["type"] == "Patient" and G.nodes[node2]["type"] == "Bed")
+            or (G.nodes[node1]["type"] == "Bed" and G.nodes[node2]["type"] == "Patient")
+        )
+    ]
+    return len(patients_in_beds)
+
+
+def get_patients_in_waiting_room_count():
+    waiting_patients = get_patients_in_waiting_room()
+    return len(waiting_patients)
+
+
 # ---------------------------
 # Main Simulation Execution
 # ---------------------------
@@ -754,15 +805,33 @@ def main_simulation():
         # Save the JSON to a file
         import os
 
-        os.makedirs(
-            "./api/json/", exist_ok=True
-        )  # Ensure the output directory exists
+        os.makedirs("./api/json/", exist_ok=True)  # Ensure the output directory exists
         with open("./api/json/graph.json", "w") as f:
             f.write(graph_json)
-        print(
-            "Simulation complete. Graph data saved to ./api/json/graph.json"
+        print("Simulation complete. Graph data saved to ./api/json/graph.json")
 
+        API_URL = "http://your.api.endpoint/counts"
+
+        counts = Counts(
+            total_doctors=total_doctors,
+            available_doctors=get_available_doctor_count(),
+            total_nurses=total_nurses,
+            available_nurses=get_available_nurse_count(),
+            total_equipment=total_equipment,
+            available_equipment=get_available_equipment_count(),
+            patients_being_treated=get_patients_being_treated_count(),
+            patients_in_waiting_room=get_patients_in_waiting_room_count(),
+            beds_available=total_beds - get_patients_being_treated_count(),
         )
+
+        try:
+            response = requests.post(API_URL, json=counts.model_dump_json())
+            response.raise_for_status()  # Raises HTTPError for bad responses
+            logging.info(f"Successfully sent counts: {counts}")
+        except requests.exceptions.HTTPError as http_err:
+            logging.error(f"HTTP error occurred: {http_err}")  # HTTP error
+        except Exception as err:
+            logging.error(f"An error occurred: {err}")  # Other errors
 
         time.sleep(5)
     # ==================================================================
