@@ -12,12 +12,12 @@
             "needs_surgery": false
         },
         {
-            "id": "P4",
+            "id": "P3",
             "type": "Patient",
-            "priority": "Emergency",
+            "priority": "Surgery",
             "severity": 4,
-            "name": "Bob Brown",
-            "needs_surgery": false
+            "name": "Alice Johnson",
+            "needs_surgery": true
         },
         {
             "id": "D1",
@@ -61,7 +61,7 @@
                 "P1",
                 "P2",
                 "P1",
-                "P2"
+                "P1"
             ],
             "time_busy": 0
         },
@@ -94,7 +94,7 @@
             "current_patients": [
                 "P2",
                 "P1",
-                "P2"
+                "P1"
             ],
             "time_busy": 0
         },
@@ -323,19 +323,19 @@
         {
             "relationship": "assigned_to",
             "weight": 1,
-            "source": "P4",
-            "target": "B4"
+            "source": "P3",
+            "target": "B3"
         },
         {
             "relationship": "attending",
-            "weight": 0.16666666666666666,
-            "source": "P4",
+            "weight": 1,
+            "source": "P3",
             "target": "D1"
         },
         {
             "relationship": "assisting",
             "weight": 0.3333333333333333,
-            "source": "P4",
+            "source": "P3",
             "target": "N3"
         },
         {

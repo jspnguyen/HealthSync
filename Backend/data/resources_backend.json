@@ -4,80 +4,118 @@
             "id": "D1",
             "type": "Doctor",
             "specialty": "Cardiology",
-            "time_available": 3,
-            "name": "Dr. Heart"
+            "patients_per_hour": 6,
+            "name": "Dr. Heart",
+            "current_patients": [
+                "P4",
+                "P3"
+            ],
+            "time_busy": 0
         },
         {
             "id": "D2",
             "type": "Doctor",
             "specialty": "Orthopedics",
-            "time_available": 5,
-            "name": "Dr. Bone"
+            "patients_per_hour": 6,
+            "name": "Dr. Bone",
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "D3",
             "type": "Doctor",
             "specialty": "General Surgery",
-            "time_available": 2,
-            "name": "Dr. Surgeon"
+            "patients_per_hour": 6,
+            "name": "Dr. Surgeon",
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "D4",
             "type": "Doctor",
             "specialty": "Emergency Medicine",
-            "time_available": 1,
-            "name": "Dr. Swift"
+            "patients_per_hour": 6,
+            "name": "Dr. Swift",
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1",
+                "P2",
+                "P1",
+                "P2"
+            ],
+            "time_busy": 0
         },
         {
             "id": "D5",
             "type": "Doctor",
             "specialty": "Neurology",
-            "time_available": 4,
-            "name": "Dr. Brain"
+            "patients_per_hour": 6,
+            "name": "Dr. Brain",
+            "current_patients": [],
+            "time_busy": 0
         }
     ],
     "nurses": [
         {
             "id": "N1",
             "type": "Nurse",
-            "time_available": 4,
+            "patients_per_hour": 3,
             "name": "Nurse Joy",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P1",
+                "P2",
+                "P1"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N2",
             "type": "Nurse",
-            "time_available": 3,
+            "patients_per_hour": 3,
             "name": "Nurse Anna",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P2",
+                "P1",
+                "P2"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N3",
             "type": "Nurse",
-            "time_available": 2,
+            "patients_per_hour": 3,
             "name": "Nurse Sam",
-            "rooms_assigned": 0
+            "current_patients": [
+                "P4",
+                "P3",
+                "P4"
+            ],
+            "time_busy": 0
         },
         {
             "id": "N4",
             "type": "Nurse",
-            "time_available": 5,
+            "patients_per_hour": 3,
             "name": "Nurse Kim",
-            "rooms_assigned": 0
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "N5",
             "type": "Nurse",
-            "time_available": 1,
+            "patients_per_hour": 3,
             "name": "Nurse Lee",
-            "rooms_assigned": 0
+            "current_patients": [],
+            "time_busy": 0
         },
         {
             "id": "N6",
             "type": "Nurse",
-            "time_available": 2,
+            "patients_per_hour": 3,
             "name": "Nurse Pat",
-            "rooms_assigned": 0
+            "current_patients": [],
+            "time_busy": 0
         }
     ],
     "equipment": [
