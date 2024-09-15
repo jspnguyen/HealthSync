@@ -10,7 +10,7 @@ MedicalCard.propTypes = {
 export default function MedicalCard({ count, position, status }) {
   let statusColor = "bg-green";
 
-  if (status === "Normal") {
+  if (status === "High") {
     statusColor = "bg-green";
   } else {
     statusColor = "bg-red";

@@ -98,27 +98,29 @@ const Graph = () => {
     // Initialize simulation
     const simulation = d3
       .forceSimulation()
-      .force("link", d3.forceLink().id((d) => d.id).distance(20))
+      .force("link", d3.forceLink().id((d) => d.id).distance(10))
       .force("charge", d3.forceManyBody().strength(-10))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
     simulationRef.current = simulation;
 
     simulation.on("tick", () => {
-      // Update positions on every tick
+      const clampX = (x) => Math.max(0, Math.min(width, x));
+      const clampY = (y) => Math.max(0, Math.min(height, y));
+    
       linkGroup
         .selectAll("line")
-        .attr("x1", (d) => d.source.x)
-        .attr("y1", (d) => d.source.y)
-        .attr("x2", (d) => d.target.x)
-        .attr("y2", (d) => d.target.y);
-
+        .attr("x1", (d) => clampX(d.source.x))
+        .attr("y1", (d) => clampY(d.source.y))
+        .attr("x2", (d) => clampX(d.target.x))
+        .attr("y2", (d) => clampY(d.target.y));
+    
       nodeGroup
         .selectAll("circle")
-        .attr("cx", (d) => d.x)
-        .attr("cy", (d) => d.y);
+        .attr("cx", (d) => clampX(d.x))
+        .attr("cy", (d) => clampY(d.y));
     });
-
+    
     return () => {
       // Clean up
       simulation.stop();
