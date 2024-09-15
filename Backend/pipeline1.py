@@ -20,14 +20,16 @@ priority_agent = Agent(name="priority_level", seed=generate_random_string())
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
-prev_form = {}
+prev_form = {'description' : ''}
 
 @priority_agent.on_interval(period=0.5)
 async def priority_level(ctx: Context):
     with open("Backend/api/json/patients.json", 'r') as file:
         data = json.load(file)
         
-    if prev_form and data['description'] != prev_form:        
+    if data['description'] != prev_form['description']:
+        prev_form['description'] = data['description']
+        
         messages = [
             {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
             {"role": "user", "content": f"{data['description']}"},
