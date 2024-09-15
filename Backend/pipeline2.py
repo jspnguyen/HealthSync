@@ -1,6 +1,7 @@
 from uagents import Agent, Context
 import random, string, os, requests
 from dotenv import load_dotenv
+import main
 
 load_dotenv()
 MODEL_ID = "8w6yyp2q"
@@ -19,8 +20,8 @@ async def stress_level(ctx: Context):
     
     # TODO: Prompts need reengineering
     messages = [
-        {"role": "system", "content": "You are a professional hospital staff allocation manager working in a moment of high stress for a hospital. Given staffing levels, reply with what item needs to be increased if all levels are adequate say so. Nurse to patient ration should be at least 1:2, doctor to patient should be at least 1:1000, and beds should be at least 1:1. Reply in a short phrase."},
-        {"role": "user", "content": f""},
+        {"role": "system", "content": "Given certain supply levels of staff and equipment, reply with a boolean (True or False) if there should be worry in terms of level of availability."},
+        {"role": "user", "content": f"Doctors: Nurses: Beds: Patients in Hospital: "},
     ]
 
     payload = {
@@ -39,6 +40,12 @@ async def stress_level(ctx: Context):
 
     response = res.text.strip('"')
     ctx.logger.info(response)
+    
+    # TODO: Add a notification of some sort
+    if True:
+        pass
+    else:
+        pass
     
     # TODO:
     # Make a call to knowledge base
