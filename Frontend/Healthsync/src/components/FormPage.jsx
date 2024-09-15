@@ -1,18 +1,73 @@
 import Sidebar from "./Sidebar";
+import { useForm } from "react-hook-form";
 
 function FormPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
+
+  const onSubmit = (data) => console.log(data);
+
   return (
-    <section className="flex w-[95vw]">
+    <section className="flex w-[100vw] h-[100vh] justify-center items-center">
       <Sidebar />
 
-      {/* Home Page */}
-      <section className="ml-12 px-12 py-6 w-full">
-        <div className="mb-8">
-          <h1 className="font-bold text-4xl">
+      <section className="ml-12 px-12 py-6 w-2/3">
+        <div className="mb-24">
+          <h1 className="font-bold text-8xl text-center">
             Health<span className="text-blue">sync</span>
           </h1>
-          <p className="text-secondary">Welcome back!</p>
         </div>
+
+        {/* Form Field */}
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-16"
+        >
+          <div className="flex flex-col gap-6">
+            <div className="flex gap-6 py-3 rounded-2xl">
+              <div className="w-1/2 px-4 py-3 bg-white rounded-lg">
+                <input
+                  {...register("firstName", {
+                    required: "First name is required",
+                  })}
+                  placeholder="First Name"
+                  type="text"
+                  className="w-full text-lg border-0 outline-none font-light"
+                />
+              </div>
+              <div className="w-1/2 px-4 py-3 bg-white rounded-lg">
+                <input
+                  {...register("lastName", {
+                    required: "Last name is required",
+                  })}
+                  placeholder="Last Name"
+                  type="text"
+                  className="w-full text-lg border-0 outline-none font-light"
+                />
+              </div>
+            </div>
+            <div className="w-full px-4 py-3 bg-white rounded-lg">
+              <input
+                {...register("message", {
+                  required: "Message is required",
+                })}
+                placeholder="Enter your message"
+                type="text"
+                className="w-full text-lg border-0 outline-none font-light"
+              />
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            className="bg-blue hover:opacity-50 text-md px-2 py-4 font-light text-xl rounded-2xl w-full"
+          >
+            Submit
+          </button>
+        </form>
       </section>
     </section>
   );
