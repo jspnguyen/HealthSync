@@ -7,8 +7,28 @@ function FormPage() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch("http://0.0.0.0:8080/walkin/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          description: data.message,
+        }),
+      });
 
-  const onSubmit = (data) => console.log(data);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Response received:", result);
+    } catch (error) {
+      console.error("Error during submission:", error);
+    }
+  };
 
   return (
     <section className="flex w-[100vw] h-[100vh] justify-center items-center">
