@@ -24,7 +24,7 @@ prev_form = {'description' : ''}
 
 @priority_agent.on_interval(period=0.5)
 async def priority_level(ctx: Context):
-    with open("Backend/api/json/patients.json", 'r') as file:
+    with open("./api/json/patients.json", 'r') as file:
         data = json.load(file)
         
     if data['description'] != prev_form['description']:
@@ -50,28 +50,41 @@ async def priority_level(ctx: Context):
         )
 
         urgency_score = float(res.text.strip('"'))
-        ctx.logger.info(f"Patient Urgency Rating: {urgency_score}")
+        print(f"Patient Urgency Rating: {urgency_score}")
         
-        messages = [
-            {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
-            {"role": "user", "content": f"{data['description']}"},
-        ]
+        # messages = [
+        #     {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in only Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
+        #     {"role": "user", "content": f"{data['description']}"},
+        # ]
 
-        payload = {
-            "messages": messages,
-            "stream": False,
-            "max_new_tokens": 2048,
-            "temperature": 0.9
-        }
+        # payload = {
+        #     "messages": messages,
+        #     "stream": False,
+        #     "max_new_tokens": 2048,
+        #     "temperature": 0.9
+        # }
 
-        res = requests.post(
-            f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
-            headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
-            json=payload,
-            stream=False
-        )
+        # res = requests.post(
+        #     f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
+        #     headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
+        #     json=payload,
+        #     stream=False
+        # )
 
-        equipment = res.text.strip('"')
+        # equipment = res.text.strip('"')
+        equipment = [random.choice([
+            "Ventilator",
+            "Defibrillator",
+            "ECG Monitor",
+            "Ultrasound Machine",
+            "Wheelchair",
+            "X-Ray Machine",
+            "MRI Scanner",
+            "Infusion Pump",
+            "Syringe Pump",
+            "Dialysis Machine",
+        ])]
+
         ctx.logger.info(f"Equipment Needed: {equipment}")
         
         messages = [
@@ -118,7 +131,7 @@ async def normal_add_handler(ctx: Context, sender: str, msg: Message):
 async def forced_add_handler(ctx: Context, sender: str, msg: Message):
     value_list = msg.message.split("|")
     urgency_score = float(value_list[0])
-    equipment = ast.literal_eval(value_list[1])
+    equipment = value_list[1]
     surgery_bool = bool(value_list[2])
     
     patient_name = f"{fake.first_name()} {fake.last_name()}"
