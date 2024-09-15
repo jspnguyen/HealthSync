@@ -29,7 +29,7 @@ function Sidebar() {
   ];
 
   return (
-    <div className="px-3 h-screen bg-white rounded-r-xl items-center flex flex-col relative top-0">
+    <div className="px-3 h-screen bg-white rounded-r-xl items-center flex flex-col fixed top-0 left-0">
       <section className="flex-1">
         {navItems.map((item) => (
           <div

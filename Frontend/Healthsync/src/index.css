@@ -71,3 +71,7 @@ button:focus-visible {
 .navButton {
   @apply py-4 rounded-lg;
 }
+
+h2 {
+  @apply text-2xl font-bold;
+}
