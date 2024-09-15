@@ -20,8 +20,7 @@ priority_agent = Agent(name="priority_level", seed=generate_random_string())
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
-# TODO: Update period to be faster in final build
-@priority_agent.on_interval(period=10.0)
+@priority_agent.on_interval(period=0.5)
 async def priority_level(ctx: Context):
     messages = [
         {"role": "system", "content": "You are a patient priority decision system. Based on the following patient's priority, return only a number from 1-10 with up to 3 decimals on how prioritized the patient should be."},
@@ -101,11 +100,10 @@ async def normal_add_handler(ctx: Context, sender: str, msg: Message):
     equipment = ast.literal_eval(value_list[1])
     surgery_bool = bool(value_list[2])
     
-    # TODO: Actually call add_patient_to_graph
     patient_id = f"P{random.randint(1, 999999999)}"
     patient_name = f"{fake.first_name()} {fake.last_name()}"
     
-    main.add_patient_to_graph(None, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    main.add_patient_to_graph(main.G, patient_id, patient_name, urgency_score, surgery_bool, equipment)
     
     ctx.logger.info(f"Normally added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
@@ -116,11 +114,10 @@ async def forced_add_handler(ctx: Context, sender: str, msg: Message):
     equipment = ast.literal_eval(value_list[1])
     surgery_bool = bool(value_list[2])
     
-    # TODO: Actually call add_patient_to_graph
     patient_id = f"P{random.randint(1, 999999999)}"
     patient_name = f"{fake.first_name()} {fake.last_name()}"
     
-    main.add_patient_to_graph(None, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    main.add_patient_to_graph(main.G, patient_id, patient_name, urgency_score, surgery_bool, equipment)
     
     ctx.logger.info(f"Forced added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
