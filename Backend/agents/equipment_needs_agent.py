@@ -15,7 +15,7 @@ equipment_agent = Agent(name="equipment_needs", seed=generate_random_string())
 @equipment_agent.on_interval(period=4.0)
 async def equipment_needs(ctx: Context):
     messages = [
-        {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
+        {"role": "system", "content": "You are in charge of distributing equipment based on a patient's symptoms. Reply with what equipment(s) is needed from the following list in Python list format: Ventilator, Defibrillator, ECG Monitor, Ultrasound Machine, Wheelchair, None"},
         {"role": "user", "content": f"A heart attack"},
     ]
 

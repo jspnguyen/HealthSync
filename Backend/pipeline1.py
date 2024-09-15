@@ -17,6 +17,7 @@ priority_agent = Agent(name="priority_level", seed=generate_random_string())
 normal_add_agent = Agent(name="normal_add", seed=generate_random_string())
 forced_add_agent = Agent(name="forced_add", seed=generate_random_string())
 
+# TODO: Update period to be faster in final build
 @priority_agent.on_interval(period=10.0)
 async def priority_level(ctx: Context):
     messages = [
