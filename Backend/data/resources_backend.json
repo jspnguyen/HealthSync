@@ -42,7 +42,7 @@
                 "P1",
                 "P2",
                 "P1",
-                "P1"
+                "P2"
             ],
             "time_busy": 0
         },
@@ -77,7 +77,7 @@
             "current_patients": [
                 "P2",
                 "P1",
-                "P1"
+                "P2"
             ],
             "time_busy": 0
         },
