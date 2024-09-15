@@ -4,3 +4,4 @@ Backend/data/fard.json
 Backend/data/graph_data.json
 Backend/data/resources_backend.json
 Frontend/Healthsync/package-lock.json
+Backend/.env
