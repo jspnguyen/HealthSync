@@ -1,6 +1,7 @@
 import Sidebar from "./Sidebar";
 import MedicalCard from "./ui/medicalCard";
 import PatientCard from "./ui/PatientCard";
+import Nodes from "./ui/Nodes";
 
 function HomePage() {
   return (
@@ -20,9 +21,7 @@ function HomePage() {
           {/* agents section */}
           <h2> Agents</h2>
           <div className="flex gap-8">
-            <div className="border-2 w-[1200px] h-[650px] rounded-2xl">
-              {/* insert node inside this div container */}
-            </div>
+            <Nodes />
 
             {/* hospital information */}
             <div className="flex flex-col justify-between">
@@ -37,7 +36,7 @@ function HomePage() {
         <section className="mt-24 mb-4">
           <h2> Patient Information </h2>
 
-          <section className="my-4">
+          <section className="my-12">
             <div className="mb-8">
               <h4> Waiting </h4>
               <div className="flex gap-8">
@@ -45,14 +44,14 @@ function HomePage() {
                 <PatientCard count="70" title="Emergency" status="High" />
               </div>
             </div>
-            <div className="mb-8">
+            <div className="mb-12">
               <h4> Observing </h4>
               <div className="flex gap-8">
-                <PatientCard count="30" title="Waiting" status="Low" />
+                <PatientCard count="30" title="General" status="Low" />
                 <PatientCard count="70" title="Emergency" status="High" />
               </div>
             </div>
-            <div className="mb-8">
+            <div className="mb-12">
               <h4> Observing </h4>
               <div className="flex gap-8">
                 <PatientCard count="30" title="General" status="Low" />
