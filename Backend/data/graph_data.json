@@ -11,13 +11,6 @@
             "name": "John Doe"
         },
         {
-            "id": "P2",
-            "type": "Patient",
-            "priority": "Regular",
-            "severity": 2,
-            "name": "Jane Smith"
-        },
-        {
             "id": "P3",
             "type": "Patient",
             "priority": "Surgery",
@@ -42,7 +35,7 @@
             "id": "D2",
             "type": "Doctor",
             "specialty": "Orthopedics",
-            "time_available": 4.807905139082768,
+            "time_available": 4.824962948618177,
             "name": "Dr. Bone"
         },
         {
@@ -267,12 +260,6 @@
         {
             "relationship": "assigned_to",
             "weight": 1,
-            "source": "P2",
-            "target": "B2"
-        },
-        {
-            "relationship": "assigned_to",
-            "weight": 1,
             "source": "P3",
             "target": "B3"
         },
@@ -415,10 +402,22 @@
             "target": "B1"
         },
         {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R1",
+            "target": "WR"
+        },
+        {
             "relationship": "in_room",
             "weight": 1,
             "source": "R2",
             "target": "B2"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R2",
+            "target": "WR"
         },
         {
             "relationship": "in_room",
@@ -433,6 +432,12 @@
             "target": "B4"
         },
         {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R3",
+            "target": "WR"
+        },
+        {
             "relationship": "in_room",
             "weight": 1,
             "source": "R4",
@@ -445,16 +450,34 @@
             "target": "B6"
         },
         {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R4",
+            "target": "WR"
+        },
+        {
             "relationship": "in_room",
             "weight": 1,
             "source": "R5",
             "target": "B7"
         },
         {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R5",
+            "target": "WR"
+        },
+        {
             "relationship": "in_room",
             "weight": 1,
             "source": "R6",
             "target": "B8"
+        },
+        {
+            "relationship": "pathway",
+            "weight": 1,
+            "source": "R6",
+            "target": "WR"
         }
     ]
 }

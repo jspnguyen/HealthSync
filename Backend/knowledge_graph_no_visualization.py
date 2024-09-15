@@ -619,7 +619,14 @@ graph_data = json_graph.node_link_data(G)
 graph_json = json.dumps(graph_data, indent=4)
 
 # Save the JSON to a file
-with open("graph_data.json", "w") as f:
+with open("./data/graph_data.json", "w") as f:
     f.write(graph_json)
+# Combine doctors, nurses, and equipment into a single resources dictionary
+resources = {"doctors": doctors, "nurses": nurses, "equipment": equipment}
 
+# Save the resources to a separate JSON file
+with open("./data/resources_backend.json", "w") as f:
+    json.dump(resources, f, indent=4)
+
+print("Resources have been saved to resources_backend.json")
 print("Graph exported to graph_data.json")
