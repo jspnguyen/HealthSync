@@ -7,12 +7,12 @@ MODEL_ID = "8w6yyp2q"
 BASETEN_API_KEY = os.getenv("BASETEN_API_KEY")
 
 def generate_random_string(length=128):
-    letters = string.ascii_letters  # Includes both uppercase and lowercase letters
+    letters = string.ascii_letters  
     return ''.join(random.choice(letters) for _ in range(length))
 
-alice = Agent(name="alice", seed=generate_random_string())
+event_watcher = Agent(name="event_watcher", seed=generate_random_string())
 
-@alice.on_interval(period=4.0)
+@event_watcher.on_interval(period=4.0)
 async def say_hello(ctx: Context):
     messages = [
         {"role": "system", "content": "You are a professional hospital staff allocation manager who judges the level of alert a hospital should be on when a described event occurs. You should only respond with a number from 0-10 based with up to two decimals and nothing else."},
@@ -26,7 +26,6 @@ async def say_hello(ctx: Context):
         "temperature": 0.9
     }
 
-    # Call model endpoint
     res = requests.post(
         f"https://model-{MODEL_ID}.api.baseten.co/production/predict",
         headers={"Authorization": f"Api-Key {BASETEN_API_KEY}"},
@@ -34,9 +33,8 @@ async def say_hello(ctx: Context):
         stream=False
     )
 
-    # Print the generated tokens as they get streamed
     alert_level = float(res.text.strip('"'))
     ctx.logger.info(f"The alert level is {alert_level}!")
 
 if __name__ == "__main__":
-    alice.run()
+    event_watcher.run()
