@@ -38,6 +38,7 @@ total_patients = 0
 patients_in_waiting_room = 0
 
 # Unique ID Counters for Entities
+global doctor_id_counter
 doctor_id_counter = 0
 nurse_id_counter = 0
 bed_id_counter = 0

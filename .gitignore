@@ -7,3 +7,4 @@ Frontend/Healthsync/package-lock.json
 Backend/.env
 Backend/data/graph_data.json
 Frontend/Healthsync/public/force.json
+Backend/__pycache__
