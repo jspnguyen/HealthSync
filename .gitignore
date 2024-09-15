@@ -5,3 +5,5 @@ Backend/data/graph_data.json
 Backend/data/resources_backend.json
 Frontend/Healthsync/package-lock.json
 Backend/.env
+Backend/data/graph_data.json
+Frontend/Healthsync/public/force.json
