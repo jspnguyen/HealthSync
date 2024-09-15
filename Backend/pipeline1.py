@@ -108,10 +108,9 @@ async def normal_add_handler(ctx: Context, sender: str, msg: Message):
     equipment = ast.literal_eval(value_list[1])
     surgery_bool = bool(value_list[2])
     
-    patient_id = f"P{random.randint(1, 999999999)}"
     patient_name = f"{fake.first_name()} {fake.last_name()}"
     
-    main.add_patient_to_graph(main.G, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    main.add_patient_to_graph(patient_name, urgency_score, surgery_bool, equipment)
     
     ctx.logger.info(f"Normally added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
@@ -122,10 +121,9 @@ async def forced_add_handler(ctx: Context, sender: str, msg: Message):
     equipment = ast.literal_eval(value_list[1])
     surgery_bool = bool(value_list[2])
     
-    patient_id = f"P{random.randint(1, 999999999)}"
     patient_name = f"{fake.first_name()} {fake.last_name()}"
     
-    main.add_patient_to_graph(main.G, patient_id, patient_name, urgency_score, surgery_bool, equipment)
+    main.add_patient_to_graph(patient_name, urgency_score, surgery_bool, equipment)
     
     ctx.logger.info(f"Forced added patient with {urgency_score} who needs {equipment} to the knowledge graph.")
 
