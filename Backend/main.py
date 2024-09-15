@@ -183,11 +183,6 @@ def generate_equipment(n):
         "ECG Monitor",
         "Ultrasound Machine",
         "Wheelchair",
-        "X-Ray Machine",
-        "MRI Scanner",
-        "Infusion Pump",
-        "Syringe Pump",
-        "Dialysis Machine",
     ]
     for _ in range(n):
         equipment_id_counter += 1
@@ -348,6 +343,7 @@ def assign_equipment_to_patient(patient, bed):
     if available_equipment:
         equipment_id, equipment_data = available_equipment[0]
         # Assign equipment to patient
+        G.add_node(equipment_id, **equipment_data)
         G.add_edge(equipment_id, patient["id"], relationship="used_by", weight=1)
         all_equipment[equipment_id]["available"] = False
         print(
