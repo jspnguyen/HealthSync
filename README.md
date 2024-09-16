@@ -1,4 +1,8 @@
+
+![image](HealthSync.jpg)
+
 # HealthSync: Making hospitals more efficient one node at a time
+
 
 **Table of Contents**
 
@@ -12,6 +16,7 @@
     * [Running the Development Server (Backend)](#running-the-development-server-backend)
 3. [API Endpoints](#api-endpoints) 
 4. [Troubleshooting](#troubleshooting)
+
 
 ---
 
