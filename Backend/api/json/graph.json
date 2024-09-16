@@ -1009,157 +1009,28 @@
             "name": "Room 50"
         },
         {
-            "id": "P1",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "William Malley",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "ECG Monitor"
-        },
-        {
-            "id": "E3",
-            "type": "Equipment",
-            "name": "ECG Monitor",
-            "original_id": "E3",
-            "available": true
-        },
-        {
-            "id": "P3",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "John Gallardo",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E9",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E9",
-            "available": true
-        },
-        {
-            "id": "P10",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "David Gionet",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "Ultrasound Machine"
-        },
-        {
-            "id": "E2",
-            "type": "Equipment",
-            "name": "Ultrasound Machine",
-            "original_id": "E2",
-            "available": true
-        },
-        {
-            "id": "P19",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "Michelle Goins",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "Wheelchair"
-        },
-        {
-            "id": "E5",
-            "type": "Equipment",
-            "name": "Wheelchair",
-            "original_id": "E5",
-            "available": true
-        },
-        {
-            "id": "P21",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "Claudia Heister",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "ECG Monitor"
-        },
-        {
-            "id": "E44",
-            "type": "Equipment",
-            "name": "ECG Monitor",
-            "original_id": "E44",
-            "available": true
-        },
-        {
-            "id": "P35",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Gary Hutchinson",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ultrasound Machine"
-        },
-        {
-            "id": "E14",
-            "type": "Equipment",
-            "name": "Ultrasound Machine",
-            "original_id": "E14",
-            "available": true
-        },
-        {
-            "id": "P38",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "Jami Holmes",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "Defibrillator"
-        },
-        {
-            "id": "E39",
-            "type": "Equipment",
-            "name": "Defibrillator",
-            "original_id": "E39",
-            "available": true
-        },
-        {
-            "id": "P43",
+            "id": "P6",
             "type": "Patient",
             "priority_score": 0,
             "severity": 8.5,
-            "name": "Sarah Cook",
-            "needs_surgery": "True",
+            "name": "Sylvia Thomas",
+            "needs_surgery": "False",
             "time_waiting": 0,
             "required_equipment": [
-                "Ventilator"
+                "Wheelchair"
             ]
         },
         {
             "id": "D1",
             "type": "Doctor",
-            "specialty": "Dermatology",
+            "specialty": "Orthopedics",
             "patients_per_hour": 6,
-            "name": "Dr. Jack",
+            "name": "Dr. Gary",
             "current_patients": [
-                "P1",
-                "P82",
-                "P98"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "id": "D7",
-            "type": "Doctor",
-            "specialty": "General Surgery",
-            "patients_per_hour": 6,
-            "name": "Dr. Lindsay",
-            "current_patients": [
-                "P3"
+                "P257",
+                "P517",
+                "P528",
+                "P581"
             ],
             "attention_allocated": 0.0
         },
@@ -1168,457 +1039,69 @@
             "type": "Doctor",
             "specialty": "Psychiatry",
             "patients_per_hour": 6,
-            "name": "Dr. Randall",
+            "name": "Dr. Patricia",
             "current_patients": [
-                "P48",
-                "P78"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "id": "D3",
-            "type": "Doctor",
-            "specialty": "Radiology",
-            "patients_per_hour": 6,
-            "name": "Dr. Brenda",
-            "current_patients": [
-                "P64",
-                "P83"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "id": "D9",
-            "type": "Doctor",
-            "specialty": "Oncology",
-            "patients_per_hour": 6,
-            "name": "Dr. Kevin",
-            "current_patients": [
-                "P35",
-                "P87"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "id": "D10",
-            "type": "Doctor",
-            "specialty": "Radiology",
-            "patients_per_hour": 6,
-            "name": "Dr. Katharine",
-            "current_patients": [
-                "P88",
-                "P96"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Richard",
-            "id": "N1"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Kenneth",
-            "id": "N2"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Jacqueline",
-            "id": "N3"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Terri",
-            "id": "N4"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Paul",
-            "id": "N5"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Chad",
-            "id": "N10"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse James",
-            "id": "N12"
-        },
-        {
-            "id": "P48",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 7,
-            "name": "Joe Walker",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "ECG Monitor"
-        },
-        {
-            "id": "E13",
-            "type": "Equipment",
-            "name": "ECG Monitor",
-            "original_id": "E13",
-            "available": true
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Jay",
-            "id": "N8"
-        },
-        {
-            "id": "D4",
-            "type": "Doctor",
-            "specialty": "Oncology",
-            "patients_per_hour": 6,
-            "name": "Dr. Denise",
-            "current_patients": [
-                "P68",
-                "P90"
+                "P575",
+                "P578",
+                "P582"
             ],
             "attention_allocated": 0.0
         },
         {
             "id": "D5",
             "type": "Doctor",
-            "specialty": "Oncology",
+            "specialty": "General Surgery",
             "patients_per_hour": 6,
-            "name": "Dr. June",
+            "name": "Dr. Tammy",
             "current_patients": [
-                "P79",
-                "P92"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "id": "P63",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 9,
-            "name": "Lewis Osborn",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Wheelchair"
-        },
-        {
-            "id": "E31",
-            "type": "Equipment",
-            "name": "Wheelchair",
-            "original_id": "E31",
-            "available": true
-        },
-        {
-            "id": "P64",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 4,
-            "name": "Julia Plummer",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "ECG Monitor"
-        },
-        {
-            "id": "E15",
-            "type": "Equipment",
-            "name": "ECG Monitor",
-            "original_id": "E15",
-            "available": true
-        },
-        {
-            "id": "P68",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 4,
-            "name": "Ruthie Mckesson",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E12",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E12",
-            "available": true
-        },
-        {
-            "id": "P73",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8.5,
-            "name": "John Johnston",
-            "needs_surgery": "False",
-            "time_waiting": 0,
-            "required_equipment": [
-                "Wheelchair"
-            ]
-        },
-        {
-            "id": "D8",
-            "type": "Doctor",
-            "specialty": "Oncology",
-            "patients_per_hour": 6,
-            "name": "Dr. Ken",
-            "current_patients": [
-                "P63",
-                "P93"
+                "P6"
             ],
             "attention_allocated": 0.0
         },
         {
             "type": "Nurse",
-            "name": "Nurse Charles",
-            "id": "N9"
+            "name": "Nurse Christine",
+            "id": "N1"
         },
         {
             "type": "Nurse",
-            "name": "Nurse Joesph",
-            "id": "N15"
+            "name": "Nurse Patricia",
+            "id": "N4"
         },
         {
             "type": "Nurse",
-            "name": "Nurse Jean",
-            "id": "N16"
-        },
-        {
-            "id": "P74",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 10,
-            "name": "Emily Curtis",
-            "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E30",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E30",
-            "available": true
-        },
-        {
-            "id": "P75",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 7,
-            "name": "Guillermo Richards",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Defibrillator"
-        },
-        {
-            "id": "E17",
-            "type": "Equipment",
-            "name": "Defibrillator",
-            "original_id": "E17",
-            "available": true
-        },
-        {
-            "id": "P78",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 9,
-            "name": "Thomas Andrews",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Defibrillator"
-        },
-        {
-            "id": "E29",
-            "type": "Equipment",
-            "name": "Defibrillator",
-            "original_id": "E29",
-            "available": true
-        },
-        {
-            "id": "P79",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Dorothy Santistevan",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E46",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E46",
-            "available": true
-        },
-        {
-            "id": "P80",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Andrew Laschinger",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "ECG Monitor"
-        },
-        {
-            "id": "E4",
-            "type": "Equipment",
-            "name": "ECG Monitor",
-            "original_id": "E4",
-            "available": true
-        },
-        {
-            "id": "D6",
-            "type": "Doctor",
-            "specialty": "Orthopedics",
-            "patients_per_hour": 6,
-            "name": "Dr. Timothy",
-            "current_patients": [
-                "P75",
-                "P80"
-            ],
-            "attention_allocated": 0.0
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Kacie",
+            "name": "Nurse Bryan",
             "id": "N7"
         },
         {
             "type": "Nurse",
-            "name": "Nurse Juan",
-            "id": "N11"
+            "name": "Nurse Natasha",
+            "id": "N8"
         },
         {
-            "type": "Nurse",
-            "name": "Nurse Rebecca",
-            "id": "N18"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Adam",
-            "id": "N19"
-        },
-        {
-            "id": "P82",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Larry Hill",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": null
-        },
-        {
-            "id": "P83",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 5,
-            "name": "Kia Fraley",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Defibrillator"
-        },
-        {
-            "id": "E21",
-            "type": "Equipment",
-            "name": "Defibrillator",
-            "original_id": "E21",
-            "available": true
-        },
-        {
-            "id": "P84",
+            "id": "P28",
             "type": "Patient",
             "priority_score": 0,
             "severity": 10,
-            "name": "John Saad",
+            "name": "Arthur Chapman",
             "needs_surgery": true,
             "time_waiting": 0,
-            "required_equipment": "Ventilator"
+            "required_equipment": "ECG Monitor"
         },
         {
-            "id": "E10",
+            "id": "E50",
             "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E10",
+            "name": "ECG Monitor",
+            "original_id": "E50",
             "available": true
         },
         {
-            "id": "P87",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 2,
-            "name": "Tammy Darden",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E16",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E16",
-            "available": true
-        },
-        {
-            "id": "P88",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 6,
-            "name": "Marie Bard",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": null
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Shawn",
-            "id": "N6"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Anthony",
-            "id": "N13"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Linda",
-            "id": "N14"
-        },
-        {
-            "id": "P90",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 5,
-            "name": "Bertha Wilborn",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Wheelchair"
-        },
-        {
-            "id": "E1",
-            "type": "Equipment",
-            "name": "Wheelchair",
-            "original_id": "E1",
-            "available": true
-        },
-        {
-            "id": "P91",
+            "id": "P33",
             "type": "Patient",
             "priority_score": 0,
             "severity": 10,
-            "name": "Leo Bagley",
+            "name": "Patricia Garcia",
             "needs_surgery": true,
-            "time_waiting": 0,
-            "required_equipment": null
-        },
-        {
-            "id": "P92",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 6,
-            "name": "Jon Chapman",
-            "needs_surgery": false,
             "time_waiting": 0,
             "required_equipment": "Defibrillator"
         },
@@ -1630,222 +1113,339 @@
             "available": true
         },
         {
-            "id": "P93",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 5,
-            "name": "Cecil Landfair",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Defibrillator"
-        },
-        {
-            "id": "E34",
-            "type": "Equipment",
-            "name": "Defibrillator",
-            "original_id": "E34",
-            "available": true
-        },
-        {
-            "id": "P96",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Stephen Dorsey",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E6",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E6",
-            "available": true
-        },
-        {
-            "id": "P98",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 9,
-            "name": "Monica Ellsworth",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Wheelchair"
-        },
-        {
-            "id": "E22",
-            "type": "Equipment",
-            "name": "Wheelchair",
-            "original_id": "E22",
-            "available": true
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Jean",
-            "id": "N17"
-        },
-        {
-            "type": "Nurse",
-            "name": "Nurse Janice",
-            "id": "N20"
-        },
-        {
-            "id": "P101",
+            "id": "P73",
             "type": "Patient",
             "priority_score": 0,
             "severity": 10,
-            "name": "William Matthews",
+            "name": "Francis Patel",
             "needs_surgery": true,
             "time_waiting": 0,
             "required_equipment": "ECG Monitor"
         },
         {
-            "id": "E11",
+            "id": "E84",
             "type": "Equipment",
             "name": "ECG Monitor",
-            "original_id": "E11",
+            "original_id": "E84",
             "available": true
         },
         {
-            "id": "P102",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Earle Santos",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ultrasound Machine"
-        },
-        {
-            "id": "E7",
-            "type": "Equipment",
-            "name": "Ultrasound Machine",
-            "original_id": "E7",
-            "available": true
-        },
-        {
-            "id": "P103",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 5,
-            "name": "Viola Bowens",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E23",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E23",
-            "available": true
-        },
-        {
-            "id": "P104",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 6,
-            "name": "Lucy Myers",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ultrasound Machine"
-        },
-        {
-            "id": "E8",
-            "type": "Equipment",
-            "name": "Ultrasound Machine",
-            "original_id": "E8",
-            "available": true
-        },
-        {
-            "id": "P105",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 1,
-            "name": "Harold Torry",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": null
-        },
-        {
-            "id": "P106",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 9,
-            "name": "Lois Gardner",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": null
-        },
-        {
-            "id": "P107",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 4,
-            "name": "Beata Walker",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ultrasound Machine"
-        },
-        {
-            "id": "E19",
-            "type": "Equipment",
-            "name": "Ultrasound Machine",
-            "original_id": "E19",
-            "available": true
-        },
-        {
-            "id": "P108",
-            "type": "Patient",
-            "priority_score": 0,
-            "severity": 8,
-            "name": "Christopher Lawrence",
-            "needs_surgery": false,
-            "time_waiting": 0,
-            "required_equipment": "Ventilator"
-        },
-        {
-            "id": "E40",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E40",
-            "available": true
-        },
-        {
-            "id": "P109",
+            "id": "P81",
             "type": "Patient",
             "priority_score": 0,
             "severity": 10,
-            "name": "Clarence Moore",
+            "name": "Viola Ahlstrom",
             "needs_surgery": true,
             "time_waiting": 0,
             "required_equipment": "Ventilator"
         },
         {
-            "id": "E41",
-            "type": "Equipment",
-            "name": "Ventilator",
-            "original_id": "E41",
-            "available": true
+            "id": "D4",
+            "type": "Doctor",
+            "specialty": "Cardiology",
+            "patients_per_hour": 6,
+            "name": "Dr. Carl",
+            "current_patients": [
+                "P266",
+                "P530"
+            ],
+            "attention_allocated": 0.0
         },
         {
-            "id": "P110",
+            "id": "D10",
+            "type": "Doctor",
+            "specialty": "Neurology",
+            "patients_per_hour": 6,
+            "name": "Dr. Jeff",
+            "current_patients": [
+                "P205",
+                "P256",
+                "P273",
+                "P539",
+                "P482"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Gwendolyn",
+            "id": "N3"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Hazel",
+            "id": "N6"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Sylvia",
+            "id": "N9"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Michelle",
+            "id": "N11"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Wayne",
+            "id": "N12"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Nicole",
+            "id": "N13"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Brian",
+            "id": "N14"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Joseph",
+            "id": "N17"
+        },
+        {
+            "id": "P97",
             "type": "Patient",
             "priority_score": 0,
-            "severity": 6,
-            "name": "Larry Madaras",
-            "needs_surgery": false,
+            "severity": 10,
+            "name": "Rebecca Stroud",
+            "needs_surgery": true,
             "time_waiting": 0,
             "required_equipment": null
         },
         {
-            "id": "P111",
+            "id": "P99",
             "type": "Patient",
             "priority_score": 0,
-            "severity": 2,
-            "name": "John Thomas",
+            "severity": 10,
+            "name": "Mark Pierce",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E1",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E1",
+            "available": true
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Paul",
+            "id": "N16"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Jeffrey",
+            "id": "N20"
+        },
+        {
+            "id": "P157",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Muriel Moran",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E68",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E68",
+            "available": true
+        },
+        {
+            "id": "P179",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Adelaide Lambert",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Gregory",
+            "id": "N2"
+        },
+        {
+            "id": "P199",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Tiffany Burton",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E15",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E15",
+            "available": true
+        },
+        {
+            "id": "P205",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Grace Trover",
             "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E20",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E20",
+            "available": true
+        },
+        {
+            "id": "P209",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Don Pinegar",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E40",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E40",
+            "available": true
+        },
+        {
+            "id": "P210",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Lorene Murdock",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E48",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E48",
+            "available": true
+        },
+        {
+            "id": "P212",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Robert Hernandez",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P213",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Richard Thacker",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E14",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E14",
+            "available": true
+        },
+        {
+            "id": "D7",
+            "type": "Doctor",
+            "specialty": "General Surgery",
+            "patients_per_hour": 6,
+            "name": "Dr. Albert",
+            "current_patients": [
+                "P563",
+                "P594"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "id": "D9",
+            "type": "Doctor",
+            "specialty": "Dermatology",
+            "patients_per_hour": 6,
+            "name": "Dr. Sean",
+            "current_patients": [
+                "P556",
+                "P468",
+                "P335"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Jeannette",
+            "id": "N5"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Megan",
+            "id": "N19"
+        },
+        {
+            "id": "P230",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Juan Hickman",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E11",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E11",
+            "available": true
+        },
+        {
+            "id": "P238",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Erik Garvin",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E10",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E10",
+            "available": true
+        },
+        {
+            "id": "P242",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Maritza Cohen",
+            "needs_surgery": true,
             "time_waiting": 0,
             "required_equipment": "Wheelchair"
         },
@@ -1855,6 +1455,971 @@
             "name": "Wheelchair",
             "original_id": "E26",
             "available": true
+        },
+        {
+            "id": "P256",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Kisha Koehler",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P257",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 6,
+            "name": "Brandon Forshey",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E64",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E64",
+            "available": true
+        },
+        {
+            "id": "P261",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Johnie Wolfe",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P266",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Bessie Bishop",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E33",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E33",
+            "available": true
+        },
+        {
+            "id": "P269",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Anne Phillips",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E88",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E88",
+            "available": true
+        },
+        {
+            "id": "P273",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Wilma Goree",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "E73",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E73",
+            "available": true
+        },
+        {
+            "id": "D3",
+            "type": "Doctor",
+            "specialty": "Dermatology",
+            "patients_per_hour": 6,
+            "name": "Dr. Helen",
+            "current_patients": [
+                "P557",
+                "P518"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "id": "D8",
+            "type": "Doctor",
+            "specialty": "Neurology",
+            "patients_per_hour": 6,
+            "name": "Dr. Bessie",
+            "current_patients": [
+                "P572",
+                "P573"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Gene",
+            "id": "N10"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Casey",
+            "id": "N15"
+        },
+        {
+            "type": "Nurse",
+            "name": "Nurse Matt",
+            "id": "N18"
+        },
+        {
+            "id": "P288",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Michele Batiste",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E51",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E51",
+            "available": true
+        },
+        {
+            "id": "P293",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Annette Ashbaugh",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E21",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E21",
+            "available": true
+        },
+        {
+            "id": "P294",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Jeffrey Horney",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E32",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E32",
+            "available": true
+        },
+        {
+            "id": "P307",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Ann Scott",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "E72",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E72",
+            "available": true
+        },
+        {
+            "id": "P314",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Robert Santos",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P322",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Martin Belzer",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P331",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Clayton Williams",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "P335",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Terri Ledbetter",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P351",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Russell Baird",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P353",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Ronald Guy",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P358",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Brittany Willett",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E25",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E25",
+            "available": true
+        },
+        {
+            "id": "P360",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Sonia Dodd",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E44",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E44",
+            "available": true
+        },
+        {
+            "id": "P371",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Joseph Venable",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E56",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E56",
+            "available": true
+        },
+        {
+            "id": "P378",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Nola Lewis",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P381",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Bonnie Smith",
+            "needs_surgery": true,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E55",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E55",
+            "available": true
+        },
+        {
+            "id": "P427",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Timothy Lira",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "P430",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Louis Knight",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "P439",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Margaret Garcia",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "E45",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E45",
+            "available": true
+        },
+        {
+            "id": "E3",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E3",
+            "available": true
+        },
+        {
+            "id": "P461",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Isaac Voeks",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "P468",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 5,
+            "name": "Chad Thornberry",
+            "needs_surgery": false,
+            "time_waiting": 2,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P473",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Dwight Hubert",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "P480",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Laura Tamayo",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "P482",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 7,
+            "name": "Michael Brewer",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "P488",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Charles Riley",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "P507",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Rosemary Filas",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "P517",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Robert Barone",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "P518",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 5,
+            "name": "Jessica Masse",
+            "needs_surgery": false,
+            "time_waiting": 2,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "P523",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Janice Ward",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "P528",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 2,
+            "name": "Kathleen Johnston",
+            "needs_surgery": false,
+            "time_waiting": 3,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "P530",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Albert Schrier",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "P539",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Angela Vang",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E6",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E6",
+            "available": true
+        },
+        {
+            "id": "E17",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E17",
+            "available": true
+        },
+        {
+            "id": "E12",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E12",
+            "available": true
+        },
+        {
+            "id": "E57",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E57",
+            "available": true
+        },
+        {
+            "id": "E36",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E36",
+            "available": true
+        },
+        {
+            "id": "E39",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E39",
+            "available": true
+        },
+        {
+            "id": "E60",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E60",
+            "available": true
+        },
+        {
+            "id": "P552",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Brain Bierman",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "P554",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Pedro Hoffman",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P556",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Justin Gunter",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "P557",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Cory Johnson",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "E38",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E38",
+            "available": true
+        },
+        {
+            "id": "E19",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E19",
+            "available": true
+        },
+        {
+            "id": "E75",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E75",
+            "available": true
+        },
+        {
+            "id": "E37",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E37",
+            "available": true
+        },
+        {
+            "id": "P560",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Shawn Kim",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "P562",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Marcia Atkinson",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": "ECG Monitor"
+        },
+        {
+            "id": "P563",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "David Mortensen",
+            "needs_surgery": false,
+            "time_waiting": 1,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E5",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E5",
+            "available": true
+        },
+        {
+            "id": "E65",
+            "type": "Equipment",
+            "name": "ECG Monitor",
+            "original_id": "E65",
+            "available": true
+        },
+        {
+            "id": "E9",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E9",
+            "available": true
+        },
+        {
+            "id": "E74",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E74",
+            "available": true
+        },
+        {
+            "id": "P565",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 10,
+            "name": "Richard Ward",
+            "needs_surgery": true,
+            "time_waiting": 1,
+            "required_equipment": null
+        },
+        {
+            "id": "P572",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 6,
+            "name": "Tyler Ballard",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E77",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E77",
+            "available": true
+        },
+        {
+            "id": "P573",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Cynthia Fleming",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E89",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E89",
+            "available": true
+        },
+        {
+            "id": "P575",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Darlene Saur",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E54",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E54",
+            "available": true
+        },
+        {
+            "id": "P578",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Dorothy Mccaslin",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E58",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E58",
+            "available": true
+        },
+        {
+            "id": "P581",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 7,
+            "name": "Laura Mayes",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P582",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 3,
+            "name": "Joaquin Williams",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E71",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E71",
+            "available": true
+        },
+        {
+            "id": "P589",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 7,
+            "name": "Jeffrey Hunt",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E4",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E4",
+            "available": true
+        },
+        {
+            "id": "P590",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 7,
+            "name": "Hattie Antoine",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E7",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E7",
+            "available": true
+        },
+        {
+            "id": "P594",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 9,
+            "name": "Angie Devore",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Ventilator"
+        },
+        {
+            "id": "E52",
+            "type": "Equipment",
+            "name": "Ventilator",
+            "original_id": "E52",
+            "available": true
+        },
+        {
+            "id": "D6",
+            "type": "Doctor",
+            "specialty": "Orthopedics",
+            "patients_per_hour": 6,
+            "name": "Dr. Ramona",
+            "current_patients": [
+                "P589",
+                "P590"
+            ],
+            "attention_allocated": 0.0
+        },
+        {
+            "id": "P596",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 2,
+            "name": "Sergio Buck",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P597",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 4,
+            "name": "Brenda Santelli",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E23",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E23",
+            "available": true
+        },
+        {
+            "id": "P598",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 8,
+            "name": "Timothy Massa",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Wheelchair"
+        },
+        {
+            "id": "E8",
+            "type": "Equipment",
+            "name": "Wheelchair",
+            "original_id": "E8",
+            "available": true
+        },
+        {
+            "id": "P599",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 1,
+            "name": "Amy Harford",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Defibrillator"
+        },
+        {
+            "id": "E24",
+            "type": "Equipment",
+            "name": "Defibrillator",
+            "original_id": "E24",
+            "available": true
+        },
+        {
+            "id": "P600",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 3,
+            "name": "Charlie Smith",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": null
+        },
+        {
+            "id": "P601",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 3,
+            "name": "John Rogers",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E2",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E2",
+            "available": true
+        },
+        {
+            "id": "P602",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 7,
+            "name": "Nancy Godby",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": "Ultrasound Machine"
+        },
+        {
+            "id": "E13",
+            "type": "Equipment",
+            "name": "Ultrasound Machine",
+            "original_id": "E13",
+            "available": true
+        },
+        {
+            "id": "P603",
+            "type": "Patient",
+            "priority_score": 0,
+            "severity": 6,
+            "name": "Christopher Jones",
+            "needs_surgery": false,
+            "time_waiting": 0,
+            "required_equipment": null
         }
     ],
     "links": [
@@ -2168,7 +2733,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B1",
-            "target": "P1"
+            "target": "P461"
         },
         {
             "relationship": "contains",
@@ -2180,7 +2745,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B2",
-            "target": "P90"
+            "target": "P473"
         },
         {
             "relationship": "contains",
@@ -2192,7 +2757,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B3",
-            "target": "P3"
+            "target": "P596"
         },
         {
             "relationship": "contains",
@@ -2204,7 +2769,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B4",
-            "target": "P74"
+            "target": "P209"
         },
         {
             "relationship": "contains",
@@ -2216,7 +2781,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B5",
-            "target": "P75"
+            "target": "P560"
         },
         {
             "relationship": "contains",
@@ -2228,7 +2793,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B6",
-            "target": "P91"
+            "target": "P6"
         },
         {
             "relationship": "contains",
@@ -2240,7 +2805,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B7",
-            "target": "P82"
+            "target": "P97"
         },
         {
             "relationship": "contains",
@@ -2252,7 +2817,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B8",
-            "target": "P63"
+            "target": "P562"
         },
         {
             "relationship": "contains",
@@ -2264,7 +2829,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B9",
-            "target": "P48"
+            "target": "P210"
         },
         {
             "relationship": "contains",
@@ -2276,7 +2841,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B10",
-            "target": "P10"
+            "target": "P427"
         },
         {
             "relationship": "contains",
@@ -2288,7 +2853,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B11",
-            "target": "P83"
+            "target": "P480"
         },
         {
             "relationship": "contains",
@@ -2300,7 +2865,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B12",
-            "target": "P92"
+            "target": "P99"
         },
         {
             "relationship": "contains",
@@ -2312,7 +2877,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B13",
-            "target": "P64"
+            "target": "P552"
         },
         {
             "relationship": "contains",
@@ -2324,7 +2889,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B14",
-            "target": "P84"
+            "target": "P488"
         },
         {
             "relationship": "contains",
@@ -2336,7 +2901,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B15",
-            "target": "P101"
+            "target": "P430"
         },
         {
             "relationship": "contains",
@@ -2348,7 +2913,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B16",
-            "target": "P93"
+            "target": "P507"
         },
         {
             "relationship": "contains",
@@ -2360,7 +2925,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B17",
-            "target": "P78"
+            "target": "P230"
         },
         {
             "relationship": "contains",
@@ -2372,7 +2937,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B18",
-            "target": "P79"
+            "target": "P565"
         },
         {
             "relationship": "contains",
@@ -2384,7 +2949,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B19",
-            "target": "P19"
+            "target": "P439"
         },
         {
             "relationship": "contains",
@@ -2396,7 +2961,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B20",
-            "target": "P102"
+            "target": "P563"
         },
         {
             "relationship": "contains",
@@ -2408,7 +2973,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B21",
-            "target": "P21"
+            "target": "P288"
         },
         {
             "relationship": "contains",
@@ -2420,7 +2985,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B22",
-            "target": "P68"
+            "target": "P205"
         },
         {
             "relationship": "contains",
@@ -2432,7 +2997,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B23",
-            "target": "P103"
+            "target": "P28"
         },
         {
             "relationship": "contains",
@@ -2444,7 +3009,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B24",
-            "target": "P87"
+            "target": "P578"
         },
         {
             "relationship": "contains",
@@ -2456,7 +3021,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B25",
-            "target": "P104"
+            "target": "P358"
         },
         {
             "relationship": "contains",
@@ -2468,7 +3033,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B26",
-            "target": "P80"
+            "target": "P199"
         },
         {
             "relationship": "contains",
@@ -2480,7 +3045,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B27",
-            "target": "P88"
+            "target": "P597"
         },
         {
             "relationship": "contains",
@@ -2492,7 +3057,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B28",
-            "target": "P73"
+            "target": "P33"
         },
         {
             "relationship": "contains",
@@ -2504,7 +3069,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B29",
-            "target": "P105"
+            "target": "P523"
         },
         {
             "relationship": "contains",
@@ -2516,7 +3081,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B30",
-            "target": "P96"
+            "target": "P212"
         },
         {
             "relationship": "contains",
@@ -2528,7 +3093,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B31",
-            "target": "P106"
+            "target": "P213"
         },
         {
             "relationship": "contains",
@@ -2540,7 +3105,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B32",
-            "target": "P98"
+            "target": "P554"
         },
         {
             "relationship": "contains",
@@ -2552,7 +3117,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B33",
-            "target": "P107"
+            "target": "P598"
         },
         {
             "relationship": "contains",
@@ -2564,7 +3129,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B34",
-            "target": "P108"
+            "target": "P238"
         },
         {
             "relationship": "contains",
@@ -2576,7 +3141,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B35",
-            "target": "P35"
+            "target": "P360"
         },
         {
             "relationship": "contains",
@@ -2588,7 +3153,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B36",
-            "target": "P109"
+            "target": "P557"
         },
         {
             "relationship": "contains",
@@ -2600,7 +3165,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B37",
-            "target": "P110"
+            "target": "P599"
         },
         {
             "relationship": "contains",
@@ -2612,7 +3177,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B38",
-            "target": "P38"
+            "target": "P293"
         },
         {
             "relationship": "contains",
@@ -2624,7 +3189,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B39",
-            "target": "P111"
+            "target": "P242"
         },
         {
             "relationship": "contains",
@@ -2633,16 +3198,34 @@
             "target": "Room14"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B40",
+            "target": "P294"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B41",
             "target": "Room14"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B41",
+            "target": "P600"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B42",
             "target": "Room14"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B42",
+            "target": "P556"
         },
         {
             "relationship": "contains",
@@ -2654,7 +3237,7 @@
             "relationship": "assigned_to",
             "weight": 1,
             "source": "B43",
-            "target": "P43"
+            "target": "P589"
         },
         {
             "relationship": "contains",
@@ -2663,10 +3246,22 @@
             "target": "Room15"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B44",
+            "target": "P601"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B45",
             "target": "Room15"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B45",
+            "target": "P581"
         },
         {
             "relationship": "contains",
@@ -2675,10 +3270,22 @@
             "target": "Room16"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B46",
+            "target": "P468"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B47",
             "target": "Room16"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B47",
+            "target": "P590"
         },
         {
             "relationship": "contains",
@@ -2687,16 +3294,34 @@
             "target": "Room16"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B48",
+            "target": "P517"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B49",
             "target": "Room17"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B49",
+            "target": "P602"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B50",
             "target": "Room17"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B50",
+            "target": "P603"
         },
         {
             "relationship": "contains",
@@ -2711,6 +3336,12 @@
             "target": "Room18"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B52",
+            "target": "P530"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B53",
@@ -2723,10 +3354,22 @@
             "target": "Room18"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B54",
+            "target": "P256"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B55",
             "target": "Room19"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B55",
+            "target": "P257"
         },
         {
             "relationship": "contains",
@@ -2741,6 +3384,12 @@
             "target": "Room19"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B57",
+            "target": "P582"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B58",
@@ -2753,16 +3402,34 @@
             "target": "Room20"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B59",
+            "target": "P261"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B60",
             "target": "Room20"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B60",
+            "target": "P157"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B61",
             "target": "Room21"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B61",
+            "target": "P594"
         },
         {
             "relationship": "contains",
@@ -2807,6 +3474,12 @@
             "target": "Room23"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B68",
+            "target": "P73"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B69",
@@ -2817,6 +3490,12 @@
             "weight": 1,
             "source": "B70",
             "target": "Room24"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B70",
+            "target": "P266"
         },
         {
             "relationship": "contains",
@@ -2837,10 +3516,22 @@
             "target": "Room25"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B73",
+            "target": "P269"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B74",
             "target": "Room25"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B74",
+            "target": "P307"
         },
         {
             "relationship": "contains",
@@ -2855,16 +3546,34 @@
             "target": "Room26"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B76",
+            "target": "P81"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B77",
             "target": "Room26"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B77",
+            "target": "P518"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B78",
             "target": "Room26"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B78",
+            "target": "P273"
         },
         {
             "relationship": "contains",
@@ -2891,6 +3600,12 @@
             "target": "Room28"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B82",
+            "target": "P572"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B83",
@@ -2903,16 +3618,34 @@
             "target": "Room28"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B84",
+            "target": "P371"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B85",
             "target": "Room29"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B85",
+            "target": "P573"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B86",
             "target": "Room29"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B86",
+            "target": "P539"
         },
         {
             "relationship": "contains",
@@ -2945,16 +3678,34 @@
             "target": "Room31"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B91",
+            "target": "P314"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B92",
             "target": "Room31"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B92",
+            "target": "P179"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B93",
             "target": "Room31"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B93",
+            "target": "P575"
         },
         {
             "relationship": "contains",
@@ -2999,6 +3750,12 @@
             "target": "Room34"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B100",
+            "target": "P322"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B101",
@@ -3029,6 +3786,12 @@
             "target": "Room35"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B105",
+            "target": "P482"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B106",
@@ -3047,10 +3810,22 @@
             "target": "Room36"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B108",
+            "target": "P378"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B109",
             "target": "Room37"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B109",
+            "target": "P331"
         },
         {
             "relationship": "contains",
@@ -3077,6 +3852,12 @@
             "target": "Room38"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B113",
+            "target": "P335"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B114",
@@ -3095,10 +3876,22 @@
             "target": "Room39"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B116",
+            "target": "P528"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B117",
             "target": "Room39"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B117",
+            "target": "P381"
         },
         {
             "relationship": "contains",
@@ -3173,6 +3966,12 @@
             "target": "Room43"
         },
         {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B129",
+            "target": "P351"
+        },
+        {
             "relationship": "contains",
             "weight": 1,
             "source": "B130",
@@ -3183,6 +3982,12 @@
             "weight": 1,
             "source": "B131",
             "target": "Room44"
+        },
+        {
+            "relationship": "assigned_to",
+            "weight": 1,
+            "source": "B131",
+            "target": "P353"
         },
         {
             "relationship": "contains",
@@ -3299,490 +4104,850 @@
             "target": "Room50"
         },
         {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P1",
-            "target": "E3"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "P1",
-            "target": "D1"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P1",
-            "target": "N1"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P3",
-            "target": "E9"
-        },
-        {
             "relationship": "attending",
             "attention": 1.0,
-            "source": "P3",
-            "target": "D7"
+            "source": "P6",
+            "target": "D5"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P3",
-            "target": "N2"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P10",
-            "target": "E2"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P10",
-            "target": "N5"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P19",
-            "target": "E5"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P19",
-            "target": "N10"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P21",
-            "target": "E44"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P21",
-            "target": "N12"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P35",
-            "target": "E14"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "P35",
-            "target": "D9"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P35",
-            "target": "N1"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P38",
-            "target": "E39"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P38",
-            "target": "N2"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P43",
+            "source": "P6",
             "target": "N4"
         },
         {
             "relationship": "attending",
             "attention": 0.16666666666666666,
             "source": "D1",
-            "target": "P82"
+            "target": "P257"
         },
         {
             "relationship": "attending",
             "attention": 0.16666666666666666,
             "source": "D1",
-            "target": "P98"
+            "target": "P517"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D1",
+            "target": "P528"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D1",
+            "target": "P581"
         },
         {
             "relationship": "attending",
             "attention": 0.16666666666666666,
             "source": "D2",
-            "target": "P48"
+            "target": "P575"
         },
         {
             "relationship": "attending",
             "attention": 0.16666666666666666,
             "source": "D2",
-            "target": "P78"
+            "target": "P578"
         },
         {
             "relationship": "attending",
             "attention": 0.16666666666666666,
-            "source": "D3",
-            "target": "P64"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D3",
-            "target": "P83"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D9",
-            "target": "P87"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D10",
-            "target": "P88"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D10",
-            "target": "P96"
+            "source": "D2",
+            "target": "P582"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "N3",
-            "target": "P80"
+            "source": "N1",
+            "target": "P209"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "N3",
-            "target": "P92"
+            "source": "N1",
+            "target": "P473"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N1",
+            "target": "P560"
         },
         {
             "relationship": "assisting",
             "weight": 1,
             "source": "N4",
-            "target": "P73"
+            "target": "P157"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "N5",
-            "target": "P93"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P48",
-            "target": "E13"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P48",
-            "target": "N8"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "N8",
-            "target": "P96"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D4",
-            "target": "P68"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D4",
-            "target": "P90"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D5",
-            "target": "P79"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D5",
-            "target": "P92"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P63",
-            "target": "E31"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "P63",
-            "target": "D8"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P63",
-            "target": "N9"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P64",
-            "target": "E15"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P64",
-            "target": "N15"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P68",
-            "target": "E12"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P68",
-            "target": "N16"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "D8",
-            "target": "P93"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "N9",
-            "target": "P98"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P74",
-            "target": "E30"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P74",
-            "target": "N7"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P75",
-            "target": "E17"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "P75",
-            "target": "D6"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P75",
-            "target": "N11"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P78",
-            "target": "E29"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P78",
-            "target": "N18"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P79",
-            "target": "E46"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P79",
-            "target": "N19"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P80",
-            "target": "E4"
-        },
-        {
-            "relationship": "attending",
-            "attention": 0.16666666666666666,
-            "source": "P80",
-            "target": "D6"
+            "source": "N4",
+            "target": "P554"
         },
         {
             "relationship": "assisting",
             "weight": 1,
             "source": "N7",
-            "target": "P88"
+            "target": "P212"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P82",
-            "target": "N6"
+            "source": "N7",
+            "target": "P261"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N7",
+            "target": "P565"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N8",
+            "target": "P213"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N8",
+            "target": "P523"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N8",
+            "target": "P562"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P83",
-            "target": "E21"
+            "source": "P28",
+            "target": "E50"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P83",
+            "source": "P28",
+            "target": "N11"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P33",
+            "target": "E18"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "P33",
             "target": "N13"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P84",
-            "target": "E10"
+            "source": "P73",
+            "target": "E84"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P84",
-            "target": "N14"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P87",
-            "target": "E16"
-        },
-        {
-            "relationship": "assisting",
-            "weight": 1,
-            "source": "P87",
+            "source": "P73",
             "target": "N6"
         },
         {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "P81",
+            "target": "N12"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D4",
+            "target": "P266"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D4",
+            "target": "P530"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D10",
+            "target": "P205"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D10",
+            "target": "P256"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D10",
+            "target": "P273"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D10",
+            "target": "P539"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D10",
+            "target": "P482"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N3",
+            "target": "P256"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N3",
+            "target": "P480"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N3",
+            "target": "P578"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N6",
+            "target": "P288"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N6",
+            "target": "P507"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N9",
+            "target": "P199"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N9",
+            "target": "P266"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N9",
+            "target": "P590"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N11",
+            "target": "P430"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N11",
+            "target": "P572"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N12",
+            "target": "P238"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N12",
+            "target": "P269"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N13",
+            "target": "P293"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N13",
+            "target": "P371"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N14",
+            "target": "P99"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N14",
+            "target": "P242"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N14",
+            "target": "P557"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N17",
+            "target": "P205"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N17",
+            "target": "P461"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N17",
+            "target": "P573"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "P97",
+            "target": "N16"
+        },
+        {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P90",
+            "source": "P99",
             "target": "E1"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P90",
-            "target": "N17"
+            "source": "N16",
+            "target": "P179"
         },
         {
             "relationship": "assisting",
             "weight": 1,
-            "source": "P91",
-            "target": "N20"
+            "source": "N16",
+            "target": "P294"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N20",
+            "target": "P358"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N20",
+            "target": "P530"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N20",
+            "target": "P518"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P92",
-            "target": "E18"
+            "source": "P157",
+            "target": "E68"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N2",
+            "target": "P210"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N2",
+            "target": "P427"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N2",
+            "target": "P589"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P93",
-            "target": "E34"
+            "source": "P199",
+            "target": "E15"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P96",
-            "target": "E6"
+            "source": "P205",
+            "target": "E20"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P98",
-            "target": "E22"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P101",
-            "target": "E11"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P102",
-            "target": "E7"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P103",
-            "target": "E23"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P104",
-            "target": "E8"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P107",
-            "target": "E19"
-        },
-        {
-            "relationship": "used_by",
-            "weight": 1,
-            "source": "P108",
+            "source": "P209",
             "target": "E40"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P109",
-            "target": "E41"
+            "source": "P210",
+            "target": "E48"
         },
         {
             "relationship": "used_by",
             "weight": 1,
-            "source": "P111",
+            "source": "P213",
+            "target": "E14"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D7",
+            "target": "P563"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D7",
+            "target": "P594"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D9",
+            "target": "P556"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D9",
+            "target": "P468"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D9",
+            "target": "P335"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N5",
+            "target": "P230"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N5",
+            "target": "P257"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N5",
+            "target": "P488"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N19",
+            "target": "P552"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N19",
+            "target": "P517"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N19",
+            "target": "P307"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P230",
+            "target": "E11"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P238",
+            "target": "E10"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P242",
             "target": "E26"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P257",
+            "target": "E64"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P266",
+            "target": "E33"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P269",
+            "target": "E88"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P273",
+            "target": "E73"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "P273",
+            "target": "N15"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D3",
+            "target": "P557"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D3",
+            "target": "P518"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D8",
+            "target": "P572"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "D8",
+            "target": "P573"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N10",
+            "target": "P563"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N10",
+            "target": "P581"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N10",
+            "target": "P594"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N15",
+            "target": "P556"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N15",
+            "target": "P468"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N18",
+            "target": "P439"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N18",
+            "target": "P360"
+        },
+        {
+            "relationship": "assisting",
+            "weight": 1,
+            "source": "N18",
+            "target": "P582"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P288",
+            "target": "E51"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P293",
+            "target": "E21"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P294",
+            "target": "E32"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P307",
+            "target": "E72"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P358",
+            "target": "E25"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P360",
+            "target": "E44"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P371",
+            "target": "E56"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P381",
+            "target": "E55"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P427",
+            "target": "E45"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P430",
+            "target": "E3"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P461",
+            "target": "E6"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P468",
+            "target": "E75"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P482",
+            "target": "E60"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P488",
+            "target": "E17"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P507",
+            "target": "E12"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P518",
+            "target": "E37"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P523",
+            "target": "E57"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P528",
+            "target": "E74"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P530",
+            "target": "E36"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P539",
+            "target": "E39"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P554",
+            "target": "E38"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P556",
+            "target": "E19"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P560",
+            "target": "E5"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P562",
+            "target": "E65"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P563",
+            "target": "E9"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P572",
+            "target": "E77"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P573",
+            "target": "E89"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P575",
+            "target": "E54"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P578",
+            "target": "E58"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P582",
+            "target": "E71"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P589",
+            "target": "E4"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "P589",
+            "target": "D6"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P590",
+            "target": "E7"
+        },
+        {
+            "relationship": "attending",
+            "attention": 0.16666666666666666,
+            "source": "P590",
+            "target": "D6"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P594",
+            "target": "E52"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P597",
+            "target": "E23"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P598",
+            "target": "E8"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P599",
+            "target": "E24"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P601",
+            "target": "E2"
+        },
+        {
+            "relationship": "used_by",
+            "weight": 1,
+            "source": "P602",
+            "target": "E13"
         }
     ]
 }

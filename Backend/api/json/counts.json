@@ -1,1 +1,1 @@
-{"total_doctors": 10, "available_doctors": 9, "total_nurses": 20, "available_nurses": 20, "total_equipment": 100, "available_equipment": 68, "patients_being_treated": 40, "patients_in_waiting_room": 0, "beds_available": 110}
+{"total_doctors": 10, "available_doctors": 9, "total_nurses": 20, "available_nurses": 0, "total_equipment": 100, "available_equipment": 45, "patients_being_treated": 80, "patients_in_waiting_room": 0, "beds_available": 70}

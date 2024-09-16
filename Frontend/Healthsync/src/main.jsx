@@ -18,7 +18,7 @@ if (!PUBLISHABLE_KEY) {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomePage />,
+    element: <SigninPage />,
   },
   {
     path: "/form",

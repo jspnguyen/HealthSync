@@ -975,7 +975,7 @@ def main_simulation():
 
 def random_event_gen():
     # time.sleep(1)
-    victims = random.randint(20, 70)
+    victims = random.randint(50, 90)
     prompt = f"""
         Create a random tragic event. It can be natural, accidental, or human caused. It resulted in {victims} injuries.
         The goal is to create a coherent, realistic narrative that would be plausible in today's world."""
