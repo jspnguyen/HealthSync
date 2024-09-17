@@ -22,12 +22,6 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <ClerkProvider
-      publishableKey={PUBLISHABLE_KEY}
-      afterSignOutUrl="/"
-      signInForceRedirectUrl="/home"
-    >
-      <RouterProvider router={router} />
-    </ClerkProvider>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

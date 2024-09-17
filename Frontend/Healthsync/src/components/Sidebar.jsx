@@ -6,7 +6,6 @@ import {
   ExitIcon,
   EnvelopeClosedIcon,
 } from "@radix-ui/react-icons"; // Adjust the import based on your icon library
-import { UserButton } from "@clerk/clerk-react";
 
 function Sidebar() {
   const location = useLocation();
@@ -44,7 +43,6 @@ function Sidebar() {
         ))}
       </section>
       <div className="rounded-lg mb-4">
-        <UserButton  />
       </div>
     </div>
   );
