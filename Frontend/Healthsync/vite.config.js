@@ -12,4 +12,5 @@ export default defineConfig({
       lib: "/src/lib",
     },
   },
+  base: "./",
 });
