@@ -8,4 +8,5 @@ cmds = ['bun install']
 cmds = ['bun run build']
 
 [start]
-cmd = 'node node_modules/vite/bin/vite.js preview --host 0.0.0.0 --port $PORT'
+cmds = ['bun run preview']
+staticAssets = 'dist'
