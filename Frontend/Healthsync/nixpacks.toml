@@ -1,0 +1,11 @@
+[phases.setup]
+nixPkgs = ['nodejs', 'bun']
+
+[phases.install]
+cmds = ['bun install']
+
+[phases.build]
+cmds = ['bun build']
+
+[start]
+cmd = 'node node_modules/vite/bin/vite.js preview --host 0.0.0.0 --port $PORT'
