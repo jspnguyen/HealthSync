@@ -1,4 +1,4 @@
-import Sidebar from "./Sidebar";
+import Sidebar from "src/components/Sidebar";
 import { useForm } from "react-hook-form";
 
 function FormPage() {

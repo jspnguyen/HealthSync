@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Sidebar from "./Sidebar";
-import MedicalCard from "./ui/medicalCard";
-import PatientCard from "./ui/PatientCard";
-import Nodes from "./ui/Nodes";
+import Sidebar from "src/components/Sidebar";
+import MedicalCard from "src/components/ui/MedicalCard";
+import PatientCard from "src/components/ui/PatientCard";
+import Nodes from "src/components/ui/Nodes";
 
 function HomePage() {
   const [counts, setCounts] = useState({
