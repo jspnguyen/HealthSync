@@ -10,19 +10,7 @@ function FormPage() {
   } = useForm();
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("http://0.0.0.0:8080/walkin/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          description: data.message,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
+      const response = await fetch("/force.json")
 
       const result = await response.json();
       console.log("Response received:", result);

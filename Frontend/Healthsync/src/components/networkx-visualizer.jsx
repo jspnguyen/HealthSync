@@ -53,7 +53,7 @@ const Graph = () => {
 
   // Fetch the data from the API
   const fetchData = async () => {
-    const response = await fetch("http://localhost:8080/graph");
+    const response = await fetch("/force.json");
     const newData = await response.json();
 
     // Deep clone the new data to prevent D3 mutations from affecting our comparison
@@ -75,10 +75,7 @@ const Graph = () => {
 
   useEffect(() => {
     fetchData(); // Fetch data on component mount
-
-    // Optionally, set an interval to keep fetching updated data from the API
-    const intervalId = setInterval(fetchData, 1000);
-    return () => clearInterval(intervalId); // Cleanup the interval on component unmount
+    console.log("Fetching data...");
   }, []);
 
   useEffect(() => {

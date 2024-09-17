@@ -19,7 +19,7 @@ function HomePage() {
 
   useEffect(() => {
     const fetchCounts = () => {
-      fetch("http://localhost:8080/allcounts")
+      fetch("/counts.json")
         .then((response) => response.json())
         .then((data) => {
           console.log("Data received:", data);
